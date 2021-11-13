@@ -56,10 +56,19 @@ if __name__ == '__main__':
     # input_scenario.pack(anchor=N)
     input_scenario.insert(0, "Enter scenario...")
 
+    selected_verbs = []
+
+    def word_clicked(word):
+        global selected_verbs
+        selected_verbs.append(word)
+        print(word, selected_verbs)
+        print(type())
+
+
     def add_scenario_clicked():
         scenario = input_scenario.get()
         words = scenario.split()    # defaul split on any whitespace
-        print(words)
+        #print(words)
         global btns
         btns = []
 
@@ -68,7 +77,7 @@ if __name__ == '__main__':
         frame_splited_scenario.pack()
 
         for i in range(len(words)):
-            btn = Button(frame_splited_scenario, text=words[i])
+            btn = Button(frame_splited_scenario, text=words[i], command=lambda w=words[i]: word_clicked(w))
             btn.grid(row=0, column=i)
             btns.append(btn)
 
