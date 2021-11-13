@@ -12,6 +12,26 @@ def print_hi(name):
     # Use a breakpoint in the code line below to debug your script.
     print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
 
+class ScenarioWordButton(Button):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.config(command = self.click_function)
+        #self.color = cycle(btn_colors)
+        self.config(background='white')
+    def click_function(self):
+        print('click foo', self['text'])
+        global selected_verbs
+        if self['bg'] == 'white':
+            self['bg'] = 'yellow'
+            selected_verbs.append(self['text'])
+        elif self['bg'] == 'yellow':
+            self['bg'] = 'white'
+            selected_verbs.remove(self['text'])
+
+
+        # new_color = next(self.color)
+        # print(f"Button colour was {self['bg']}, will now be {new_color}")
+        # self.config(background=new_color, activebackground=new_color)
 
 # Press the green button in the gutter to run the script.
 if __name__ == '__main__':
@@ -66,6 +86,7 @@ if __name__ == '__main__':
 
 
     def add_scenario_clicked():
+        print(f'selected_verbs {selected_verbs}')
         scenario = input_scenario.get()
         words = scenario.split()    # defaul split on any whitespace
         #print(words)
@@ -77,7 +98,8 @@ if __name__ == '__main__':
         frame_splited_scenario.pack()
 
         for i in range(len(words)):
-            btn = Button(frame_splited_scenario, text=words[i], command=lambda w=words[i]: word_clicked(w))
+            # btn = Button(frame_splited_scenario, text=words[i], command=lambda w=words[i]: word_clicked(w))
+            btn = ScenarioWordButton(frame_splited_scenario, text=words[i])
             btn.grid(row=0, column=i)
             btns.append(btn)
 
