@@ -48,10 +48,37 @@ if __name__ == '__main__':
 
     #################### FRAME2 - SCENARIOS ####################
 
-    e = Entry(frame2_scenario, width=50, borderwidth=3)
-    # e.grid(row=6,column=5, sticky=W+E)  # columnspan=3
-    e.pack(anchor=N)
-    e.insert(0, "Enter scenario...")
+    frame_input_scenario = LabelFrame(frame2_scenario)
+    frame_input_scenario.pack()
+
+    input_scenario = Entry(frame_input_scenario, width=50, borderwidth=3)
+    input_scenario.grid(row=0,column=0)  # columnspan=3, , sticky=W+E
+    # input_scenario.pack(anchor=N)
+    input_scenario.insert(0, "Enter scenario...")
+
+    def add_scenario_clicked():
+        scenario = input_scenario.get()
+        words = scenario.split()    # defaul split on any whitespace
+        print(words)
+        global btns
+        btns = []
+
+        global frame_splited_scenario
+        frame_splited_scenario = LabelFrame(frame2_scenario)
+        frame_splited_scenario.pack()
+
+        for i in range(len(words)):
+            btn = Button(frame_splited_scenario, text=words[i])
+            btn.grid(row=0, column=i)
+            btns.append(btn)
+
+
+
+    btn_add_scenario = Button(frame_input_scenario, text="Add", command=add_scenario_clicked)
+    btn_add_scenario.grid(row=0, column=1)
+
+
+
 
 
     # root.filename = filedialog.askopenfilename(initialdir=".", title="Select file", filetypes=(("png files", "*.png"), ("all files", "*.*")))
