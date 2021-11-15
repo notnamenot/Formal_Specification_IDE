@@ -8,6 +8,8 @@ from tkinter import filedialog
 from PIL import ImageTk, Image
 # import Image
 
+MAX_WIDTH = 600
+MAX_HEIGHT = 800
 
 def print_hi(name):
     # Use a breakpoint in the code line below to debug your script.
@@ -73,28 +75,19 @@ if __name__ == '__main__':
 
     def open_file():
         # TODO remove prev img or add possibility to have many, pack dodaje, grid by zastępował
-        frame_import_UC.filename = filedialog.askopenfilename(initialdir=".", title="Select file", filetypes=(("png files", "*.png"),
+        filename = filedialog.askopenfilename(initialdir=".", title="Select file", filetypes=(("png files", "*.png"),
                                                                                                         ("jpg files", "*.jpg"),
                                                                                                         ("jpeg files", "*.jpeg"),
                                                                                                         ("all files", "*.*")))
-        global filename
-        filename = frame_import_UC.filename
-        global lbl_filename
+        # global lbl_filename
         lbl_filename.configure(text=filename)
-        # lbl_filename = Label(frame_import_UC, text=filename)
-        # lbl_filename.pack(side=LEFT)     # grid(row=0, column=0)
-        # global img_UC
-        # img_UC = ImageTk.PhotoImage(Image.open(filename))
+
         img2 = ImageTk.PhotoImage(Image.open(filename))
         global panel
         panel.configure(image=img2)
         panel.image = img2
-        # panel=
-        # global lbl_img
-        # lbl_img = Label(frame1_UC, image=img_UC)  # width=100
-        # lbl_img.pack()  # grid(row=1, column=0)
 
-        global images
+        # global images
         images.append(filename)
         print("images", images)
 
@@ -106,11 +99,13 @@ if __name__ == '__main__':
     btn_import_image = Button(frame_import_UC, text="Import", command=open_file)
     btn_import_image.pack(side=LEFT)
 
-    filename = ""
-    lbl_filename = Label(frame_import_UC, text=filename)
+    lbl_filename = Label(frame_import_UC, text="")
     lbl_filename.pack(side=LEFT)  # grid(row=0, column=0)
 
-    img = ImageTk.PhotoImage(Image.open("uc_place_holder.png"))
+    lbl_next = Button(frame_import_UC, text=">", state=DISABLED)  # NORMAL
+    lbl_next.pack(side=LEFT)
+
+    img = ImageTk.PhotoImage(Image.open("uc_place_holder.png"))  # TODO wrzucić to shape
     panel = Label(frame1_UC, image=img)
     panel.pack(side="top")  # ,fill="both", expand="yes"
 
