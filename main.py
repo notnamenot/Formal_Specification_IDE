@@ -82,7 +82,19 @@ if __name__ == '__main__':
         # global lbl_filename
         lbl_filename.configure(text=filename)
 
-        img2 = ImageTk.PhotoImage(Image.open(filename))
+        i = Image.open(filename)
+
+        print(i.size)  # 0 - width, 1 - height
+        if i.size[0] > MAX_WIDTH:
+            width_perc = (MAX_WIDTH / float(i.size[0]))
+            height_size = int((float(i.size[1]) * float(width_perc)))
+            i = i.resize((MAX_WIDTH, height_size), Image.ANTIALIAS)
+        if i.size[1] > MAX_HEIGHT:
+            height_percent = (MAX_HEIGHT / float(i.size[1]))
+            width_size = int((float(i.size[0]) * float(height_percent)))
+            i = i.resize((width_size, MAX_HEIGHT), Image.ANTIALIAS)
+
+        img2 = ImageTk.PhotoImage(i)
         global panel
         panel.configure(image=img2)
         panel.image = img2
@@ -98,6 +110,9 @@ if __name__ == '__main__':
 
     btn_import_image = Button(frame_import_UC, text="Import", command=open_file)
     btn_import_image.pack(side=LEFT)
+
+    lbl_next = Button(frame_import_UC, text="<", state=DISABLED)  # NORMAL
+    lbl_next.pack(side=LEFT)
 
     lbl_filename = Label(frame_import_UC, text="")
     lbl_filename.pack(side=LEFT)  # grid(row=0, column=0)
