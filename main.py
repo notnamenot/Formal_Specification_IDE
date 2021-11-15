@@ -68,17 +68,12 @@ if __name__ == '__main__':
 
     frame1_UC.grid(row=0, column=0, sticky="news")  # fill=None, sticky=W+E, sticky=N //news news fills whole
     frame2_scenario.grid(row=0, column=1, sticky=N+S)
-    frame3_flowchart.grid(row=0, column=2, sticky=N)
+    frame3_flowchart.grid(row=0, column=2, sticky=N+S)
 
 
     #################### FRAME1 - UC Diagram ####################
 
-    def open_file():
-        # TODO remove prev img or add possibility to have many, pack dodaje, grid by zastępował
-        filename = filedialog.askopenfilename(initialdir=".", title="Select file", filetypes=(("png files", "*.png"),
-                                                                                                        ("jpg files", "*.jpg"),
-                                                                                                        ("jpeg files", "*.jpeg"),
-                                                                                                        ("all files", "*.*")))
+    def set_uc_img(filename):
         # global lbl_filename
         lbl_filename.configure(text=filename)
 
@@ -99,9 +94,52 @@ if __name__ == '__main__':
         panel.configure(image=img2)
         panel.image = img2
 
-        # global images
+
+
+    def open_file():
+        # TODO remove prev img or add possibility to have many, pack dodaje, grid by zastępował
+        filename = filedialog.askopenfilename(initialdir=".", title="Select file", filetypes=(("png files", "*.png"),
+                                                                                              ("jpg files", "*.jpg"),
+                                                                                              ("jpeg files", "*.jpeg"),
+                                                                                              ("all files", "*.*")))
+        if not filename or filename in images:
+            return
+
+        set_uc_img(filename)
         images.append(filename)
+
+        # TODO po wczytaniu obrazu przestawić przyciski na ostatnie miejsce na liście
+
+        btn_next.configure(state=DISABLED)
+
+        if len(images) > 1:
+            btn_prev.configure(state=NORMAL)
+            btn_prev.configure(command=lambda: prev_uc_clicked(len(images)-2)) # przedostatni
+
         print("images", images)
+
+    def next_uc_clicked(image_number):
+        print("image_number", image_number)
+        # global btn_prev
+        btn_prev.configure(command=lambda: prev_uc_clicked(image_number-1))
+        btn_next.configure(command=lambda: next_uc_clicked(image_number+1))
+        if image_number == len(images)-1:
+            btn_next.configure(state=DISABLED)
+        btn_prev.configure(state=NORMAL)
+
+        set_uc_img(images[image_number])
+
+    def prev_uc_clicked(image_number):
+        print("image_number", image_number)
+        # global btn_prev
+        btn_prev.configure(command=lambda: prev_uc_clicked(image_number-1))
+        btn_next.configure(command=lambda: next_uc_clicked(image_number+1))
+        if image_number == 0:
+            btn_prev.configure(state=DISABLED)
+        btn_next.configure(state=NORMAL)
+
+        set_uc_img(images[image_number])
+
 
     images = []
 
@@ -111,14 +149,14 @@ if __name__ == '__main__':
     btn_import_image = Button(frame_import_UC, text="Import", command=open_file)
     btn_import_image.pack(side=LEFT)
 
-    lbl_next = Button(frame_import_UC, text="<", state=DISABLED)  # NORMAL
-    lbl_next.pack(side=LEFT)
+    btn_prev = Button(frame_import_UC, text="<", state=DISABLED, command=lambda: prev_uc_clicked(0))  # NORMAL
+    btn_prev.pack(side=LEFT)
 
     lbl_filename = Label(frame_import_UC, text="")
     lbl_filename.pack(side=LEFT)  # grid(row=0, column=0)
 
-    lbl_next = Button(frame_import_UC, text=">", state=DISABLED)  # NORMAL
-    lbl_next.pack(side=LEFT)
+    btn_next = Button(frame_import_UC, text=">", state=DISABLED, command=lambda: next_uc_clicked(1))  # NORMAL, zaczynamy od 0
+    btn_next.pack(side=LEFT)
 
     img = ImageTk.PhotoImage(Image.open("uc_place_holder.png"))  # TODO wrzucić to shape
     panel = Label(frame1_UC, image=img)
