@@ -21,7 +21,6 @@ class ScenarioWordButton(Button):
         self.config(background='white')
 
     def click_function(self):
-        print('click foo', self['text'])
         global selected_verbs
         if self['bg'] == 'white':
             self['bg'] = 'yellow'
@@ -39,8 +38,12 @@ class DeleteScenarioButton(Button):
         self.config(background='#827675')
 
     def click_function(self):
-        print('click foo', self['text'])
+        for item in self.master.winfo_children():
+            if item['bg'] == 'yellow':
+                selected_verbs.remove(item['text'])
         self.master.destroy()
+        print("selected_verbs after delete: ", selected_verbs)
+
 
 
 
@@ -68,24 +71,27 @@ if __name__ == '__main__':
 
     #################### FRAME1 - UC Diagram ####################
 
+    frame_import_UC = Frame(frame1_UC)
+    frame_import_UC.pack()
+
     def open_file():
-        # TODO remove prev img or add possibility to have many
-        frame1_UC.filename = filedialog.askopenfilename(initialdir=".", title="Select file", filetypes=(("png files", "*.png"),
+        # TODO remove prev img or add possibility to have many, pack dodaje, grid by zastępował
+        frame_import_UC.filename = filedialog.askopenfilename(initialdir=".", title="Select file", filetypes=(("png files", "*.png"),
                                                                                                         ("jpg files", "*.jpg"),
                                                                                                         ("jpeg files", "*.jpeg"),
                                                                                                         ("all files", "*.*")))
-        filename = frame1_UC.filename
-        lbl_filename = Label(frame1_UC, text=filename)
-        lbl_filename.pack()     # grid(row=0, column=0)
+        filename = frame_import_UC.filename
+        lbl_filename = Label(frame_import_UC, text=filename)
+        lbl_filename.pack(side=LEFT)     # grid(row=0, column=0)
         global img_UC
         img_UC = ImageTk.PhotoImage(Image.open(filename))
         global lbl_img
         lbl_img = Label(frame1_UC, image=img_UC)  # width=100
-        lbl_img.pack()      # grid(row=1, column=0)
+        lbl_img.pack() # grid(row=1, column=0)
 
 
-    btn_import_image = Button(frame1_UC, text="Import", command=open_file)
-    btn_import_image.pack()
+    btn_import_image = Button(frame_import_UC, text="Import", command=open_file)
+    btn_import_image.pack(side=LEFT)
 
 
     #################### FRAME2 - SCENARIOS ####################
@@ -104,18 +110,16 @@ if __name__ == '__main__':
         global selected_verbs
         selected_verbs.append(word)
         print(word, selected_verbs)
-        # print(type())
 
 
     def add_scenario_clicked():
         print(f'selected_verbs {selected_verbs}')
         scenario = input_scenario.get().strip()
-        if not scenario: # if empty
+        if not scenario:  # if empty
             return
 
         input_scenario.delete(0, END)
         words = scenario.split()    # default split on any whitespace
-        #print(words)
         global btns
         btns = []
 
@@ -127,16 +131,15 @@ if __name__ == '__main__':
             if i == len(words): # delete button
                 text = "Delete"
                 btn = DeleteScenarioButton(frame_splited_scenario, text=text)
-                btn.grid(row=0, column=i, padx=(20, 0), sticky=E+W) # odstęp tylko z lewej
+                btn.grid(row=0, column=i, padx=(20, 0), sticky=E+W)  # padx=(20, 0) - odstęp tylko z lewej, sticky=E+W - rozciągnięcie na szerokość
             else:
                 text = words[i]
                 # btn = Button(frame_splited_scenario, text=words[i], command=lambda w=words[i]: word_clicked(w))
                 btn = ScenarioWordButton(frame_splited_scenario, text=text)
                 btn.grid(row=0, column=i)
 
-
-            btns.append(btn)
-            #TODO ostatni przycisk do usuwania scenariusza, możliwość zmiany kolejnoości - ruszanie framem
+            # btns.append(btn)
+            # TODO możliwość zmiany kolejnoości - ruszanie framem
 
 
 
