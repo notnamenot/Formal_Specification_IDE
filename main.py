@@ -71,27 +71,52 @@ if __name__ == '__main__':
 
     #################### FRAME1 - UC Diagram ####################
 
-    frame_import_UC = Frame(frame1_UC)
-    frame_import_UC.pack()
-
     def open_file():
         # TODO remove prev img or add possibility to have many, pack dodaje, grid by zastępował
         frame_import_UC.filename = filedialog.askopenfilename(initialdir=".", title="Select file", filetypes=(("png files", "*.png"),
                                                                                                         ("jpg files", "*.jpg"),
                                                                                                         ("jpeg files", "*.jpeg"),
                                                                                                         ("all files", "*.*")))
+        global filename
         filename = frame_import_UC.filename
-        lbl_filename = Label(frame_import_UC, text=filename)
-        lbl_filename.pack(side=LEFT)     # grid(row=0, column=0)
-        global img_UC
-        img_UC = ImageTk.PhotoImage(Image.open(filename))
-        global lbl_img
-        lbl_img = Label(frame1_UC, image=img_UC)  # width=100
-        lbl_img.pack() # grid(row=1, column=0)
+        global lbl_filename
+        lbl_filename.configure(text=filename)
+        # lbl_filename = Label(frame_import_UC, text=filename)
+        # lbl_filename.pack(side=LEFT)     # grid(row=0, column=0)
+        # global img_UC
+        # img_UC = ImageTk.PhotoImage(Image.open(filename))
+        img2 = ImageTk.PhotoImage(Image.open(filename))
+        global panel
+        panel.configure(image=img2)
+        panel.image = img2
+        # panel=
+        # global lbl_img
+        # lbl_img = Label(frame1_UC, image=img_UC)  # width=100
+        # lbl_img.pack()  # grid(row=1, column=0)
 
+        global images
+        images.append(filename)
+        print("images", images)
+
+    images = []
+
+    frame_import_UC = Frame(frame1_UC)
+    frame_import_UC.pack()
 
     btn_import_image = Button(frame_import_UC, text="Import", command=open_file)
     btn_import_image.pack(side=LEFT)
+
+    filename = ""
+    lbl_filename = Label(frame_import_UC, text=filename)
+    lbl_filename.pack(side=LEFT)  # grid(row=0, column=0)
+
+    img = ImageTk.PhotoImage(Image.open("uc_place_holder.png"))
+    panel = Label(frame1_UC, image=img)
+    panel.pack(side="top")  # ,fill="both", expand="yes"
+
+
+
+
 
 
     #################### FRAME2 - SCENARIOS ####################
@@ -143,19 +168,10 @@ if __name__ == '__main__':
 
 
 
+
     btn_add_scenario = Button(frame_input_scenario, text="Add", command=add_scenario_clicked)
     btn_add_scenario.grid(row=0, column=1)
 
-
-
-
-
-    # root.filename = filedialog.askopenfilename(initialdir=".", title="Select file", filetypes=(("png files", "*.png"), ("all files", "*.*")))
-    # filename = Label(frame1_UC, text=root.filename).grid(row=0, column=0)
-    #
-    # uc_img = ImageTk.PhotoImage(Image.open(root.filename))
-    # lbl_img = Label(frame1_UC, image=uc_img, width=100)
-    # lbl_img.grid(row=1, column=0)
 
 
     # option = StringVar()
@@ -195,8 +211,5 @@ if __name__ == '__main__':
     # passParamBtn.grid(row=3,column=0)
     #
     #
-    # uc_img = ImageTk.PhotoImage(Image.open("top-level-use-cases-7699.png"))
-    # lbl_img = Label(image=uc_img, width=100)
-    # lbl_img.grid(row=6,column=2)
 
     root.mainloop()
