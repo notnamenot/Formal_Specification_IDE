@@ -8,16 +8,18 @@ from tkinter import filedialog
 from PIL import ImageTk, Image
 # import Image
 
+
 def print_hi(name):
     # Use a breakpoint in the code line below to debug your script.
     print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
 
+
 class ScenarioWordButton(Button):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.config(command = self.click_function)
-        #self.color = cycle(btn_colors)
+        self.config(command=self.click_function)
         self.config(background='white')
+
     def click_function(self):
         print('click foo', self['text'])
         global selected_verbs
@@ -27,39 +29,59 @@ class ScenarioWordButton(Button):
         elif self['bg'] == 'yellow':
             self['bg'] = 'white'
             selected_verbs.remove(self['text'])
+            # self.config(background=new_color, activebackground=new_color)
 
 
-        # new_color = next(self.color)
-        # print(f"Button colour was {self['bg']}, will now be {new_color}")
-        # self.config(background=new_color, activebackground=new_color)
+class DeleteScenarioButton(Button):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.config(command=self.click_function)
+        self.config(background='#827675')
 
-# Press the green button in the gutter to run the script.
+    def click_function(self):
+        print('click foo', self['text'])
+        self.master.destroy()
+
+
+
 if __name__ == '__main__':
 
     root = Tk()     # root window
     root.title("IDE XD")
+    # root.geometry("900x700")
 
-    frame1_UC = LabelFrame(root, text="Use Case Diagram", padx=10, pady=10)
-    frame2_scenario = LabelFrame(root, text="Scenarios", padx=10, pady=10)
+    frame1_UC = LabelFrame(root, text="Use Case Diagram")  #  width=500, height=500, width=root.winfo_width()-20
+    root.columnconfigure(0, weight=1, minsize=400)  # szerokość kolumny 0
+    root.columnconfigure(1, weight=3)           # szerokosc kolumny 2 ma być  3 razy większa niż 1 i 3, w obrębie wolnego pola
+    root.columnconfigure(2, weight=1)  #
+    root.rowconfigure(0, weight=1, minsize=200)  # wysokość wiersza
+    # root.grid_propagate(False)
+    # frame1_UC.grid_propagate(False)
+
+    frame2_scenario = LabelFrame(root, text="Scenarios")
     frame3_flowchart = LabelFrame(root, text="Flowchart")
 
-    frame1_UC.grid(row=0, column=0)
-    frame2_scenario.grid(row=0, column=1)
-    frame3_flowchart.grid(row=0, column=2)
+    frame1_UC.grid(row=0, column=0, sticky="news")  # fill=None, sticky=W+E, sticky=N //news news fills whole
+    frame2_scenario.grid(row=0, column=1, sticky=N+S)
+    frame3_flowchart.grid(row=0, column=2, sticky=N)
 
 
     #################### FRAME1 - UC Diagram ####################
 
     def open_file():
-        frame1_UC.filename = filedialog.askopenfilename(initialdir=".", title="Select file", filetypes=(("png files", "*.png"), ("all files", "*.*")))
+        # TODO remove prev img or add possibility to have many
+        frame1_UC.filename = filedialog.askopenfilename(initialdir=".", title="Select file", filetypes=(("png files", "*.png"),
+                                                                                                        ("jpg files", "*.jpg"),
+                                                                                                        ("jpeg files", "*.jpeg"),
+                                                                                                        ("all files", "*.*")))
         filename = frame1_UC.filename
         lbl_filename = Label(frame1_UC, text=filename)
         lbl_filename.pack()     # grid(row=0, column=0)
         global img_UC
         img_UC = ImageTk.PhotoImage(Image.open(filename))
         global lbl_img
-        lbl_img = Label(frame1_UC, image=img_UC) # width=100
-        lbl_img.pack()      #grid(row=1, column=0)
+        lbl_img = Label(frame1_UC, image=img_UC)  # width=100
+        lbl_img.pack()      # grid(row=1, column=0)
 
 
     btn_import_image = Button(frame1_UC, text="Import", command=open_file)
@@ -72,7 +94,7 @@ if __name__ == '__main__':
     frame_input_scenario.pack()
 
     input_scenario = Entry(frame_input_scenario, width=50, borderwidth=3)
-    input_scenario.grid(row=0,column=0)  # columnspan=3, , sticky=W+E
+    input_scenario.grid(row=0, column=0)  # columnspan=3, , sticky=W+E
     # input_scenario.pack(anchor=N)
     input_scenario.insert(0, "Enter scenario...")
 
@@ -82,26 +104,39 @@ if __name__ == '__main__':
         global selected_verbs
         selected_verbs.append(word)
         print(word, selected_verbs)
-        print(type())
+        # print(type())
 
 
     def add_scenario_clicked():
         print(f'selected_verbs {selected_verbs}')
-        scenario = input_scenario.get()
-        words = scenario.split()    # defaul split on any whitespace
+        scenario = input_scenario.get().strip()
+        if not scenario: # if empty
+            return
+
+        input_scenario.delete(0, END)
+        words = scenario.split()    # default split on any whitespace
         #print(words)
         global btns
         btns = []
 
         global frame_splited_scenario
         frame_splited_scenario = LabelFrame(frame2_scenario)
-        frame_splited_scenario.pack()
+        frame_splited_scenario.pack(fill=X)
 
-        for i in range(len(words)):
-            # btn = Button(frame_splited_scenario, text=words[i], command=lambda w=words[i]: word_clicked(w))
-            btn = ScenarioWordButton(frame_splited_scenario, text=words[i])
-            btn.grid(row=0, column=i)
+        for i in range(len(words)+1):
+            if i == len(words): # delete button
+                text = "Delete"
+                btn = DeleteScenarioButton(frame_splited_scenario, text=text)
+                btn.grid(row=0, column=i, padx=(20, 0), sticky=E+W) # odstęp tylko z lewej
+            else:
+                text = words[i]
+                # btn = Button(frame_splited_scenario, text=words[i], command=lambda w=words[i]: word_clicked(w))
+                btn = ScenarioWordButton(frame_splited_scenario, text=text)
+                btn.grid(row=0, column=i)
+
+
             btns.append(btn)
+            #TODO ostatni przycisk do usuwania scenariusza, możliwość zmiany kolejnoości - ruszanie framem
 
 
 
