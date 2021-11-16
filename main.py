@@ -16,6 +16,18 @@ def print_hi(name):
     print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
 
 
+class Scenario(Frame):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.id = ""
+        self.steps = []
+        self.inp_step = Entry(self, text="Enter step...")
+        self.btn_add_step = AddStepButton(self, text="Add")
+
+class ScenarioStep:
+    def __init__(self):
+        pass
+
 class ScenarioWordButton(Button):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -47,6 +59,19 @@ class DeleteScenarioButton(Button):
         print("selected_verbs after delete: ", selected_verbs)
 
 
+class AddStepButton(Button):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.config(command=self.click_function)
+
+    def click_function(self):
+        for item in self.master.winfo_children():
+            print(item)
+        print(type(self.master.master))
+        l = Label(self.master, text="abhfeefw")
+        if len(self.master.winfo_children()) > 4:
+            l = Label(self.master, text="lolo")
+        l.pack(anchor=W)
 
 
 if __name__ == '__main__':
@@ -107,8 +132,6 @@ if __name__ == '__main__':
 
         set_uc_img(filename)
         images.append(filename)
-
-        # TODO po wczytaniu obrazu przestawić przyciski na ostatnie miejsce na liście
 
         btn_next.configure(state=DISABLED)
 
@@ -172,10 +195,13 @@ if __name__ == '__main__':
     frame_input_scenario = LabelFrame(frame2_scenario)
     frame_input_scenario.pack()
 
-    input_scenario = Entry(frame_input_scenario, width=50, borderwidth=3)
-    input_scenario.grid(row=0, column=0)  # columnspan=3, , sticky=W+E
-    # input_scenario.pack(anchor=N)
-    input_scenario.insert(0, "Enter scenario...")
+    input_scenario_id = Entry(frame_input_scenario, width=3, borderwidth=3)
+    input_scenario_id.grid(row=0, column=0)
+    input_scenario_id.insert(0, "UC")
+
+    input_scenario_name = Entry(frame_input_scenario, width=50, borderwidth=3)
+    input_scenario_name.grid(row=0, column=1)
+    input_scenario_name.insert(0, "Enter scenario...")
 
     selected_verbs = []
 
@@ -184,32 +210,76 @@ if __name__ == '__main__':
         selected_verbs.append(word)
         print(word, selected_verbs)
 
+    def add_step_clicked():
+
+        # print(master)
+
+
+        # for i in range(len(words)+1):
+        #     if i == len(words): # delete button
+        #         text = "Delete"
+        #         btn = DeleteScenarioButton(frame_splited_scenario, text=text)
+        #         btn.grid(row=0, column=i, padx=(20, 0), sticky=E+W)  # padx=(20, 0) - odstęp tylko z lewej, sticky=E+W - rozciągnięcie na szerokość
+        #     else:
+        #         text = words[i]
+        #         # btn = Button(frame_splited_scenario, text=words[i], command=lambda w=words[i]: word_clicked(w))
+        #         btn = ScenarioWordButton(frame_splited_scenario, text=text)
+        #         btn.grid(row=0, column=i)
+
+        pass
+
 
     def add_scenario_clicked():
         print(f'selected_verbs {selected_verbs}')
-        scenario = input_scenario.get().strip()
+        scenario = input_scenario_name.get().strip()
+        id = input_scenario_id.get().strip()
+
         if not scenario:  # if empty
             return
 
-        input_scenario.delete(0, END)
-        words = scenario.split()    # default split on any whitespace
-        global btns
-        btns = []
+        input_scenario_name.delete(0, END)
+        input_scenario_id.delete(0, END)
 
-        global frame_splited_scenario
-        frame_splited_scenario = LabelFrame(frame2_scenario)
-        frame_splited_scenario.pack(fill=X)
 
-        for i in range(len(words)+1):
-            if i == len(words): # delete button
-                text = "Delete"
-                btn = DeleteScenarioButton(frame_splited_scenario, text=text)
-                btn.grid(row=0, column=i, padx=(20, 0), sticky=E+W)  # padx=(20, 0) - odstęp tylko z lewej, sticky=E+W - rozciągnięcie na szerokość
-            else:
-                text = words[i]
-                # btn = Button(frame_splited_scenario, text=words[i], command=lambda w=words[i]: word_clicked(w))
-                btn = ScenarioWordButton(frame_splited_scenario, text=text)
-                btn.grid(row=0, column=i)
+        # words = scenario.split()    # default split on any whitespace
+        # global btns
+        # btns = []
+
+        global frame_scenario
+        frame_scenario = LabelFrame(frame2_scenario)
+        frame_scenario.pack(fill=X)
+
+        lbl_scenario_id = Label(frame_scenario, text=id+"    ")
+        lbl_scenario_name = Label(frame_scenario, text=scenario, font=("Arial", 12))
+        # lbl_scenario_id.pack(side=LEFT, fill=BOTH,  expand=True)
+        # lbl_scenario_name.pack(side=LEFT, fill=BOTH,  expand=True)
+        lbl_scenario_id.grid(row=0, column=0, sticky=N+S)
+        lbl_scenario_name.grid(row=0, column=1, sticky=N+S)
+
+        # frame_scenario.rowconfigure(0, weight=1, minsize=400)  # szerokość kolumny 0
+        frame_scenario.rowconfigure(1, weight=1)  # szerokość kolumny 0
+        frame_scenario.columnconfigure(1, weight=1)  # szerokość kolumny 0
+        frame_add_step = LabelFrame(frame_scenario)
+        # frame_add_step.pack(side=BOTTOM, fill=X)  # anchor = "s"
+        frame_add_step.grid(row=1, column=0, columnspan=2, sticky=N+S+W+E)
+
+        input_step = Entry(frame_add_step) # , width=55, borderwidth=3
+        input_step.pack(fill=X, anchor=NW,)
+        input_step.insert(0, "Enter step...")
+
+        btn_add_step = AddStepButton(frame_add_step, text="Add")  # command=add_step_clicked
+        btn_add_step.pack(fill=X,  side=BOTTOM) # anchor=NW,
+
+
+
+        #
+        # global frame_splited_scenario
+        # frame_splited_scenario = LabelFrame(frame2_scenario)
+        # frame_splited_scenario.pack(fill=X)
+
+
+
+
 
             # btns.append(btn)
             # TODO możliwość zmiany kolejnoości - ruszanie framem
@@ -218,7 +288,7 @@ if __name__ == '__main__':
 
 
     btn_add_scenario = Button(frame_input_scenario, text="Add", command=add_scenario_clicked)
-    btn_add_scenario.grid(row=0, column=1)
+    btn_add_scenario.grid(row=0, column=2)
 
 
 
