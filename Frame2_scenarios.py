@@ -44,13 +44,10 @@ class Scenario(Frame):
         super().__init__(master, *args, **kwargs)
         self.id = ""
         # self.name = name
-        # self.steps = []
         self.step_frames = []  # TODO trzebaby pamiętać przy usuwaniu stepa żeby stąd też czyścić
-        # self.number_of_steps = 0
-
         self.selected_verbs = []
 
-        self.frame_id_name = Frame(self)
+        self.frame_id_name = LabelFrame(self, relief="flat")  # relief="ridge"
         self.frame_id_name.pack(fill=X)
         self.frame_id_name.rowconfigure(1, weight=1)  # szerokość kolumny 1
         self.frame_id_name.columnconfigure(1, weight=1)  # szerokość kolumny 1
@@ -66,7 +63,7 @@ class Scenario(Frame):
         self.frame_enter_step = Frame(self)
         self.frame_enter_step.pack(side=BOTTOM, fill=X)
 
-        self.lbl_next_step_id = Label(self.frame_enter_step, text="1")
+        self.lbl_next_step_id = Label(self.frame_enter_step, text="1.")
         self.lbl_next_step_id.pack(side=LEFT)
 
         self.inp_step = Entry(self.frame_enter_step)
@@ -93,7 +90,7 @@ class Scenario(Frame):
         self.renumerate_steps()
 
     def set_lbl_next_step_id_text(self):
-        self.lbl_next_step_id.config(text=f"{len(self.step_frames)+1}")
+        self.lbl_next_step_id.config(text=f"{len(self.step_frames)+1}.")
 
     def renumerate_steps(self):
         if self.step_frames:  # if not empty
