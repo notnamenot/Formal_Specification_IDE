@@ -45,7 +45,7 @@ class Scenario(Frame):
         self.id = ""
         # self.name = name
         # self.steps = []
-        # self.step_frames = []  # TODO trzebaby pamiętać przy usuwaniu stepa żeby stąd też czyścić
+        self.step_frames = []  # TODO trzebaby pamiętać przy usuwaniu stepa żeby stąd też czyścić
         # self.number_of_steps = 0
 
         self.selected_verbs = []
@@ -78,11 +78,26 @@ class Scenario(Frame):
 
         step_frame = Step(self, step_text)
         step_frame.pack(fill=X)
-        # self.step_frames.append(step_frame)
+        self.step_frames.append(step_frame)
 
         # self.number_of_steps = self.number_of_steps + 1
         # setattr(self, 'number_of_steps', self.number_of_steps + 1)
         # self.inp_step.insert(0, f'{self.number_of_steps + 1}.')
+
+    def delete_step(self, idx):
+        self.step_frames.pop(idx)
+        print(self.step_frames)
+        # self.step_frames[0].config(borderwidth=20)
+
+        # renumerate
+
+        if self.step_frames:  # if not empty
+            for i, step in enumerate(self.step_frames):
+            # for step in self.step_frames:
+            #     step.config(borderwidth=20)
+                step.change_id(i+1)
+        # print("typ",type(self.step_frames[0])) # frame
+
 
 
 class Step(Frame):
@@ -90,18 +105,33 @@ class Step(Frame):
         super().__init__(master=master, *args, **kwargs)
         # self.words = []
         # self.text = text
+        self.id = len(master.step_frames)+1
         words = text.split()
 
+        # self.lbl_id = Label(self, text=f"{len(self.master.step_frames)+1}")
+        self.lbl_id = Label(self, text=f"{self.id}")
+        self.lbl_id.pack(side=LEFT)
+
         for i in range(len(words)+1):
-            if i == len(words):  # delete button
+            if i == len(words):  # delete button #TODO renumerate steps and remove step from self.master.step_frames
+                # self.master.step_frames.remove(self)
                 text = "Delete"
-                btn = DeleteScenarioButton(self, text=text)
-                btn.grid(row=0, column=i, padx=(20, 0), sticky=E+W)  # padx=(20, 0) - odstęp tylko z lewej, sticky=E+W - rozciągnięcie na szerokość
+                btn = DeleteStepButton(self, text=text)
+                btn.pack(side=RIGHT)
+                # btn.grid(row=0, column=i, padx=(20, 0), sticky=E+W)  # padx=(20, 0) - odstęp tylko z lewej, sticky=E+W - rozciągnięcie na szerokość
                 # setattr(self.master, 'number_of_steps', self.master.number_of_steps - 1)
+
+                print(self)
+                print(self.master.step_frames)
             else:
                 text = words[i]
                 btn = StepWordButton(self, text=text)
-                btn.grid(row=0, column=i)
+                btn.pack(side=LEFT)
+                # btn.grid(row=0, column=i)
+
+    def change_id(self, new_id):
+        self.id = new_id
+        self.lbl_id.config(text=f"{self.id}")
 
 
 class StepWordButton(Button):
@@ -109,6 +139,7 @@ class StepWordButton(Button):
         super().__init__(*args, **kwargs)
         self.config(command=self.click_function)
         self.config(background='white')
+        self.config(borderwidth=0)
 
     def click_function(self):
         if self['bg'] == 'white':
@@ -118,12 +149,15 @@ class StepWordButton(Button):
             self['bg'] = 'white'
             self.master.master.selected_verbs.remove(self['text']) # self.master - Step, self.master.master - scenario
 
+
+        # print(self.master.master.step_frames[0])
+        # print(self.master.master.step_frames)
         print("selected_verbs word clicked: ", self.master.master.selected_verbs)
 
 
 
 
-class DeleteScenarioButton(Button):
+class DeleteStepButton(Button):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.config(command=self.click_function)
@@ -132,7 +166,11 @@ class DeleteScenarioButton(Button):
     def click_function(self):
         for item in self.master.winfo_children():
             if item['bg'] == 'yellow':
-                self.master.master.selected_verbs.remove(item['text'])
-                print(self.master.master.selected_verbs)
-        self.master.destroy()
+                self.master.master.selected_verbs.remove(item['text'])  # self.master.master = Scenario
+                # print(self.master.master.selected_verbs)
+        # self.master.master.step_frames.pop(int(self.master.id)-1)  # scenario
+        self.master.master.delete_step(self.master.id - 1)
+        self.master.destroy()  # self.master = Step
+        # print(self.master.master.selected_verbs)
         print("selected_verbs after delete: ", self.master.master.selected_verbs)
+
