@@ -50,7 +50,7 @@ class Scenario(Frame):
 
         self.selected_verbs = []
 
-        self.frame_id_name = LabelFrame(self)
+        self.frame_id_name = Frame(self)
         self.frame_id_name.pack(fill=X)
         self.frame_id_name.rowconfigure(1, weight=1)  # szerokość kolumny 1
         self.frame_id_name.columnconfigure(1, weight=1)  # szerokość kolumny 1
@@ -63,10 +63,16 @@ class Scenario(Frame):
         self.btn_add_step = Button(self, text="Add", command=self.click_add_step)
         self.btn_add_step.pack(side=BOTTOM, fill=X)
 
-        self.inp_step = Entry(self)
+        self.frame_enter_step = Frame(self)
+        self.frame_enter_step.pack(side=BOTTOM, fill=X)
+
+        self.lbl_next_step_id = Label(self.frame_enter_step, text="1")
+        self.lbl_next_step_id.pack(side=LEFT)
+
+        self.inp_step = Entry(self.frame_enter_step)
         # self.inp_step.insert(0, f'{self.number_of_steps+1}.')  # f'{len(self.step_frames)+1}.'
-        self.inp_step.insert(0, f'Enter step..')  # f'{len(self.step_frames)+1}.'
-        self.inp_step.pack(side=BOTTOM, fill=X)
+        self.inp_step.insert(0, 'Enter step..')  # f'{len(self.step_frames)+1}.'
+        self.inp_step.pack(side=LEFT, fill=X, expand=True)
 
     def click_add_step(self):
         step_text = self.inp_step.get().strip()
@@ -79,59 +85,46 @@ class Scenario(Frame):
         step_frame = Step(self, step_text)
         step_frame.pack(fill=X)
         self.step_frames.append(step_frame)
-
-        # self.number_of_steps = self.number_of_steps + 1
-        # setattr(self, 'number_of_steps', self.number_of_steps + 1)
-        # self.inp_step.insert(0, f'{self.number_of_steps + 1}.')
+        self.set_lbl_next_step_id_text()
 
     def delete_step(self, idx):
         self.step_frames.pop(idx)
-        print(self.step_frames)
-        # self.step_frames[0].config(borderwidth=20)
+        self.set_lbl_next_step_id_text()
+        self.renumerate_steps()
 
-        # renumerate
+    def set_lbl_next_step_id_text(self):
+        self.lbl_next_step_id.config(text=f"{len(self.step_frames)+1}")
 
+    def renumerate_steps(self):
         if self.step_frames:  # if not empty
             for i, step in enumerate(self.step_frames):
-            # for step in self.step_frames:
-            #     step.config(borderwidth=20)
                 step.change_id(i+1)
-        # print("typ",type(self.step_frames[0])) # frame
-
 
 
 class Step(Frame):
     def __init__(self, master, text, *args, **kwargs):
         super().__init__(master=master, *args, **kwargs)
-        # self.words = []
-        # self.text = text
+
         self.id = len(master.step_frames)+1
         words = text.split()
 
-        # self.lbl_id = Label(self, text=f"{len(self.master.step_frames)+1}")
-        self.lbl_id = Label(self, text=f"{self.id}")
+        self.lbl_id = Label(self, text=f"{self.id}.")
         self.lbl_id.pack(side=LEFT)
 
         for i in range(len(words)+1):
-            if i == len(words):  # delete button #TODO renumerate steps and remove step from self.master.step_frames
+            if i == len(words):  # delete button jest na końcu
                 # self.master.step_frames.remove(self)
                 text = "Delete"
                 btn = DeleteStepButton(self, text=text)
                 btn.pack(side=RIGHT)
-                # btn.grid(row=0, column=i, padx=(20, 0), sticky=E+W)  # padx=(20, 0) - odstęp tylko z lewej, sticky=E+W - rozciągnięcie na szerokość
-                # setattr(self.master, 'number_of_steps', self.master.number_of_steps - 1)
-
-                print(self)
-                print(self.master.step_frames)
             else:
                 text = words[i]
                 btn = StepWordButton(self, text=text)
                 btn.pack(side=LEFT)
-                # btn.grid(row=0, column=i)
 
     def change_id(self, new_id):
         self.id = new_id
-        self.lbl_id.config(text=f"{self.id}")
+        self.lbl_id.config(text=f"{self.id}.")
 
 
 class StepWordButton(Button):
@@ -139,6 +132,7 @@ class StepWordButton(Button):
         super().__init__(*args, **kwargs)
         self.config(command=self.click_function)
         self.config(background='white')
+        # self.config(background=self.master.cget("bg"))
         self.config(borderwidth=0)
 
     def click_function(self):
@@ -147,14 +141,9 @@ class StepWordButton(Button):
             self.master.master.selected_verbs.append(self['text'])  # self.master - Step, self.master.master - scenario
         elif self['bg'] == 'yellow':
             self['bg'] = 'white'
-            self.master.master.selected_verbs.remove(self['text']) # self.master - Step, self.master.master - scenario
+            self.master.master.selected_verbs.remove(self['text'])  # self.master - Step, self.master.master - scenario
 
-
-        # print(self.master.master.step_frames[0])
-        # print(self.master.master.step_frames)
         print("selected_verbs word clicked: ", self.master.master.selected_verbs)
-
-
 
 
 class DeleteStepButton(Button):
@@ -167,10 +156,8 @@ class DeleteStepButton(Button):
         for item in self.master.winfo_children():
             if item['bg'] == 'yellow':
                 self.master.master.selected_verbs.remove(item['text'])  # self.master.master = Scenario
-                # print(self.master.master.selected_verbs)
-        # self.master.master.step_frames.pop(int(self.master.id)-1)  # scenario
         self.master.master.delete_step(self.master.id - 1)
         self.master.destroy()  # self.master = Step
-        # print(self.master.master.selected_verbs)
+
         print("selected_verbs after delete: ", self.master.master.selected_verbs)
 
