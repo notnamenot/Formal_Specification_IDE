@@ -16,13 +16,15 @@ def print_hi(name):
     print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
 
 
+# TODO checkbox na scenariuszu do którego robimy flowchart?
 class Scenario(Frame):
     def __init__(self, master, name, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         self.id = ""
         # self.name = name
         # self.steps = []
-        # self.step_frames = []
+        # self.step_frames = []  # TODO trzebaby pamiętać przy usuwaniu stepa żeby stąd też czyścić
+        # self.number_of_steps = 0
 
         self.selected_verbs = []
 
@@ -41,7 +43,8 @@ class Scenario(Frame):
         self.btn_add_step.pack(side=BOTTOM, fill=X)
 
         self.inp_step = Entry(self)
-        self.inp_step.insert(0, "Enter step...")
+        # self.inp_step.insert(0, f'{self.number_of_steps+1}.')  # f'{len(self.step_frames)+1}.'
+        self.inp_step.insert(0, f'Enter step..')  # f'{len(self.step_frames)+1}.'
         self.inp_step.pack(side=BOTTOM, fill=X)
 
     def click_add_step(self):
@@ -50,13 +53,15 @@ class Scenario(Frame):
         if not step_text:  # if empty
             return
 
-        # words = step_text.split()
-
         self.inp_step.delete(0, END)
 
         step_frame = Step(self, step_text)
-        # self.step_frames.append(step_frame)
         step_frame.pack(fill=X)
+        # self.step_frames.append(step_frame)
+
+        # self.number_of_steps = self.number_of_steps + 1
+        # setattr(self, 'number_of_steps', self.number_of_steps + 1)
+        # self.inp_step.insert(0, f'{self.number_of_steps + 1}.')
 
 
 class Step(Frame):
@@ -71,9 +76,9 @@ class Step(Frame):
                 text = "Delete"
                 btn = DeleteScenarioButton(self, text=text)
                 btn.grid(row=0, column=i, padx=(20, 0), sticky=E+W)  # padx=(20, 0) - odstęp tylko z lewej, sticky=E+W - rozciągnięcie na szerokość
+                # setattr(self.master, 'number_of_steps', self.master.number_of_steps - 1)
             else:
                 text = words[i]
-                # btn = Button(frame_splited_scenario, text=words[i], command=lambda w=words[i]: word_clicked(w))
                 btn = StepWordButton(self, text=text)
                 btn.grid(row=0, column=i)
 
@@ -85,12 +90,12 @@ class StepWordButton(Button):
         self.config(background='white')
 
     def click_function(self):
-        global selected_verbs
+        # global selected_verbs
         if self['bg'] == 'white':
             self['bg'] = 'yellow'
             # selected_verbs.append(self['text'])
-            self.master.master.selected_verbs.append(self['text']) # self.master - Step, self.master.master - scenario
-            print("huhuhu",self.master.master.selected_verbs)
+            self.master.master.selected_verbs.append(self['text'])  # self.master - Step, self.master.master - scenario
+            print("selected_verbs", self.master.master.selected_verbs)
         elif self['bg'] == 'yellow':
             self['bg'] = 'white'
             self.master.master.selected_verbs.remove(self['text']) # self.master - Step, self.master.master - scenario
@@ -107,24 +112,25 @@ class DeleteScenarioButton(Button):
     def click_function(self):
         for item in self.master.winfo_children():
             if item['bg'] == 'yellow':
-                selected_verbs.remove(item['text'])
+                self.master.master.selected_verbs.remove(item['text'])
+                print(self.master.master.selected_verbs)
         self.master.destroy()
         print("selected_verbs after delete: ", selected_verbs)
 
 
-class AddStepButton(Button):
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.config(command=self.click_function)
-
-    def click_function(self):
-        for item in self.master.winfo_children():
-            print(item)
-        print(type(self.master.master))
-        l = Label(self.master, text="abhfeefw")
-        if len(self.master.winfo_children()) > 4:
-            l = Label(self.master, text="lolo")
-        l.pack(anchor=W)
+# class AddStepButton(Button):
+#     def __init__(self, *args, **kwargs):
+#         super().__init__(*args, **kwargs)
+#         self.config(command=self.click_function)
+#
+#     def click_function(self):
+#         for item in self.master.winfo_children():
+#             print(item)
+#         print(type(self.master.master))
+#         l = Label(self.master, text="abhfeefw")
+#         if len(self.master.winfo_children()) > 4:
+#             l = Label(self.master, text="lolo")
+#         l.pack(anchor=W)
 
 
 if __name__ == '__main__':
@@ -248,34 +254,28 @@ if __name__ == '__main__':
     frame_input_scenario = LabelFrame(frame2_scenario)
     frame_input_scenario.pack()
 
-    input_scenario_id = Entry(frame_input_scenario, width=3, borderwidth=3)
-    input_scenario_id.grid(row=0, column=0)
-    input_scenario_id.insert(0, "UC")
+    # input_scenario_id = Entry(frame_input_scenario, width=3, borderwidth=3)
+    # input_scenario_id.grid(row=0, column=0)
+    # input_scenario_id.insert(0, "UC")
 
     input_scenario_name = Entry(frame_input_scenario, width=50, borderwidth=3)
-    input_scenario_name.grid(row=0, column=1)
+    input_scenario_name.grid(row=0, column=0)
     input_scenario_name.insert(0, "Enter scenario...")
 
     selected_verbs = []
-
-    def word_clicked(word):
-        global selected_verbs
-        selected_verbs.append(word)
-        print(word, selected_verbs)
-
 
     scenarios = []
 
     def add_scenario_clicked():
         print(f'selected_verbs {selected_verbs}')
         scenario = input_scenario_name.get().strip()
-        id = input_scenario_id.get().strip()
+        # id = input_scenario_id.get().strip()
 
         if not scenario:  # if empty
             return
 
         input_scenario_name.delete(0, END)
-        input_scenario_id.delete(0, END)
+        # input_scenario_id.delete(0, END)
 
         # global frame_scenario
         frame_scenario = Scenario(frame2_scenario, scenario)
@@ -289,7 +289,7 @@ if __name__ == '__main__':
 
 
     btn_add_scenario = Button(frame_input_scenario, text="Add", command=add_scenario_clicked)
-    btn_add_scenario.grid(row=0, column=2)
+    btn_add_scenario.grid(row=0, column=1)
 
 
 
