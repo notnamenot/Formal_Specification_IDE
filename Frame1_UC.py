@@ -12,26 +12,42 @@ class FrameUC(LabelFrame):
     def __init__(self, master, *args, **kwargs):
         super().__init__(master, text="Use Case Diagram", *args, **kwargs)
 
-        self.images = []
+        self.images = []  # TODO utrzymywanie images i ucs jest głupie
         self.ucs = {}
 
+        # self.curr_uc # TODO , może wyżej
+
         self.frame_import_UC = Frame(self)
-        self.frame_import_UC.pack()
+        self.frame_import_UC.pack()  # fill=BOTH
+
+        self.frame_import_UC.rowconfigure(0, weight=1)  # img name
+        self.frame_import_UC.rowconfigure(1, weight=1)  # xml name
+        self.frame_import_UC.columnconfigure(0, weight=1)  # button import
+        self.frame_import_UC.columnconfigure(1, weight=1)  # <
+        self.frame_import_UC.columnconfigure(2, weight=2)  # nazwy
+        self.frame_import_UC.columnconfigure(3, weight=1)  # >
 
         self.btn_import_image = Button(self.frame_import_UC, text="Import files", command=self.open_file)
-        self.btn_import_image.pack(side=LEFT)
+        # self.btn_import_image.pack(side=LEFT)
+        self.btn_import_image.grid(row=0, column=0, rowspan=2, sticky=W, padx=(0, 20))
 
         # self.btn_import_xml = Button(self.frame_import_UC, text="Import xml", command=self.open_xml)
         # self.btn_import_xml.pack(side=LEFT)
 
         self.btn_prev = Button(self.frame_import_UC, text="<", state=DISABLED, command=lambda: self.prev_uc_clicked(0))
-        self.btn_prev.pack(side=LEFT)
+        # self.btn_prev.pack(side=LEFT)
+        self.btn_prev.grid(row=0, column=1, rowspan=2, sticky=NS, padx=(5, 5))
 
-        self.lbl_filename = Label(self.frame_import_UC, text="")
-        self.lbl_filename.pack(side=LEFT)
+        self.lbl_img_name = Label(self.frame_import_UC, text="Image file name")
+        # self.lbl_img_name.pack(side=LEFT)
+        self.lbl_img_name.grid(row=0, column=2)
+
+        self.lbl_xml_name = Label(self.frame_import_UC, text="XML file name")
+        self.lbl_xml_name.grid(row=1, column=2)
 
         self.btn_next = Button(self.frame_import_UC, text=">", state=DISABLED, command=lambda: self.next_uc_clicked(1))
-        self.btn_next.pack(side=LEFT)
+        # self.btn_next.pack(side=LEFT)
+        self.btn_next.grid(row=0, column=3, rowspan=2, sticky=NS, padx=(5, 5))
 
         self.img = ImageTk.PhotoImage(Image.open("uc_place_holder.png"))  # TODO wrzucić to shape
         self.panel = Label(self, image=self.img)
@@ -42,12 +58,16 @@ class FrameUC(LabelFrame):
                                                                                                 ("image files", "*.jpg"),
                                                                                                 ("image files", "*.jpeg"),
                                                                                                 ("all files", "*.*")))
-        if not file_path or file_path in self.images:
+        if not file_path:  # canceled
+            return
+
+        if (file_path in self.images) and (not self.ucs[file_path]):  # first attempt to load xml was canceled
+            self.open_xml(file_path)
             return
 
         _, file_name = os.path.split(file_path)
 
-        self.lbl_filename.configure(text=file_name)
+        self.lbl_img_name.configure(text=file_name)
         self.set_uc_img(file_path)
 
         self.images.append(file_path)
@@ -81,7 +101,7 @@ class FrameUC(LabelFrame):
         self.panel.configure(image=img2)
         self.panel.image = img2
 
-    def next_uc_clicked(self, image_number):
+    def next_uc_clicked(self, image_number):  # TODO change also xml label
         print("image_number", image_number)
 
         self.btn_prev.configure(command=lambda: self.prev_uc_clicked(image_number - 1))
@@ -90,7 +110,19 @@ class FrameUC(LabelFrame):
             self.btn_next.configure(state=DISABLED)
         self.btn_prev.configure(state=NORMAL)
 
-        self.set_uc_img(self.images[image_number])
+        self.reload_labels(image_number)
+
+
+    def reload_labels(self, image_number):
+        img_file_path = self.images[image_number]
+        self.set_uc_img(img_file_path)
+
+        _, file_name = os.path.split(img_file_path)
+        self.lbl_img_name.config(text=file_name)
+        if self.ucs[img_file_path]:
+            # print(type(self.ucs[img_file_path]),self.ucs[img_file_path])
+            _, file_name = os.path.split(list(self.ucs[img_file_path].keys())[0])
+            self.lbl_xml_name.config(text=file_name)
 
     def prev_uc_clicked(self, image_number):
         print("image_number", image_number)
@@ -103,19 +135,21 @@ class FrameUC(LabelFrame):
             self.btn_prev.configure(state=DISABLED)
         self.btn_next.configure(state=NORMAL)
 
-        self.set_uc_img(self.images[image_number])
+        self.reload_labels(image_number)
 
     def open_xml(self, img_path):
         img_dir, _ = os.path.split(img_path)
 
         xml_file_path = filedialog.askopenfilename(initialdir=img_dir, title="Select XML", filetypes=(("xml files", "*.xml"),
                                                                                                       ("all files", "*.*")))
+        print("ucs",self.ucs)
         if not xml_file_path:
             return
 
         self.ucs[img_path][xml_file_path] = {}
 
-        # _, file_name = os.path.split(xml_file_path)
+        _, file_name = os.path.split(xml_file_path)
+        self.lbl_xml_name.config(text=file_name)
 
         tree = ET.parse(xml_file_path)
         root = tree.getroot()
