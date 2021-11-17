@@ -32,10 +32,10 @@ class FrameUC(LabelFrame):
         self.panel.pack()
 
     def open_file(self):
-        filename = filedialog.askopenfilename(initialdir=".", title="Select file", filetypes=(("png files", "*.png"),
+        filename = filedialog.askopenfilename(initialdir=".", title="Select file", filetypes=(("all files", "*.*"),
+                                                                                              ("png files", "*.png"),
                                                                                               ("jpg files", "*.jpg"),
-                                                                                              ("jpeg files", "*.jpeg"),
-                                                                                              ("all files", "*.*")))
+                                                                                              ("jpeg files", "*.jpeg")))
         if not filename or filename in self.images:
             return
 
@@ -46,7 +46,7 @@ class FrameUC(LabelFrame):
 
         if len(self.images) > 1:
             self.btn_prev.configure(state=NORMAL)
-            self.btn_prev.configure(command=lambda: self.prev_uc_clicked(len(self.images)-2))  # przedostatni
+            self.btn_prev.configure(command=lambda: self.prev_uc_clicked(len(self.images) - 2))  # przedostatni
 
         print("images", self.images)
 
@@ -61,8 +61,8 @@ class FrameUC(LabelFrame):
             height_size = int((float(i.size[1]) * float(width_perc)))
             i = i.resize((MAX_WIDTH, height_size), Image.ANTIALIAS)
         if i.size[1] > MAX_HEIGHT:
-            height_percent = (MAX_HEIGHT / float(i.size[1]))
-            width_size = int((float(i.size[0]) * float(height_percent)))
+            height_perc = (MAX_HEIGHT / float(i.size[1]))
+            width_size = int((float(i.size[0]) * float(height_perc)))
             i = i.resize((width_size, MAX_HEIGHT), Image.ANTIALIAS)
 
         img2 = ImageTk.PhotoImage(i)
@@ -72,10 +72,10 @@ class FrameUC(LabelFrame):
 
     def next_uc_clicked(self, image_number):
         print("image_number", image_number)
-        # global btn_prev
-        self.btn_prev.configure(command=lambda: self.prev_uc_clicked(image_number-1))
-        self.btn_next.configure(command=lambda: self.next_uc_clicked(image_number+1))
-        if image_number == len(self.images)-1:
+
+        self.btn_prev.configure(command=lambda: self.prev_uc_clicked(image_number - 1))
+        self.btn_next.configure(command=lambda: self.next_uc_clicked(image_number + 1))
+        if image_number == len(self.images) - 1:
             self.btn_next.configure(state=DISABLED)
         self.btn_prev.configure(state=NORMAL)
 
@@ -83,9 +83,11 @@ class FrameUC(LabelFrame):
 
     def prev_uc_clicked(self, image_number):
         print("image_number", image_number)
-        # global btn_prev
-        self.btn_prev.configure(command=lambda: self.prev_uc_clicked(image_number-1))
-        self.btn_next.configure(command=lambda: self.next_uc_clicked(image_number+1))
+
+        # self.grid_forget()
+
+        self.btn_prev.configure(command=lambda: self.prev_uc_clicked(image_number - 1))
+        self.btn_next.configure(command=lambda: self.next_uc_clicked(image_number + 1))
         if image_number == 0:
             self.btn_prev.configure(state=DISABLED)
         self.btn_next.configure(state=NORMAL)

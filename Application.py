@@ -1,8 +1,5 @@
-from tkinter import *
-
 from Frame1_UC import *
 from Frame2_scenarios import *
-
 
 class Application(Tk):
     def __init__(self):

@@ -52,15 +52,14 @@ class Scenario(Frame):
 
         self.frame_id_name = LabelFrame(self)
         self.frame_id_name.pack(fill=X)
-        self.frame_id_name.rowconfigure(1, weight=1)  # szerokość kolumny 0
-        self.frame_id_name.columnconfigure(1, weight=1)  # szerokość kolumny 0
+        self.frame_id_name.rowconfigure(1, weight=1)  # szerokość kolumny 1
+        self.frame_id_name.columnconfigure(1, weight=1)  # szerokość kolumny 1
 
         self.lbl_scenario_id = Label(self.frame_id_name, text=self.id + "    ")
         self.lbl_scenario_name = Label(self.frame_id_name, text=name, font=("Arial", 12))
         self.lbl_scenario_id.grid(row=0, column=0, sticky=N + S)
         self.lbl_scenario_name.grid(row=0, column=1, sticky=N + S)
 
-        # self.btn_add_step = AddStepButton(self, text="Add")
         self.btn_add_step = Button(self, text="Add", command=self.click_add_step)
         self.btn_add_step.pack(side=BOTTOM, fill=X)
 
@@ -112,18 +111,16 @@ class StepWordButton(Button):
         self.config(background='white')
 
     def click_function(self):
-        # global selected_verbs
-        print("selected_verbs word clicked: ", self.master.master.selected_verbs)
         if self['bg'] == 'white':
             self['bg'] = 'yellow'
-            # selected_verbs.append(self['text'])
             self.master.master.selected_verbs.append(self['text'])  # self.master - Step, self.master.master - scenario
-            print("selected_verbs", self.master.master.selected_verbs)
         elif self['bg'] == 'yellow':
             self['bg'] = 'white'
             self.master.master.selected_verbs.remove(self['text']) # self.master - Step, self.master.master - scenario
-            # selected_verbs.remove(self['text'])
-            # self.config(background=new_color, activebackground=new_color)
+
+        print("selected_verbs word clicked: ", self.master.master.selected_verbs)
+
+
 
 
 class DeleteScenarioButton(Button):
