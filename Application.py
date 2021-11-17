@@ -1,5 +1,8 @@
-from Frame1_UC import *
-from Frame2_scenarios import *
+from tkinter import *
+
+from Frame1_UC import FrameUC
+from Frame2_scenarios import FrameScenarios
+from Frame3_flowchart import FrameFlowchart
 
 class Application(Tk):
     def __init__(self):
@@ -14,5 +17,5 @@ class Application(Tk):
         self.frame2_scenario = FrameScenarios(self)
         self.frame2_scenario.grid(row=0, column=1, sticky=N+S)
 
-        self.frame3_flowchart = LabelFrame(self, text="Flowchart")
+        self.frame3_flowchart = FrameFlowchart(self)
         self.frame3_flowchart.grid(row=0, column=2, sticky=N+S)
