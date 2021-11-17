@@ -7,7 +7,7 @@ from Frame2_scenarios import *
 class Application(Tk):
     def __init__(self):
         Tk.__init__(self)
-        self.title = "Formal Specification Generator IDE"
+        self.title("Formal Specification Generator IDE")
         self.create_widgets()
 
     def create_widgets(self):
