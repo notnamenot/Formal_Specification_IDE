@@ -15,8 +15,6 @@ class FrameUC(LabelFrame):
         self.images = []
         self.ucs = {}
 
-        # self.curr_img_file_path = ""
-
         self.frame_import_UC = Frame(self)
         self.frame_import_UC.pack()
 
@@ -54,7 +52,7 @@ class FrameUC(LabelFrame):
 
         self.images.append(file_path)
         # self.curr_img_file_path = file_path
-        self.ucs[file_path] = []
+        self.ucs[file_path] = {}
 
         self.btn_next.configure(state=DISABLED)
 
@@ -110,14 +108,16 @@ class FrameUC(LabelFrame):
     def open_xml(self, img_path):
         img_dir, _ = os.path.split(img_path)
 
-        file_path = filedialog.askopenfilename(initialdir=img_dir, title="Select XML", filetypes=(("xml files", "*.xml"),
-                                                                                                  ("all files", "*.*")))
-        if not file_path:
+        xml_file_path = filedialog.askopenfilename(initialdir=img_dir, title="Select XML", filetypes=(("xml files", "*.xml"),
+                                                                                                      ("all files", "*.*")))
+        if not xml_file_path:
             return
 
-        _, file_name = os.path.split(file_path)
+        self.ucs[img_path][xml_file_path] = {}
 
-        tree = ET.parse(file_path)
+        # _, file_name = os.path.split(xml_file_path)
+
+        tree = ET.parse(xml_file_path)
         root = tree.getroot()
         print(root.tag)
         print(root.attrib)
@@ -136,8 +136,11 @@ class FrameUC(LabelFrame):
             if 'name' in elem.attrib:
                 print('name', elem.tag, elem.attrib['name'])
                 use_cases.append(elem.attrib['name'])
-        use_cases = list(set(use_cases))  # remove duplicates
-        self.ucs[img_path] = use_cases
 
+        use_cases = list(set(use_cases))  # remove duplicates
+
+        for use_case in use_cases:
+            self.ucs[img_path][xml_file_path][use_case] = []
+        # self.ucs[img_path][xml_file_path] = use_cases
 
         print("ucs", self.ucs)
