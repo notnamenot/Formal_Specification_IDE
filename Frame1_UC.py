@@ -113,17 +113,6 @@ class FrameUC(LabelFrame):
         self.reload_labels(image_number)
 
 
-    def reload_labels(self, image_number):
-        img_file_path = self.images[image_number]
-        self.set_uc_img(img_file_path)
-
-        _, file_name = os.path.split(img_file_path)
-        self.lbl_img_name.config(text=file_name)
-        if self.ucs[img_file_path]:
-            # print(type(self.ucs[img_file_path]),self.ucs[img_file_path])
-            _, file_name = os.path.split(list(self.ucs[img_file_path].keys())[0])
-            self.lbl_xml_name.config(text=file_name)
-
     def prev_uc_clicked(self, image_number):
         print("image_number", image_number)
 
@@ -137,12 +126,21 @@ class FrameUC(LabelFrame):
 
         self.reload_labels(image_number)
 
+    def reload_labels(self, image_number):
+        img_file_path = self.images[image_number]
+        self.set_uc_img(img_file_path)
+
+        _, file_name = os.path.split(img_file_path)
+        self.lbl_img_name.config(text=file_name)
+        if self.ucs[img_file_path]:
+            _, file_name = os.path.split(list(self.ucs[img_file_path])[0])
+            self.lbl_xml_name.config(text=file_name)
+
     def open_xml(self, img_path):
         img_dir, _ = os.path.split(img_path)
 
         xml_file_path = filedialog.askopenfilename(initialdir=img_dir, title="Select XML", filetypes=(("xml files", "*.xml"),
                                                                                                       ("all files", "*.*")))
-        print("ucs",self.ucs)
         if not xml_file_path:
             return
 
@@ -151,10 +149,17 @@ class FrameUC(LabelFrame):
         _, file_name = os.path.split(xml_file_path)
         self.lbl_xml_name.config(text=file_name)
 
+        use_cases = self.find_use_cases(xml_file_path)
+        for use_case in use_cases:
+            self.ucs[img_path][xml_file_path][use_case] = []
+        # self.ucs[img_path][xml_file_path] = use_cases
+
+        print("ucs", self.ucs)
+
+    def find_use_cases(self, xml_file_path):
         tree = ET.parse(xml_file_path)
         root = tree.getroot()
-        print(root.tag)
-        print(root.attrib)
+        print(root.tag, root.attrib)
 
         uc_xml_elems = []
         # uc_xml_elems = root.findall(".//MasterView/UseCase")  # visual paradigm 'Xml_structure': 'simple'
@@ -173,8 +178,6 @@ class FrameUC(LabelFrame):
 
         use_cases = list(set(use_cases))  # remove duplicates
 
-        for use_case in use_cases:
-            self.ucs[img_path][xml_file_path][use_case] = []
-        # self.ucs[img_path][xml_file_path] = use_cases
+        return use_cases
 
-        print("ucs", self.ucs)
+
