@@ -37,6 +37,26 @@ class FrameScenarios(LabelFrame):
 
         # TODO możliwość zmiany kolejnoości - ruszanie framem
 
+    def load_conf(self, conf):
+        print("conf",conf)
+        # 1. remove current scenarios
+        for s in range(len(self.scenarios)):
+            self.scenarios[s].destroy()  # pack_forget
+
+        for i, scenario in reversed(list(enumerate(self.scenarios))):
+            scenario.destroy()
+            self.scenarios.pop()
+
+        print("ssss", self.scenarios)
+        # 2. load uc from conf
+        if conf: # if xml loaded
+            print("conf not empty", list(conf)[0] )
+
+        # for uc in conf.get():
+        #     print(uc, type(uc))
+
+
+
 
 # TODO checkbox na scenariuszu do którego robimy flowchart?
 class Scenario(Frame):
