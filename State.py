@@ -4,19 +4,17 @@
 class State:
     def __init__(self):
         self.all = []
-        # self.curr_img_path = ""
         self.curr_uc = {}
         # self.curr_num = -1
 
     def add_img_path(self, img_path):
-        # self.curr_img_path = img_path
         self.curr_uc = {"img_path": img_path, "xml_path": "", "use_cases": []}
         self.all.append(self.curr_uc)
 
     def add_xml_path(self, xml_path):
         self.curr_uc["xml_path"] = xml_path
-        print("self.curr_uc", self.curr_uc)
-        print("self.all",self.all)
+        # print("self.curr_uc", self.curr_uc)
+        # print("self.all",self.all)
 
     def get_number_of_objects(self):
         return len(self.all)
@@ -34,7 +32,6 @@ class State:
         for i, obj in enumerate(self.all):
             if obj["img_path"] == self.curr_uc["img_path"]:
                 return i
-
 
     def get_curr_img_path(self):
         return self.curr_uc["img_path"]
