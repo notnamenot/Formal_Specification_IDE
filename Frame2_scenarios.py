@@ -2,8 +2,10 @@ from tkinter import *
 
 
 class FrameScenarios(LabelFrame):
-    def __init__(self, master, *args, **kwargs):
+    def __init__(self, master, state, *args, **kwargs):
         super().__init__(master=master, text="Scenarios", *args, **kwargs)
+
+        self.state = state
 
         self.scenarios = []
 
@@ -29,16 +31,20 @@ class FrameScenarios(LabelFrame):
             return
 
         self.input_scenario_name.delete(0, END)
+        self.input_scenario_name.insert(0, "Enter scenario...")
         # input_scenario_id.delete(0, END)
 
-        frame_scenario = Scenario(self, scenario)
-        frame_scenario.pack(fill=X, pady=(10, 0))
-        self.scenarios.append(frame_scenario)
+        self.add_scenario(scenario)
 
         # TODO możliwość zmiany kolejnoości - ruszanie framem
 
-    def load_conf(self, conf):
-        print("conf",conf)
+    def add_scenario(self, name):
+        frame_scenario = Scenario(self, name)
+        frame_scenario.pack(fill=X, pady=(10, 0))
+        self.scenarios.append(frame_scenario)
+
+    def refresh(self):
+        print("from refresh\nall\n", self.state.all, "\ncurr\n", self.state.curr_uc)
         # 1. remove current scenarios
         for s in range(len(self.scenarios)):
             self.scenarios[s].destroy()  # pack_forget
@@ -47,13 +53,10 @@ class FrameScenarios(LabelFrame):
             scenario.destroy()
             self.scenarios.pop()
 
-        print("ssss", self.scenarios)
-        # 2. load uc from conf
-        if conf: # if xml loaded
-            print("conf not empty", list(conf)[0] )
+        # 2. Add new scenarios
+        for obj in self.state.curr_uc["use_cases"]:
+            self.add_scenario(obj['name'])
 
-        # for uc in conf.get():
-        #     print(uc, type(uc))
 
 
 
@@ -63,7 +66,8 @@ class Scenario(Frame):
     def __init__(self, master, name, *args, **kwargs):
         super().__init__(master, *args, **kwargs)
         self.id = ""
-        # self.name = name
+        self.name = name
+
         self.step_frames = []  # TODO trzebaby pamiętać przy usuwaniu stepa żeby stąd też czyścić
         self.selected_verbs = []
 

@@ -85,8 +85,8 @@ class FrameUC(LabelFrame):
 
         self.state.add_xml_path(xml_path)
 
-        _, xml_name = os.path.split(xml_path)
-        self.lbl_xml_name.config(text=xml_name)
+        # _, xml_name = os.path.split(xml_path)
+        # self.lbl_xml_name.config(text=xml_name)
 
         use_cases = self.find_use_cases(xml_path)
 
@@ -135,7 +135,7 @@ class FrameUC(LabelFrame):
 
         self.set_uc_img(img_path)
 
-        # self.master.refresh_frames(self.ucs, current_image_path=self.images[image_number])
+        self.master.refresh_frames()
 
     def set_buttons_state(self):
         curr_obj_num = self.state.get_curr_uc_num()
