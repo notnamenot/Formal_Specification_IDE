@@ -34,20 +34,19 @@ class FrameScenarios(LabelFrame):
         self.input_scenario_name.insert(0, "Enter scenario...")
         # input_scenario_id.delete(0, END)
 
-        self.add_scenario(scenario)
+        self.add_scenario_frame(scenario)
 
         self.state.add_use_cases([scenario])
 
         # TODO możliwość zmiany kolejnoości - ruszanie framem - przyciski w górę i w dół
 
-    def add_scenario(self, name):
+    def add_scenario_frame(self, name):
         frame_scenario = Scenario(self, name)
         frame_scenario.bind('<Button-1>', lambda e: frame_scenario.scenario_clicked(e, name))
 
         frame_scenario.pack(fill=X, pady=(0, 10), padx=5)
         self.scenarios.append(frame_scenario)
-
-
+        return frame_scenario
 
     def refresh(self):
         print("from refresh\nall\n", self.state.all_uc_diagrams, "\ncurr diag\n", self.state.curr_uc_diagram, "\ncurr uc\n", self.state.curr_uc)
@@ -61,7 +60,9 @@ class FrameScenarios(LabelFrame):
 
         # 2. Add new scenarios
         for obj in self.state.curr_uc_diagram["use_cases"]:
-            self.add_scenario(obj['name'])
+            frame_scenario = self.add_scenario_frame(obj['name'])
+            for step in obj["steps"]:
+                frame_scenario.add_step_frame(step)
 
 
 
@@ -104,7 +105,7 @@ class Scenario(LabelFrame):
 
         self.inp_step = Entry(self.frame_enter_step)
         # self.inp_step.insert(0, f'{self.number_of_steps+1}.')  # f'{len(self.step_frames)+1}.'
-        self.inp_step.insert(0, 'Enter step..')  # f'{len(self.step_frames)+1}.'
+        # self.inp_step.insert(0, 'Enter step..')  # f'{len(self.step_frames)+1}.'
         self.inp_step.pack(side=LEFT, fill=X, expand=True)
         self.inp_step.bind('<Button-1>', lambda e: self.scenario_clicked(e, name))
 
@@ -130,23 +131,27 @@ class Scenario(LabelFrame):
 
         self.inp_step.delete(0, END)
 
+        self.add_step_frame(step_text)
+
+        self.master.state.add_step(step_text)
+        print("tututu")
+        print(self.master.state.curr_uc,"\n",self.master.state.curr_uc_diagram,"\n",self.master.state.all_uc_diagrams)
+
+    def add_step_frame(self, step_text):
         step_frame = Step(self, step_text)
         step_frame.bind('<Button-1>', lambda e: self.scenario_clicked(e))
         step_frame.pack(fill=X)
         self.step_frames.append(step_frame)
         self.set_lbl_next_step_id_text()
 
-        self.master.state.add_step(step_text)
-        print("tututu")
-        print(self.master.state.curr_uc,"\n",self.master.state.curr_uc_diagram,"\n",self.master.state.all_uc_diagrams)
+
+    def set_lbl_next_step_id_text(self):
+        self.lbl_next_step_id.config(text=f"{len(self.step_frames)+1}.")
 
     def delete_step(self, idx):
         self.step_frames.pop(idx)
         self.set_lbl_next_step_id_text()
         self.renumerate_steps()
-
-    def set_lbl_next_step_id_text(self):
-        self.lbl_next_step_id.config(text=f"{len(self.step_frames)+1}.")
 
     def renumerate_steps(self):
         if self.step_frames:  # if not empty
