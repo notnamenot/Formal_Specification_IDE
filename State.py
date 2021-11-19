@@ -1,54 +1,53 @@
-
-# state =
+IMG_PATH = "img_path"
+XML_PATH = "xml_path"
+USE_CASES = "use_cases"
 
 class State:
     def __init__(self):
-        self.all = []
-        self.curr_uc = {}
+        self.all_uc_diagrams = []
+        self.curr_uc_diagram = {}
         # self.curr_num = -1
 
-    def add_img_path(self, img_path):
-        self.curr_uc = {"img_path": img_path, "xml_path": "", "use_cases": []}
-        self.all.append(self.curr_uc)
+    def add_uc_diagram(self, img_path):
+        self.curr_uc_diagram = {IMG_PATH: img_path, XML_PATH: "", USE_CASES: []}
+        self.all_uc_diagrams.append(self.curr_uc_diagram)
 
-    def add_xml_path(self, xml_path):
-        self.curr_uc["xml_path"] = xml_path
-        # print("self.curr_uc", self.curr_uc)
-        # print("self.all",self.all)
+    def set_xml_path(self, xml_path):
+        self.curr_uc_diagram[XML_PATH] = xml_path
 
-    def get_number_of_objects(self):
-        return len(self.all)
+    def get_all_uc_diagrams_number(self):
+        return len(self.all_uc_diagrams)
 
-    def change_curr_uc(self, idx):
-        self.curr_uc = self.all[idx]
+    def change_curr_uc_diagram(self, idx):
+        self.curr_uc_diagram = self.all_uc_diagrams[idx]
 
-    def set_curr_uc(self, img_path):
-        for o in self.all:
-            if o["img_path"] == img_path:
-                self.curr_uc = o
+    def set_curr_uc_diagram(self, img_path):
+        for diagram in self.all_uc_diagrams:
+            if diagram[IMG_PATH] == img_path:
+                self.curr_uc_diagram = diagram
                 break
 
-    def get_curr_uc_num(self):
-        for i, obj in enumerate(self.all):
-            if obj["img_path"] == self.curr_uc["img_path"]:
+    def get_curr_uc_diagram_seq(self):  # ew trzymać w jsonie numerek
+        for i, diagram in enumerate(self.all_uc_diagrams):
+            if diagram[IMG_PATH] == self.curr_uc_diagram[IMG_PATH]:
                 return i
 
     def get_curr_img_path(self):
-        return self.curr_uc["img_path"]
+        return self.curr_uc_diagram[IMG_PATH]
 
     def get_curr_xml_path(self):
-        return self.curr_uc["xml_path"]
+        return self.curr_uc_diagram[XML_PATH]
 
     def add_use_cases(self, use_cases):
         for use_case_name in use_cases:
-            self.curr_uc["use_cases"].append({"name": use_case_name, "steps": []})
+            self.curr_uc_diagram[USE_CASES].append({"name": use_case_name, "steps": []})
 
-        print("self.curr_uc[\"use_cases\"]", self.curr_uc["use_cases"])
-        print(self.all)
+        print("self.curr_uc_diagram[USE_CASES]", self.curr_uc_diagram[USE_CASES])
+        print(self.all_uc_diagrams)
 
     def contains_img(self, img_path):
-        for o in self.all:
-            if o["img_path"] == img_path:
+        for diagram in self.all_uc_diagrams:
+            if diagram[IMG_PATH] == img_path:
                 print("file already exists")
                 return True
         return False
@@ -56,11 +55,11 @@ class State:
     def contains_img_xml(self, img_path):
         contains_img = False
         contains_xml = False
-        for o in self.all:
-            if o["img_path"] == img_path:
+        for diagram in self.all_uc_diagrams:
+            if diagram[IMG_PATH] == img_path:
                 print("file already exists")
                 contains_img = True
-                if o["xml_path"]:
+                if diagram[XML_PATH]:
                     contains_xml = True
                 break
         return contains_img, contains_xml

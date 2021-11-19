@@ -44,7 +44,7 @@ class FrameScenarios(LabelFrame):
         self.scenarios.append(frame_scenario)
 
     def refresh(self):
-        print("from refresh\nall\n", self.state.all, "\ncurr\n", self.state.curr_uc)
+        print("from refresh\nall\n", self.state.all_uc_diagrams, "\ncurr\n", self.state.curr_uc_diagram)
         # 1. remove current scenarios
         for s in range(len(self.scenarios)):
             self.scenarios[s].destroy()  # pack_forget
@@ -54,7 +54,7 @@ class FrameScenarios(LabelFrame):
             self.scenarios.pop()
 
         # 2. Add new scenarios
-        for obj in self.state.curr_uc["use_cases"]:
+        for obj in self.state.curr_uc_diagram["use_cases"]:
             self.add_scenario(obj['name'])
 
 

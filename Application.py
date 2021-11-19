@@ -26,12 +26,12 @@ class Application(Tk):
         self.frame1_UC = FrameUC(self, self.state)
         self.frame1_UC.grid(row=0, column=0, sticky="news")
 
-        self.frame2_scenario = FrameScenarios(self, self.state)
-        self.frame2_scenario.grid(row=0, column=1, sticky=N+S)
+        self.frame2_scenarios = FrameScenarios(self, self.state)
+        self.frame2_scenarios.grid(row=0, column=1, sticky=N+S)
 
         self.frame3_flowchart = FrameFlowchart(self)
         self.frame3_flowchart.grid(row=0, column=2, sticky=N+S)
 
     def refresh_frames(self):
-        print("from refresh_frames\nall\n", self.state.all, "\ncurr\n", self.state.curr_uc)
-        self.frame2_scenario.refresh()
+        print("from refresh_frames\nall\n", self.state.all_uc_diagrams, "\ncurr\n", self.state.curr_uc_diagram)
+        self.frame2_scenarios.refresh()
