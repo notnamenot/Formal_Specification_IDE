@@ -48,16 +48,23 @@ class State:
         for use_case_name in use_cases:
             self.curr_uc_diagram[USE_CASES].append({NAME: use_case_name, STEPS: []})
 
-    def add_step(self,  step_text):
-        self.curr_uc[STEPS].append(step_text)
+    def add_step(self, step_text):
+        # self.curr_uc[STEPS].append(step_text)
+        self.curr_uc[STEPS].append({"seq": len(self.curr_uc[STEPS])+1, "text": step_text, "selected_words": []})
 
-    def delete_step(self, step_text):
-        self.curr_uc[STEPS].remove(step_text)
+    def delete_step(self, seq):
+        # self.curr_uc[STEPS].remove(step_text)
+        self.curr_uc[STEPS].pop(seq-1)  # -1 bo seq numerujemy od 1, a lista leci od 0
+
+        # renumerate
+        for i, step in enumerate(self.curr_uc[STEPS]):
+            print(type(step))
+            step["seq"] = i+1
 
     def set_curr_uc(self, uc_name):
         for use_case in self.curr_uc_diagram[USE_CASES]:
             if use_case[NAME] == uc_name:
-                self.curr_uc = use_case # TODO przy zmianie diagramu czyścić curr_uc
+                self.curr_uc = use_case
                 break
 
     def contains_img(self, img_path):
@@ -79,6 +86,17 @@ class State:
                 break
         return contains_img, contains_xml
 
+    def add_selected_word(self, step_id, word):
+        for step in self.curr_uc[STEPS]:
+            if step["seq"] == step_id:
+                # print(type(step),"adding selcted word")
+                step["selected_words"].append(word)
+
+
+    def remove_selected_word(self, step_id, word):
+        for step in self.curr_uc[STEPS]:
+            if step["seq"] == step_id:
+                step["selected_words"].remove(word)
 #
 # [
 # 	{

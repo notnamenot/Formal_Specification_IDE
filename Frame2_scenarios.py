@@ -62,7 +62,7 @@ class FrameScenarios(LabelFrame):
         for obj in self.state.curr_uc_diagram["use_cases"]:
             frame_scenario = self.add_scenario_frame(obj['name'])
             for step in obj["steps"]:
-                frame_scenario.add_step_frame(step)
+                frame_scenario.add_step_frame(step["text"], step["selected_words"])
 
 
 
@@ -76,7 +76,7 @@ class Scenario(LabelFrame):
         self.name = name
 
         self.step_frames = []  # TODO trzebaby pamiętać przy usuwaniu stepa żeby stąd też czyścić
-        self.selected_verbs = []
+        # self.selected_verbs = []
 
         self.frame_id_name = LabelFrame(self, relief="flat")  # relief="ridge"
         self.frame_id_name.pack(fill=X)
@@ -111,9 +111,9 @@ class Scenario(LabelFrame):
 
     # def scenario_clicked(self, event, uc_name):
     def scenario_clicked(self, event, name=""):
-        print("scenario_clicked", self.name)
+        # print("scenario_clicked", self.name)
         self.master.state.set_curr_uc(self.name)
-        print("cuc",self.master.state.curr_uc)
+        # print("cuc",self.master.state.curr_uc)
         # event.widget.config(bg='red')
         # event.widget.master.config(bg='red')
         # self.config(bg='red')
@@ -123,7 +123,7 @@ class Scenario(LabelFrame):
         self.config(relief="groove") #borderwidth=5, highlightbackground= "green",highlightthickness=1
 
     def click_add_step(self):
-        print("click_add_step")
+        # print("click_add_step")
         step_text = self.inp_step.get().strip()
 
         if not step_text:  # if empty
@@ -131,14 +131,14 @@ class Scenario(LabelFrame):
 
         self.inp_step.delete(0, END)
 
-        self.add_step_frame(step_text)
+        self.add_step_frame(step_text, [])
 
         self.master.state.add_step(step_text)
-        print("tututu")
-        print(self.master.state.curr_uc,"\n",self.master.state.curr_uc_diagram,"\n",self.master.state.all_uc_diagrams)
+        # print("tututu")
+        # print(self.master.state.curr_uc,"\n",self.master.state.curr_uc_diagram,"\n",self.master.state.all_uc_diagrams)
 
-    def add_step_frame(self, step_text):
-        step_frame = Step(self, step_text)
+    def add_step_frame(self, step_text, selected_words):
+        step_frame = Step(self, step_text, selected_words)
         step_frame.bind('<Button-1>', lambda e: self.scenario_clicked(e))
         step_frame.pack(fill=X)
         self.step_frames.append(step_frame)
@@ -160,7 +160,7 @@ class Scenario(LabelFrame):
 
 
 class Step(Frame):
-    def __init__(self, master, text, *args, **kwargs):
+    def __init__(self, master, text, selected_words, *args, **kwargs):
         super().__init__(master=master, *args, **kwargs)
 
         self.text = text
@@ -182,6 +182,8 @@ class Step(Frame):
             else:
                 text = words[i]
                 btn = StepWordButton(self, text=text)
+                if text in selected_words:
+                    btn.config(bg="yellow")
                 btn.bind('<Button-1>', lambda e: self.master.scenario_clicked(e))
                 btn.pack(side=LEFT)
 
@@ -201,12 +203,16 @@ class StepWordButton(Button):
     def click_function(self):
         if self['bg'] == 'white':
             self['bg'] = 'yellow'
-            self.master.master.selected_verbs.append(self['text'])  # self.master - Step, self.master.master - scenario
+            self.master.master.master.state.add_selected_word(self.master.id, self['text'])
+            # self.master.master.selected_verbs.append(self['text'])  # self.master - Step, self.master.master - scenario
+
         elif self['bg'] == 'yellow':
             self['bg'] = 'white'
-            self.master.master.selected_verbs.remove(self['text'])  # self.master - Step, self.master.master - scenario
+            self.master.master.master.state.remove_selected_word(self.master.id, self['text'])
+            # self.master.master.selected_verbs.remove(self['text'])  # self.master - Step, self.master.master - scenario
 
-        print("selected_verbs word clicked: ", self.master.master.selected_verbs)
+        # print("selected_verbs word clicked: ", self.master.master.selected_verbs)
+        print("selected_verbs word clicked: ", self.master.master.master.state.curr_uc)
 
 
 class DeleteStepButton(Button):
@@ -218,11 +224,12 @@ class DeleteStepButton(Button):
     def click_function(self):
         for item in self.master.winfo_children():
             if item['bg'] == 'yellow':
-                self.master.master.selected_verbs.remove(item['text'])  # self.master.master = Scenario
+                self.master.master.master.state.remove_selected_word(self.master.id, item["text"])
+                # self.master.master.selected_verbs.remove(item['text'])  # self.master.master = Scenario
         self.master.master.delete_step(self.master.id - 1)  # self.master - Step,   self.master.master - Scenario
-        self.master.master.master.state.delete_step(self.master.text)
+        self.master.master.master.state.delete_step(self.master.id)
         self.master.destroy()  # self.master = Step
 
-
-        print("selected_verbs after delete: ", self.master.master.selected_verbs)
+        # print("selected_verbs after delete: ", self.master.master.selected_verbs)
+        print("selected_verbs after delete: ", self.master.master.master.state.curr_uc)
 
