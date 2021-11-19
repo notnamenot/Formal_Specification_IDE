@@ -1,16 +1,20 @@
 IMG_PATH = "img_path"
 XML_PATH = "xml_path"
 USE_CASES = "use_cases"
+NAME = "name"
+STEPS = "steps"
 
 class State:
     def __init__(self):
         self.all_uc_diagrams = []
         self.curr_uc_diagram = {}
+        self.curr_uc = {}
         # self.curr_num = -1
 
     def add_uc_diagram(self, img_path):
         self.curr_uc_diagram = {IMG_PATH: img_path, XML_PATH: "", USE_CASES: []}
         self.all_uc_diagrams.append(self.curr_uc_diagram)
+        self.curr_uc = {}
 
     def set_xml_path(self, xml_path):
         self.curr_uc_diagram[XML_PATH] = xml_path
@@ -20,12 +24,14 @@ class State:
 
     def change_curr_uc_diagram(self, idx):
         self.curr_uc_diagram = self.all_uc_diagrams[idx]
+        self.curr_uc = {}
 
     def set_curr_uc_diagram(self, img_path):
         for diagram in self.all_uc_diagrams:
             if diagram[IMG_PATH] == img_path:
                 self.curr_uc_diagram = diagram
                 break
+        self.curr_uc = {}
 
     def get_curr_uc_diagram_seq(self):  # ew trzymać w jsonie numerek
         for i, diagram in enumerate(self.all_uc_diagrams):
@@ -40,10 +46,19 @@ class State:
 
     def add_use_cases(self, use_cases):
         for use_case_name in use_cases:
-            self.curr_uc_diagram[USE_CASES].append({"name": use_case_name, "steps": []})
+            self.curr_uc_diagram[USE_CASES].append({NAME: use_case_name, STEPS: []})
 
-        print("self.curr_uc_diagram[USE_CASES]", self.curr_uc_diagram[USE_CASES])
-        print(self.all_uc_diagrams)
+    def add_step(self,  step_text):
+        self.curr_uc[STEPS].append(step_text)
+
+    def delete_step(self, step_text):
+        self.curr_uc[STEPS].remove(step_text)
+
+    def set_curr_uc(self, uc_name):
+        for use_case in self.curr_uc_diagram[USE_CASES]:
+            if use_case[NAME] == uc_name:
+                self.curr_uc = use_case # TODO przy zmianie diagramu czyścić curr_uc
+                break
 
     def contains_img(self, img_path):
         for diagram in self.all_uc_diagrams:
