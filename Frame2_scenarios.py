@@ -1,5 +1,6 @@
 from tkinter import *
 
+from State import USE_CASES, NAME, STEPS, TEXT, SELECTED_WORDS
 
 class FrameScenarios(LabelFrame):
     def __init__(self, master, state, *args, **kwargs):
@@ -54,10 +55,10 @@ class FrameScenarios(LabelFrame):
             self.scenarios_frames.pop()
 
         # 2. Add new scenarios
-        for use_case in self.state.curr_uc_diagram["use_cases"]:
-            frame_scenario = self.add_scenario_frame(use_case['name'])
-            for step in use_case["steps"]:
-                frame_scenario.add_step_frame(step["text"], step["selected_words"])
+        for use_case in self.state.curr_uc_diagram[USE_CASES]:
+            frame_scenario = self.add_scenario_frame(use_case[NAME])
+            for step in use_case[STEPS]:
+                frame_scenario.add_step_frame(step[TEXT], step[SELECTED_WORDS])
 
 
 class Scenario(LabelFrame):
