@@ -37,7 +37,7 @@ class FrameScenarios(LabelFrame):
         self.add_scenario_frame(scenario)
         self.state.add_use_cases([scenario])
 
-    # TODO możliwość zmiany kolejnoości - ruszanie framem - przyciski w górę i w dół
+    # TODO możliwość zmiany kolejnoości - ruszanie framem stepa - przyciski w górę i w dół
 
     def add_scenario_frame(self, name):
         frame_scenario = Scenario(self, name)
@@ -62,21 +62,21 @@ class FrameScenarios(LabelFrame):
 
 class Scenario(LabelFrame):
     def __init__(self, master, name, *args, **kwargs):
-        super().__init__(master, relief="flat", highlightthickness=1, *args, **kwargs)
-        self.id = ""  # TODO uzupełniać albo wywalić
+        super().__init__(master=master, relief="flat", highlightthickness=1, *args, **kwargs)
+        # self.id = ""  # TODO uzupełniać albo wywalić
         self.name = name
 
         self.step_frames = []  # TODO trzebaby pamiętać przy usuwaniu stepa żeby stąd też czyścić
 
         self.frame_id_name = LabelFrame(self, relief="flat")  # relief="ridge"
         self.frame_id_name.pack(fill=X)
-        self.frame_id_name.rowconfigure(1, weight=1)  # szerokość kolumny 1
-        self.frame_id_name.columnconfigure(1, weight=1)  # szerokość kolumny 1
+        self.frame_id_name.rowconfigure(1, weight=1)
+        self.frame_id_name.columnconfigure(1, weight=1)
         self.frame_id_name.bind('<Button-1>', lambda e: self.scenario_clicked(e))
 
-        self.lbl_scenario_id = Label(self.frame_id_name, text=self.id + "    ")
-        self.lbl_scenario_id.grid(row=0, column=0, sticky=N + S)
-        self.lbl_scenario_id.bind('<Button-1>', lambda e: self.scenario_clicked(e))
+        # self.lbl_scenario_id = Label(self.frame_id_name, text=self.id + "    ")
+        # self.lbl_scenario_id.grid(row=0, column=0, sticky=N + S)
+        # self.lbl_scenario_id.bind('<Button-1>', lambda e: self.scenario_clicked(e))
         self.lbl_scenario_name = Label(self.frame_id_name, text=name, font=("Arial", 12))
         self.lbl_scenario_name.grid(row=0, column=1, sticky=N + S)
         self.lbl_scenario_name.bind('<Button-1>', lambda e: self.scenario_clicked(e))
@@ -115,7 +115,7 @@ class Scenario(LabelFrame):
 
         self.inp_step.delete(0, END)
         self.add_step_frame(step_text, [])
-        self.master.state.add_step(step_text)
+        self.master.state.add_step(step_text)  # TODO albo najpierw self.master.state.add_step a potem refresh
         # print(self.master.state.curr_uc,"\n",self.master.state.curr_uc_diagram,"\n",self.master.state.all_uc_diagrams)
 
     def add_step_frame(self, step_text, selected_words):
@@ -182,7 +182,7 @@ class StepWordButton(Button):
     def click_function(self):
         if self['bg'] == 'white':
             self['bg'] = 'yellow'
-            self.master.master.master.state.add_selected_word(self.master.id, self['text']) # self.master - Step, self.master.master - scenario, self.master.master.master - scenarios frame
+            self.master.master.master.state.add_selected_word(self.master.id, self['text']) # self.master - Step, self.master.master - Scenario, self.master.master.master - scenarios frame
         elif self['bg'] == 'yellow':
             self['bg'] = 'white'
             self.master.master.master.state.remove_selected_word(self.master.id, self['text'])
