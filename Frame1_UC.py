@@ -102,6 +102,8 @@ class FrameUC(LabelFrame):
         namespaces = {'xmi': 'http://www.omg.org/spec/XMI/20131001'}
         uc_xml_elems.extend(root.findall(".//packagedElement[@xmi:type='uml:UseCase']", namespaces))  # Papyrus
 
+        uc_xml_elems.extend(root.findall(".//UMLUseCase"))  # Sinvas
+
         # for elem in root:
         #     print(elem.tag, elem.attrib)
 
