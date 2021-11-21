@@ -99,7 +99,12 @@ class FrameUC(LabelFrame):
         uc_xml_elems.extend(root.findall(".//UseCase"))  # visual paradigm 'Xml_structure': 'simple'
         uc_xml_elems.extend(root.findall(".//Model[@modelType='UseCase']"))  # visual paradigm 'Xml_structure': 'traditional' (old)
 
-        # print("uc_xml_elems", uc_xml_elems)
+        namespaces = {'xmi': 'http://www.omg.org/spec/XMI/20131001'}
+        uc_xml_elems.extend(root.findall(".//packagedElement[@xmi:type='uml:UseCase']", namespaces))  # Papyrus
+
+        # for elem in root:
+        #     print(elem.tag, elem.attrib)
+
         use_cases = []
         for elem in uc_xml_elems:
             if 'Name' in elem.attrib:

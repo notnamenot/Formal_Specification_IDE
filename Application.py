@@ -33,5 +33,5 @@ class Application(Tk):
         self.frame3_flowchart.grid(row=0, column=2, sticky=N+S)
 
     def refresh_frames(self):
-        print("from refresh_frames\nall\n", self.state.all_uc_diagrams, "\ncurr\n", self.state.curr_uc_diagram)
+        # print("from refresh_frames\nall\n", self.state.all_uc_diagrams, "\ncurr\n", self.state.curr_uc_diagram)
         self.frame2_scenarios.refresh()

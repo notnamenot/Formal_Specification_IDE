@@ -48,7 +48,7 @@ class FrameScenarios(LabelFrame):
         return frame_scenario
 
     def refresh(self):
-        print("from refresh\nall\n", self.state.all_uc_diagrams, "\ncurr diag\n", self.state.curr_uc_diagram, "\ncurr uc\n", self.state.curr_uc)
+        # print("from refresh\nall\n", self.state.all_uc_diagrams, "\ncurr diag\n", self.state.curr_uc_diagram, "\ncurr uc\n", self.state.curr_uc)
         # 1. remove current scenarios
         for scenario in reversed(self.scenarios_frames):
             scenario.destroy()
