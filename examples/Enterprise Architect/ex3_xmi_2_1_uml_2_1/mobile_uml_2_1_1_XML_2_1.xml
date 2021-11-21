@@ -347,13 +347,13 @@
 				<matrixitems value="locked=false;matrixactive=false;swimlanesactive=true;kanbanactive=false;width=1;clrLine=0;"/>
 				<extendedProperties/>
 				<elements>
-					<element geometry="Left=251;Top=431;Right=356;Bottom=501;" subject="EAID_66F5EEF7_1D0B_4c43_9776_60981D501A24" seqno="1" style="DUID=FDD39EBF;"/>
-					<element geometry="Left=251;Top=319;Right=356;Bottom=389;" subject="EAID_8226AE51_E0BA_4018_A05A_34D9879434EB" seqno="2" style="DUID=0CB000D8;"/>
-					<element geometry="Left=426;Top=255;Right=531;Bottom=325;" subject="EAID_2D31AB2D_647E_4935_B2D5_25DAC9DDB61D" seqno="3" style="DUID=2E3F6B1A;"/>
-					<element geometry="Left=426;Top=151;Right=531;Bottom=221;" subject="EAID_86838CF8_CE96_4dfb_927E_6018E7D9511A" seqno="4" style="DUID=5B27366D;"/>
-					<element geometry="Left=252;Top=184;Right=357;Bottom=254;" subject="EAID_0B079583_47A0_4357_B56D_F585AF713E07" seqno="5" style="DUID=773C84EC;"/>
-					<element geometry="Left=150;Top=340;Right=195;Bottom=430;" subject="EAID_254A4F22_CCAF_424c_8F5D_00C68D35BDC8" seqno="6" style="DUID=62431AC4;"/>
-					<element geometry="Left=133;Top=174;Right=178;Bottom=264;" subject="EAID_314DD71A_9F51_4134_A046_2020DC130584" seqno="7" style="DUID=C2E86377;"/>
+					<element geometry="Left=251;Top=431;Right=356;Bottom=501;imgL=257;imgT=445;imgR=400;imgB=540;" subject="EAID_66F5EEF7_1D0B_4c43_9776_60981D501A24" seqno="1" style="DUID=FDD39EBF;"/>
+					<element geometry="Left=251;Top=319;Right=356;Bottom=389;imgL=257;imgT=292;imgR=400;imgB=388;" subject="EAID_8226AE51_E0BA_4018_A05A_34D9879434EB" seqno="2" style="DUID=0CB000D8;"/>
+					<element geometry="Left=426;Top=255;Right=531;Bottom=325;imgL=495;imgT=205;imgR=639;imgB=300;" subject="EAID_2D31AB2D_647E_4935_B2D5_25DAC9DDB61D" seqno="3" style="DUID=2E3F6B1A;"/>
+					<element geometry="Left=426;Top=151;Right=531;Bottom=221;imgL=495;imgT=63;imgR=639;imgB=158;" subject="EAID_86838CF8_CE96_4dfb_927E_6018E7D9511A" seqno="4" style="DUID=5B27366D;"/>
+					<element geometry="Left=252;Top=184;Right=357;Bottom=254;imgL=258;imgT=108;imgR=401;imgB=203;" subject="EAID_0B079583_47A0_4357_B56D_F585AF713E07" seqno="5" style="DUID=773C84EC;"/>
+					<element geometry="Left=150;Top=340;Right=195;Bottom=430;imgL=119;imgT=321;imgR=180;imgB=443;" subject="EAID_254A4F22_CCAF_424c_8F5D_00C68D35BDC8" seqno="6" style="DUID=62431AC4;"/>
+					<element geometry="Left=133;Top=174;Right=178;Bottom=264;imgL=95;imgT=94;imgR=157;imgB=217;" subject="EAID_314DD71A_9F51_4134_A046_2020DC130584" seqno="7" style="DUID=C2E86377;"/>
 					<element geometry="SX=0;SY=0;EX=0;EY=0;EDGE=4;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;Path=;" subject="EAID_88CFDBC6_D05F_4df9_AE16_1F13937E1EFE" style="Mode=3;EOID=773C84EC;SOID=5B27366D;Color=-1;LWidth=0;Hidden=0;"/>
 					<element geometry="SX=0;SY=0;EX=0;EY=0;EDGE=4;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;Path=;" subject="EAID_9DFB15E7_510F_4347_BB4C_8D9DD75987F6" style="Mode=3;EOID=773C84EC;SOID=2E3F6B1A;Color=-1;LWidth=0;Hidden=0;"/>
 					<element geometry="SX=0;SY=0;EX=0;EY=0;EDGE=4;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;Path=;" subject="EAID_AC98345C_3C5C_4637_9AD4_768AA51A174C" style="Mode=3;EOID=62431AC4;SOID=0CB000D8;Color=-1;LWidth=0;Hidden=0;"/>

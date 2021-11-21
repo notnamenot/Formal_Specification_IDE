@@ -108,23 +108,26 @@ class FrameUC(LabelFrame):
         namespaces = {'xsi': 'http://www.w3.org/2001/XMLSchema-instance'}
         uc_xml_elems.extend(root.findall(".//packagedElement[@xsi:type='uml:UseCase']", namespaces))  # GenMyModel
 
+        uc_xml_elems.extend(root.findall(".//Behavioral_Elements.Use_Cases.UseCase/Foundation.Core.ModelElement.name")) # EnterpriseArchitect XMI 1.0 UML 1.3
         namespaces = {'UML': 'omg.org/UML1.3'}
-        uc_xml_elems.extend(root.findall(".//UML:UseCase", namespaces))  # EnterpriseArchitect xml 1.1
-
+        uc_xml_elems.extend(root.findall(".//UML:UseCase", namespaces))  # EnterpriseArchitect XMI 1.1 UML 1.3
+        namespaces = {'UML': 'org.omg.xmi.namespace.UML'}
+        uc_xml_elems.extend(root.findall(".//UML:UseCase", namespaces))  # EnterpriseArchitect XMI 1.2 UML 1.4
         namespaces = {'xmi': 'http://schema.omg.org/spec/XMI/2.1'}
-        uc_xml_elems.extend(root.findall(".//packagedElement[@xmi:type='uml:UseCase']", namespaces))  # EnterpriseArchitect xml 2.1
-
-
+        uc_xml_elems.extend(root.findall(".//packagedElement[@xmi:type='uml:UseCase']", namespaces))  # EnterpriseArchitect xmi 2.1 <= 2.5.1, uml 2.1 <= 2.5.1
 
         # for elem in root:
         #     print(elem.tag, elem.attrib)
 
         use_cases = []
         for elem in uc_xml_elems:
+            # print(elem.tag, elem.attrib, elem.text)
             if 'Name' in elem.attrib:
                 use_cases.append(elem.attrib['Name'])
             if 'name' in elem.attrib:
                 use_cases.append(elem.attrib['name'])
+            if elem.tag == 'Foundation.Core.ModelElement.name':
+                use_cases.append(elem.text)
 
         use_cases = list(set(use_cases))  # remove duplicates
 

@@ -1,0 +1,1455 @@
+<?xml version="1.0" encoding="windows-1252"?>
+<XMI xmi.version="1.2" xmlns:UML="org.omg.xmi.namespace.UML" timestamp="2021-11-22 00:28:35">
+	<XMI.header>
+		<XMI.documentation>
+			<XMI.exporter>Enterprise Architect</XMI.exporter>
+			<XMI.exporterVersion>4.1</XMI.exporterVersion>
+		</XMI.documentation>
+		<XMI.metamodel XMI.name="UML" XMI.version="1.4"/>
+	</XMI.header>
+	<XMI.content>
+		<UML:Model name="Package1" xmi.id="MX_EAID_A6C4D6BB_B917_49e0_BE17_F6D3C6E6DAA9" isRoot="true" isLeaf="false" isAbstract="false" isSpecification="false" visibility="public">
+			<UML:Namespace.ownedElement>
+				<UML:TagDefinition xmi.id="EAID_B0534EDE_6490_4003_982A_3468E5D42EBC" name="parent" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_7EED8757_660C_4236_9DDD_BF65974BFC9A" name="created" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_927B9F2B_2906_4c66_9CFC_83DC7088BD81" name="modified" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_54B2B028_8C92_4728_84BC_180E8F724334" name="iscontrolled" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_09F854B7_12E1_4fa8_81E2_D14E647F244F" name="version" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_6B280D4A_6BCA_41fa_8EA6_AEF6986F9CAB" name="isprotected" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_0B243D02_E327_46cc_A497_43191A2A9A5B" name="usedtd" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_EB99ED11_A32C_4e7e_AE10_B27911B35B73" name="logxml" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_B280D24C_C5F5_4e7a_AF55_9DF0F28AC817" name="packageFlags" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_A2B24608_36B8_4b3c_981D_37EA7C3D0929" name="phase" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_674E1BD8_6713_418e_9175_49675BFE307A" name="status" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_AE50382D_3D13_4abc_AED0_132ADE90EFA5" name="author" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_9321D2FB_9A38_4788_9626_D6D69B5CAC43" name="complexity" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_9FF2D834_B751_49cf_9B52_2E23514FE68E" name="ea_stype" isSpecification="false" tagType="String"/>
+				<UML:UseCase name="Request a mobile device" xmi.id="EAID_0B079583_47A0_4357_B56D_F585AF713E07" visibility="public" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+					<UML:ModelElement.taggedValue>
+						<UML:TaggedValue xmi.id="EAID_91CD5256_CC24_434c_A396_F63E90C65E80" isSpecification="false">
+							<UML:TaggedValue.dataValue>ninja</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_AE50382D_3D13_4abc_AED0_132ADE90EFA5"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_B4D220AA_61FE_444f_AD29_5BEC74DE443E" isSpecification="false">
+							<UML:TaggedValue.dataValue>1.0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_09F854B7_12E1_4fa8_81E2_D14E647F244F"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_00668B5F_CAB1_402e_980C_11F3D2C7639A" isSpecification="false">
+							<UML:TaggedValue.dataValue>1</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_9321D2FB_9A38_4788_9626_D6D69B5CAC43"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_B4116EE1_5EB6_476a_9F0F_5F8E63F2C813" isSpecification="false">
+							<UML:TaggedValue.dataValue>2021-11-21 23:41:47</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_8924E26C_0328_48a4_9D4B_3424491B8118"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_4AD0BEE7_C8C5_43ac_9A80_7CEC17ED936E" isSpecification="false">
+							<UML:TaggedValue.dataValue>2021-11-21 23:42:05</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_ED5EB09A_31C0_42e1_9E85_14230B849E7B"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_EAABD4AA_60B0_49b3_A7EE_A371A61B1128" isSpecification="false">
+							<UML:TaggedValue.dataValue>Proposed</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_674E1BD8_6713_418e_9175_49675BFE307A"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_C0BCF60D_5C1E_41f4_861F_1BDF7309D1D8" isSpecification="false">
+							<UML:TaggedValue.dataValue>&lt;none&gt;</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_4FC42C03_B7EC_47a0_9E77_A0E5A3423E08"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_2EC786F5_9A12_4cab_8AE8_E2AEB20602E4" isSpecification="false">
+							<UML:TaggedValue.dataValue>1.0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_A2B24608_36B8_4b3c_981D_37EA7C3D0929"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_D49C98F1_C7EB_4b4f_B5CC_E230B65D7733" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_A217AFCD_09F9_4e2b_8B28_7067E115892F"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_12CB64B8_AE8B_4ba5_AF7B_1FF5BB337C5E" isSpecification="false">
+							<UML:TaggedValue.dataValue>Package1</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_690B1101_87E3_4789_ACA4_866B0D30DB76"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_02F30853_7C13_4de4_9745_C6428C542869" isSpecification="false">
+							<UML:TaggedValue.dataValue>1</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_9321D2FB_9A38_4788_9626_D6D69B5CAC43"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_E3DF1A2B_6E2F_4be6_88B7_BA12A7DA00D1" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_76503E65_B22B_47d1_8653_6CB6D08CC93B"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_4D4EBD71_37C7_41bf_897A_0EBE43C08DC8" isSpecification="false">
+							<UML:TaggedValue.dataValue>BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_F5224412_2B8B_4645_B8E6_5268992C0810"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+					</UML:ModelElement.taggedValue>
+				</UML:UseCase>
+				<UML:TagDefinition xmi.id="EAID_8924E26C_0328_48a4_9D4B_3424491B8118" name="date_created" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_ED5EB09A_31C0_42e1_9E85_14230B849E7B" name="date_modified" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_4FC42C03_B7EC_47a0_9E77_A0E5A3423E08" name="gentype" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_A217AFCD_09F9_4e2b_8B28_7067E115892F" name="tagged" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_690B1101_87E3_4789_ACA4_866B0D30DB76" name="package_name" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_76503E65_B22B_47d1_8653_6CB6D08CC93B" name="tpos" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_F5224412_2B8B_4645_B8E6_5268992C0810" name="style" isSpecification="false" tagType="String"/>
+				<UML:Association xmi.id="EAID_1D92DEB2_FDB3_42eb_9C1B_2EC1D494DD37" visibility="public" isRoot="false" isLeaf="false" isAbstract="false">
+					<UML:ModelElement.taggedValue>
+						<UML:TaggedValue xmi.id="EAID_3BE1049A_C89D_44b0_BEFC_466F0275A661" isSpecification="false">
+							<UML:TaggedValue.dataValue>3</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_F5224412_2B8B_4645_B8E6_5268992C0810"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_97926DC3_D6D3_4bc0_904B_DB92D500410E" isSpecification="false">
+							<UML:TaggedValue.dataValue>Association</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_97957D13_2205_4701_B48E_7E697DEB3B4F"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_3DBA2A46_A605_4163_9109_CDB3C5987D10" isSpecification="false">
+							<UML:TaggedValue.dataValue>Unspecified</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_381EF84F_018C_48af_B3F2_7C6D5ACBF7DE"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_30D781B6_6637_4652_ABB6_35FD20DA85EC" isSpecification="false">
+							<UML:TaggedValue.dataValue>3</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_02312C25_8480_462e_B496_A309A0528246"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_4ACDB4E0_C264_49bc_BBD2_2C43FE6EE2B7" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_63EC627B_10C5_4ad4_9ACB_16F15D134E95"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_E796AAE2_3CBE_49b7_A12B_3245B6F365C5" isSpecification="false">
+							<UML:TaggedValue.dataValue>LFSP=L;</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_714502A4_56D4_4214_B896_D176722C6AAC"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_DD9AEC86_A1F2_4fea_98B0_FFD33CACA3D1" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_07421B6C_BB4A_4cb8_88A6_DEFE42339F33"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_61BF5D28_13D9_4bb4_976A_C76ED0C26281" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_E664FF98_8824_4538_87ED_4F1AB1BE3B79"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_988C61A1_4837_4e9e_9315_669D8E7921E2" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_5EC4553B_D043_4113_A102_CE79A52ECAF6"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+					</UML:ModelElement.taggedValue>
+					<UML:Association.connection>
+						<UML:AssociationEnd visibility="public" aggregation="none" isOrdered="false" targetScope="instance" changeable="none" isNavigable="true" type="EAID_0B079583_47A0_4357_B56D_F585AF713E07">
+							<UML:AssociationEnd.multiplicity>
+								<UML:Multiplicity>
+									<UML:Multiplicity.range>
+										<UML:MultiplicityRange lower="0" upper="-1"/>
+									</UML:Multiplicity.range>
+								</UML:Multiplicity>
+							</UML:AssociationEnd.multiplicity>
+							<UML:AssociationEnd.participant>
+								<UML:UseCase xmi.idref="EAID_0B079583_47A0_4357_B56D_F585AF713E07"/>
+							</UML:AssociationEnd.participant>
+							<UML:ModelElement.taggedValue>
+								<UML:TaggedValue xmi.id="EAID_729FA764_9C8C_4904_9E07_8EAE8EDAF3C0" isSpecification="false">
+									<UML:TaggedValue.dataValue>Unspecified</UML:TaggedValue.dataValue>
+									<UML:TaggedValue.type>
+										<UML:TagDefinition xmi.idref="EAID_D16C4C1E_1CD1_4708_A27F_3C1F04C76EB6"/>
+									</UML:TaggedValue.type>
+								</UML:TaggedValue>
+								<UML:TaggedValue xmi.id="EAID_D05542D9_BF1F_43f9_9B19_AAE038FE5B70" isSpecification="false">
+									<UML:TaggedValue.dataValue>Union=0;Derived=0;AllowDuplicates=0;Owned=0;Navigable=Unspecified;</UML:TaggedValue.dataValue>
+									<UML:TaggedValue.type>
+										<UML:TagDefinition xmi.idref="EAID_D5348806_CFB4_48a1_9440_4744470A8901"/>
+									</UML:TaggedValue.type>
+								</UML:TaggedValue>
+							</UML:ModelElement.taggedValue>
+						</UML:AssociationEnd>
+						<UML:AssociationEnd visibility="public" aggregation="none" isOrdered="false" targetScope="instance" changeable="none" isNavigable="true" type="EAID_314DD71A_9F51_4134_A046_2020DC130584">
+							<UML:AssociationEnd.multiplicity>
+								<UML:Multiplicity>
+									<UML:Multiplicity.range>
+										<UML:MultiplicityRange lower="0" upper="-1"/>
+									</UML:Multiplicity.range>
+								</UML:Multiplicity>
+							</UML:AssociationEnd.multiplicity>
+							<UML:AssociationEnd.participant>
+								<UML:Actor xmi.idref="EAID_314DD71A_9F51_4134_A046_2020DC130584"/>
+							</UML:AssociationEnd.participant>
+							<UML:ModelElement.taggedValue>
+								<UML:TaggedValue xmi.id="EAID_A506EB58_0814_417f_AC5A_B97BD7CB8996" isSpecification="false">
+									<UML:TaggedValue.dataValue>Unspecified</UML:TaggedValue.dataValue>
+									<UML:TaggedValue.type>
+										<UML:TagDefinition xmi.idref="EAID_D16C4C1E_1CD1_4708_A27F_3C1F04C76EB6"/>
+									</UML:TaggedValue.type>
+								</UML:TaggedValue>
+								<UML:TaggedValue xmi.id="EAID_E5D7574D_1371_4cbf_AB42_AC256820909B" isSpecification="false">
+									<UML:TaggedValue.dataValue>Union=0;Derived=0;AllowDuplicates=0;Owned=0;Navigable=Unspecified;</UML:TaggedValue.dataValue>
+									<UML:TaggedValue.type>
+										<UML:TagDefinition xmi.idref="EAID_97900E50_3BC4_40f7_A970_31D1A943E7B9"/>
+									</UML:TaggedValue.type>
+								</UML:TaggedValue>
+							</UML:ModelElement.taggedValue>
+						</UML:AssociationEnd>
+					</UML:Association.connection>
+				</UML:Association>
+				<UML:TagDefinition xmi.id="EAID_97957D13_2205_4701_B48E_7E697DEB3B4F" name="ea_type" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_381EF84F_018C_48af_B3F2_7C6D5ACBF7DE" name="direction" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_02312C25_8480_462e_B496_A309A0528246" name="linemode" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_63EC627B_10C5_4ad4_9ACB_16F15D134E95" name="seqno" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_714502A4_56D4_4214_B896_D176722C6AAC" name="styleex" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_07421B6C_BB4A_4cb8_88A6_DEFE42339F33" name="headStyle" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_E664FF98_8824_4538_87ED_4F1AB1BE3B79" name="lineStyle" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_5EC4553B_D043_4113_A102_CE79A52ECAF6" name="virtualInheritance" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_D16C4C1E_1CD1_4708_A27F_3C1F04C76EB6" name="containment" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_D5348806_CFB4_48a1_9440_4744470A8901" name="sourcestyle" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_97900E50_3BC4_40f7_A970_31D1A943E7B9" name="deststyle" isSpecification="false" tagType="String"/>
+				<UML:Generalization xmi.id="EAID_88CFDBC6_D05F_4df9_AE16_1F13937E1EFE" isSpecification="false">
+					<UML:Generalization.child>
+						<UML:UseCase xmi.idref="EAID_86838CF8_CE96_4dfb_927E_6018E7D9511A"/>
+					</UML:Generalization.child>
+					<UML:Generalization.parent>
+						<UML:UseCase xmi.idref="EAID_0B079583_47A0_4357_B56D_F585AF713E07"/>
+					</UML:Generalization.parent>
+					<UML:ModelElement.taggedValue>
+						<UML:TaggedValue xmi.id="EAID_B1A71B6D_EF8E_4865_8077_F0375AE629EA" isSpecification="false">
+							<UML:TaggedValue.dataValue>3</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_F5224412_2B8B_4645_B8E6_5268992C0810"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_C1A27F38_038E_4fb7_9CE7_E7194A7715DE" isSpecification="false">
+							<UML:TaggedValue.dataValue>Generalization</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_97957D13_2205_4701_B48E_7E697DEB3B4F"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_86A61683_819C_49dc_B772_26B32C8BD8AF" isSpecification="false">
+							<UML:TaggedValue.dataValue>Source -&gt; Destination</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_381EF84F_018C_48af_B3F2_7C6D5ACBF7DE"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_121B1938_5D0F_4a0a_8799_F8BDDFA8B73B" isSpecification="false">
+							<UML:TaggedValue.dataValue>3</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_02312C25_8480_462e_B496_A309A0528246"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_69E89404_93EC_474c_8C48_7C48CC082919" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_63EC627B_10C5_4ad4_9ACB_16F15D134E95"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_FABA42B0_A372_4b98_A857_D6527DC0F50A" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_07421B6C_BB4A_4cb8_88A6_DEFE42339F33"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_EB9EC65C_C011_476f_984F_4A3E971D31EC" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_E664FF98_8824_4538_87ED_4F1AB1BE3B79"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_A61F6338_30BE_4d35_A57D_FFCD85183873" isSpecification="false">
+							<UML:TaggedValue.dataValue>Public</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_772BCC32_EC7F_4225_89CD_1EC54DDD50B5"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_58203FFC_A275_425d_B031_0F52981B7009" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_3ABDE7DC_B40F_4755_8E2E_23120E1D6825"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_D98DF615_602A_4c63_BA9C_4D41465C3F72" isSpecification="false">
+							<UML:TaggedValue.dataValue>false</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_20E9B39F_08FA_4985_96ED_4AFE0FB8E709"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_F5B45496_9E36_4512_AF9A_7C0A00E54351" isSpecification="false">
+							<UML:TaggedValue.dataValue>instance</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_61896BB4_AC66_48ca_94E2_37B9B67BF9EC"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_2B75D549_CFBE_42a6_B265_35E8A68648F9" isSpecification="false">
+							<UML:TaggedValue.dataValue>none</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_16C8E37E_4B72_4850_B66E_1D366E7B584A"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_23F90F05_5889_4162_9F08_91348117691B" isSpecification="false">
+							<UML:TaggedValue.dataValue>false</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_BFC8399D_4839_4b47_A5A8_0A8972861E60"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_031A4027_F53A_487c_8A64_31163C7F1934" isSpecification="false">
+							<UML:TaggedValue.dataValue>Unspecified</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_7426FAF9_7EC2_4fc1_AB67_3CA99CFE89B0"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_D7FC9303_FEDA_46e1_A819_8F9B50D99A86" isSpecification="false">
+							<UML:TaggedValue.dataValue>Union=0;Derived=0;AllowDuplicates=0;</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_68ADB3BC_2338_4da1_A5FC_F8590B9CD6F2"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_6489B00D_3ABF_4699_AC2D_9078A10519CB" isSpecification="false">
+							<UML:TaggedValue.dataValue>Public</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_65062C12_89B9_4c96_9A6A_D766ED65675D"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_EA7E85B5_35A2_4a9a_876D_6B69961B94B0" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_638BC4A5_14CC_46b4_B1E7_D2D379E2BC38"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_FD1B9875_90E4_4272_ADC2_C9CB30189826" isSpecification="false">
+							<UML:TaggedValue.dataValue>false</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_4BBB428F_595A_4a9d_B220_C367343866D5"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_AF3C5412_C8E9_4781_A8F6_7C06750ECDDB" isSpecification="false">
+							<UML:TaggedValue.dataValue>instance</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_20B91488_BCA1_424a_80B0_EC317CA8C3F9"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_1F424590_84C0_4fe6_A41F_523435AB4152" isSpecification="false">
+							<UML:TaggedValue.dataValue>none</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_AF2E0CCB_C50E_4ebb_8ED1_138EE9963F98"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_43F36B7E_D425_438f_B41F_2EAD78F95CDD" isSpecification="false">
+							<UML:TaggedValue.dataValue>true</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_71D341F2_3A0C_43ec_BCA8_24BFD62E2BD6"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_6F6B20C7_E7F5_455c_8532_78A081D83952" isSpecification="false">
+							<UML:TaggedValue.dataValue>Unspecified</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_08A23FA8_84E6_4aca_9EA4_CE173041E8F6"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_EA983373_BA41_4985_AC7E_ED3B12A6F6E2" isSpecification="false">
+							<UML:TaggedValue.dataValue>Union=0;Derived=0;AllowDuplicates=0;</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_4116016F_0D2C_4cae_A7CC_EEAA9D2F9D68"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_F8FF5528_4319_431e_9E1E_95992D4FF99E" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_5EC4553B_D043_4113_A102_CE79A52ECAF6"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+					</UML:ModelElement.taggedValue>
+				</UML:Generalization>
+				<UML:TagDefinition xmi.id="EAID_772BCC32_EC7F_4225_89CD_1EC54DDD50B5" name="src_visibility" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_3ABDE7DC_B40F_4755_8E2E_23120E1D6825" name="src_aggregation" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_20E9B39F_08FA_4985_96ED_4AFE0FB8E709" name="src_isOrdered" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_61896BB4_AC66_48ca_94E2_37B9B67BF9EC" name="src_targetScope" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_16C8E37E_4B72_4850_B66E_1D366E7B584A" name="src_changeable" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_BFC8399D_4839_4b47_A5A8_0A8972861E60" name="src_isNavigable" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_7426FAF9_7EC2_4fc1_AB67_3CA99CFE89B0" name="src_containment" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_68ADB3BC_2338_4da1_A5FC_F8590B9CD6F2" name="src_style" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_65062C12_89B9_4c96_9A6A_D766ED65675D" name="dst_visibility" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_638BC4A5_14CC_46b4_B1E7_D2D379E2BC38" name="dst_aggregation" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_4BBB428F_595A_4a9d_B220_C367343866D5" name="dst_isOrdered" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_20B91488_BCA1_424a_80B0_EC317CA8C3F9" name="dst_targetScope" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_AF2E0CCB_C50E_4ebb_8ED1_138EE9963F98" name="dst_changeable" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_71D341F2_3A0C_43ec_BCA8_24BFD62E2BD6" name="dst_isNavigable" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_08A23FA8_84E6_4aca_9EA4_CE173041E8F6" name="dst_containment" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_4116016F_0D2C_4cae_A7CC_EEAA9D2F9D68" name="dst_style" isSpecification="false" tagType="String"/>
+				<UML:Generalization xmi.id="EAID_9DFB15E7_510F_4347_BB4C_8D9DD75987F6" isSpecification="false">
+					<UML:Generalization.child>
+						<UML:UseCase xmi.idref="EAID_2D31AB2D_647E_4935_B2D5_25DAC9DDB61D"/>
+					</UML:Generalization.child>
+					<UML:Generalization.parent>
+						<UML:UseCase xmi.idref="EAID_0B079583_47A0_4357_B56D_F585AF713E07"/>
+					</UML:Generalization.parent>
+					<UML:ModelElement.taggedValue>
+						<UML:TaggedValue xmi.id="EAID_6FB36AF3_8993_4c34_BE98_E57345B58CFF" isSpecification="false">
+							<UML:TaggedValue.dataValue>3</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_F5224412_2B8B_4645_B8E6_5268992C0810"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_2D671346_AFC7_4f9f_8CD4_E7F3F93AAD71" isSpecification="false">
+							<UML:TaggedValue.dataValue>Generalization</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_97957D13_2205_4701_B48E_7E697DEB3B4F"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_B579D438_4EAF_414c_AD54_958F546EC451" isSpecification="false">
+							<UML:TaggedValue.dataValue>Source -&gt; Destination</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_381EF84F_018C_48af_B3F2_7C6D5ACBF7DE"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_1ECC4FC8_E358_4880_8F73_2A34194AF5E7" isSpecification="false">
+							<UML:TaggedValue.dataValue>3</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_02312C25_8480_462e_B496_A309A0528246"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_6E265A60_46E0_4b60_A3A3_FC227088DA66" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_63EC627B_10C5_4ad4_9ACB_16F15D134E95"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_18FBACA7_AD97_4f66_A638_65AA2D0FB3F1" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_07421B6C_BB4A_4cb8_88A6_DEFE42339F33"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_451EA7A5_99B5_45a0_852F_8652D4D78FB7" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_E664FF98_8824_4538_87ED_4F1AB1BE3B79"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_00B2EEAD_40CB_4034_8142_362CAAAE079D" isSpecification="false">
+							<UML:TaggedValue.dataValue>Public</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_772BCC32_EC7F_4225_89CD_1EC54DDD50B5"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_637160D4_0443_442b_B415_12355DFFED23" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_3ABDE7DC_B40F_4755_8E2E_23120E1D6825"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_8ED82FF7_4229_4d46_995B_8CB545DF109E" isSpecification="false">
+							<UML:TaggedValue.dataValue>false</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_20E9B39F_08FA_4985_96ED_4AFE0FB8E709"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_38DEA9F0_F67B_44df_BCD7_DA246F6C2E5A" isSpecification="false">
+							<UML:TaggedValue.dataValue>instance</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_61896BB4_AC66_48ca_94E2_37B9B67BF9EC"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_D4E9546D_A893_44ea_84F9_CA682472411A" isSpecification="false">
+							<UML:TaggedValue.dataValue>none</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_16C8E37E_4B72_4850_B66E_1D366E7B584A"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_EF3C683B_4E78_4990_8C50_7BD10BCEC1E1" isSpecification="false">
+							<UML:TaggedValue.dataValue>false</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_BFC8399D_4839_4b47_A5A8_0A8972861E60"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_072B0776_E893_45ce_98CE_6A3BA76A7630" isSpecification="false">
+							<UML:TaggedValue.dataValue>Unspecified</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_7426FAF9_7EC2_4fc1_AB67_3CA99CFE89B0"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_68719D63_36FC_4933_A3C8_B5FB61033DE0" isSpecification="false">
+							<UML:TaggedValue.dataValue>Union=0;Derived=0;AllowDuplicates=0;</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_68ADB3BC_2338_4da1_A5FC_F8590B9CD6F2"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_AEF57F9E_8D86_47b3_8580_0923C14ABA0E" isSpecification="false">
+							<UML:TaggedValue.dataValue>Public</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_65062C12_89B9_4c96_9A6A_D766ED65675D"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_02651606_0FA2_43d9_937C_3647AB91B2EA" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_638BC4A5_14CC_46b4_B1E7_D2D379E2BC38"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_4EAAEDC6_7BCE_4de2_9F99_7F7638B302B2" isSpecification="false">
+							<UML:TaggedValue.dataValue>false</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_4BBB428F_595A_4a9d_B220_C367343866D5"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_7A9A6C8E_A02B_47e3_A34C_ED276E6E8E23" isSpecification="false">
+							<UML:TaggedValue.dataValue>instance</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_20B91488_BCA1_424a_80B0_EC317CA8C3F9"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_F1481ECC_A679_4d4d_9C04_C017EB4D6E10" isSpecification="false">
+							<UML:TaggedValue.dataValue>none</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_AF2E0CCB_C50E_4ebb_8ED1_138EE9963F98"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_EF85DA67_476C_4827_9CF0_BFBDFA64E20F" isSpecification="false">
+							<UML:TaggedValue.dataValue>true</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_71D341F2_3A0C_43ec_BCA8_24BFD62E2BD6"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_CB3D72F4_47A6_4541_B2E5_05FE94C78B61" isSpecification="false">
+							<UML:TaggedValue.dataValue>Unspecified</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_08A23FA8_84E6_4aca_9EA4_CE173041E8F6"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_5826BF67_AA45_4bf1_BAF6_79E2CDC65EE5" isSpecification="false">
+							<UML:TaggedValue.dataValue>Union=0;Derived=0;AllowDuplicates=0;</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_4116016F_0D2C_4cae_A7CC_EEAA9D2F9D68"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_785A5561_2545_4047_A352_87C7D94D2078" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_5EC4553B_D043_4113_A102_CE79A52ECAF6"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+					</UML:ModelElement.taggedValue>
+				</UML:Generalization>
+				<UML:Actor name="Manager" xmi.id="EAID_254A4F22_CCAF_424c_8F5D_00C68D35BDC8" visibility="public" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+					<UML:ModelElement.taggedValue>
+						<UML:TaggedValue xmi.id="EAID_794185A6_07BF_4ecc_8A7B_9209BDB7A8D8" isSpecification="false">
+							<UML:TaggedValue.dataValue>ninja</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_AE50382D_3D13_4abc_AED0_132ADE90EFA5"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_636B2D18_FA2E_4403_A66E_D028D496B59E" isSpecification="false">
+							<UML:TaggedValue.dataValue>1.0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_09F854B7_12E1_4fa8_81E2_D14E647F244F"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_FBD25459_4021_4a40_96E6_793F9E351858" isSpecification="false">
+							<UML:TaggedValue.dataValue>1</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_9321D2FB_9A38_4788_9626_D6D69B5CAC43"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_264AD275_9987_4b76_ADC2_6050FFE47B9A" isSpecification="false">
+							<UML:TaggedValue.dataValue>2021-11-21 23:41:20</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_8924E26C_0328_48a4_9D4B_3424491B8118"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_CDC9EFA1_A3D1_41a8_AF64_83FFE3B636DA" isSpecification="false">
+							<UML:TaggedValue.dataValue>2021-11-21 23:41:24</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_ED5EB09A_31C0_42e1_9E85_14230B849E7B"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_DE621286_09AF_459b_9208_4EA0FA647A61" isSpecification="false">
+							<UML:TaggedValue.dataValue>Proposed</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_674E1BD8_6713_418e_9175_49675BFE307A"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_FC989263_B846_4720_892F_2E6B23CFFC9A" isSpecification="false">
+							<UML:TaggedValue.dataValue>&lt;none&gt;</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_4FC42C03_B7EC_47a0_9E77_A0E5A3423E08"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_0E9ABE69_9725_4822_8E49_E81AE4C55739" isSpecification="false">
+							<UML:TaggedValue.dataValue>1.0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_A2B24608_36B8_4b3c_981D_37EA7C3D0929"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_BC400548_2955_4787_9F1B_D78FD793C10C" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_A217AFCD_09F9_4e2b_8B28_7067E115892F"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_45993511_7576_4cc4_A61C_4FB3530EE03F" isSpecification="false">
+							<UML:TaggedValue.dataValue>Package1</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_690B1101_87E3_4789_ACA4_866B0D30DB76"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_32A56BB2_225F_4c6a_B7EF_95ECFFDB5B23" isSpecification="false">
+							<UML:TaggedValue.dataValue>1</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_9321D2FB_9A38_4788_9626_D6D69B5CAC43"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_DCBB1AB3_8688_4f1b_AECA_E629B95462A9" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_76503E65_B22B_47d1_8653_6CB6D08CC93B"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_98CF54DE_9A51_49a7_9F64_7BA1ECC44E7C" isSpecification="false">
+							<UML:TaggedValue.dataValue>BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_F5224412_2B8B_4645_B8E6_5268992C0810"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+					</UML:ModelElement.taggedValue>
+				</UML:Actor>
+				<UML:Association xmi.id="EAID_350D2631_41BA_45c3_855D_79CE11B2896F" visibility="public" isRoot="false" isLeaf="false" isAbstract="false">
+					<UML:ModelElement.taggedValue>
+						<UML:TaggedValue xmi.id="EAID_1251923B_5A0A_42c6_9BB6_F99855F56805" isSpecification="false">
+							<UML:TaggedValue.dataValue>3</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_F5224412_2B8B_4645_B8E6_5268992C0810"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_17BB0CE3_3525_4a34_B244_4A25CAFE0462" isSpecification="false">
+							<UML:TaggedValue.dataValue>Association</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_97957D13_2205_4701_B48E_7E697DEB3B4F"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_82A53D96_D3D5_469d_AA7D_1125FDB324DD" isSpecification="false">
+							<UML:TaggedValue.dataValue>Unspecified</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_381EF84F_018C_48af_B3F2_7C6D5ACBF7DE"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_81A49E8E_648D_40d0_A3D8_439209B19632" isSpecification="false">
+							<UML:TaggedValue.dataValue>3</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_02312C25_8480_462e_B496_A309A0528246"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_A58EA016_193A_4e12_A583_984063983B29" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_63EC627B_10C5_4ad4_9ACB_16F15D134E95"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_F258A05E_75BF_486e_934F_2D2E23F73FC1" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_07421B6C_BB4A_4cb8_88A6_DEFE42339F33"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_201A054F_BAC7_4416_A2A9_E71B0500F670" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_E664FF98_8824_4538_87ED_4F1AB1BE3B79"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_69EA2A10_C5BE_4034_9809_A8B21CB6556D" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_5EC4553B_D043_4113_A102_CE79A52ECAF6"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+					</UML:ModelElement.taggedValue>
+					<UML:Association.connection>
+						<UML:AssociationEnd visibility="public" aggregation="none" isOrdered="false" targetScope="instance" changeable="none" isNavigable="true" type="EAID_66F5EEF7_1D0B_4c43_9776_60981D501A24">
+							<UML:AssociationEnd.multiplicity>
+								<UML:Multiplicity>
+									<UML:Multiplicity.range>
+										<UML:MultiplicityRange lower="0" upper="-1"/>
+									</UML:Multiplicity.range>
+								</UML:Multiplicity>
+							</UML:AssociationEnd.multiplicity>
+							<UML:AssociationEnd.participant>
+								<UML:UseCase xmi.idref="EAID_66F5EEF7_1D0B_4c43_9776_60981D501A24"/>
+							</UML:AssociationEnd.participant>
+							<UML:ModelElement.taggedValue>
+								<UML:TaggedValue xmi.id="EAID_0797EB3A_2E58_4834_9DA3_815CDA86DD24" isSpecification="false">
+									<UML:TaggedValue.dataValue>Unspecified</UML:TaggedValue.dataValue>
+									<UML:TaggedValue.type>
+										<UML:TagDefinition xmi.idref="EAID_D16C4C1E_1CD1_4708_A27F_3C1F04C76EB6"/>
+									</UML:TaggedValue.type>
+								</UML:TaggedValue>
+								<UML:TaggedValue xmi.id="EAID_4325E0D1_98BA_4763_84C0_23CF64BA6BAF" isSpecification="false">
+									<UML:TaggedValue.dataValue>Union=0;Derived=0;AllowDuplicates=0;Owned=0;Navigable=Unspecified;</UML:TaggedValue.dataValue>
+									<UML:TaggedValue.type>
+										<UML:TagDefinition xmi.idref="EAID_D5348806_CFB4_48a1_9440_4744470A8901"/>
+									</UML:TaggedValue.type>
+								</UML:TaggedValue>
+							</UML:ModelElement.taggedValue>
+						</UML:AssociationEnd>
+						<UML:AssociationEnd visibility="public" aggregation="none" isOrdered="false" targetScope="instance" changeable="none" isNavigable="true" type="EAID_254A4F22_CCAF_424c_8F5D_00C68D35BDC8">
+							<UML:AssociationEnd.multiplicity>
+								<UML:Multiplicity>
+									<UML:Multiplicity.range>
+										<UML:MultiplicityRange lower="0" upper="-1"/>
+									</UML:Multiplicity.range>
+								</UML:Multiplicity>
+							</UML:AssociationEnd.multiplicity>
+							<UML:AssociationEnd.participant>
+								<UML:Actor xmi.idref="EAID_254A4F22_CCAF_424c_8F5D_00C68D35BDC8"/>
+							</UML:AssociationEnd.participant>
+							<UML:ModelElement.taggedValue>
+								<UML:TaggedValue xmi.id="EAID_7BF34965_B8A9_4676_A0AB_A4F1F4E8F4B0" isSpecification="false">
+									<UML:TaggedValue.dataValue>Unspecified</UML:TaggedValue.dataValue>
+									<UML:TaggedValue.type>
+										<UML:TagDefinition xmi.idref="EAID_D16C4C1E_1CD1_4708_A27F_3C1F04C76EB6"/>
+									</UML:TaggedValue.type>
+								</UML:TaggedValue>
+								<UML:TaggedValue xmi.id="EAID_E62ED496_B165_4d8b_B985_4F0656AE2169" isSpecification="false">
+									<UML:TaggedValue.dataValue>Union=0;Derived=0;AllowDuplicates=0;Owned=0;Navigable=Unspecified;</UML:TaggedValue.dataValue>
+									<UML:TaggedValue.type>
+										<UML:TagDefinition xmi.idref="EAID_97900E50_3BC4_40f7_A970_31D1A943E7B9"/>
+									</UML:TaggedValue.type>
+								</UML:TaggedValue>
+							</UML:ModelElement.taggedValue>
+						</UML:AssociationEnd>
+					</UML:Association.connection>
+				</UML:Association>
+				<UML:Association xmi.id="EAID_AC98345C_3C5C_4637_9AD4_768AA51A174C" visibility="public" isRoot="false" isLeaf="false" isAbstract="false">
+					<UML:ModelElement.taggedValue>
+						<UML:TaggedValue xmi.id="EAID_11EF5A0E_7238_4950_88C1_17A92BF01858" isSpecification="false">
+							<UML:TaggedValue.dataValue>3</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_F5224412_2B8B_4645_B8E6_5268992C0810"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_4790272D_2924_42c4_9F40_A6B5301D008C" isSpecification="false">
+							<UML:TaggedValue.dataValue>Association</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_97957D13_2205_4701_B48E_7E697DEB3B4F"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_8904E285_1CC5_41c9_90E2_B2E498B050CB" isSpecification="false">
+							<UML:TaggedValue.dataValue>Unspecified</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_381EF84F_018C_48af_B3F2_7C6D5ACBF7DE"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_A8D5113B_4C32_49a2_9EE8_9EEE96222EA6" isSpecification="false">
+							<UML:TaggedValue.dataValue>3</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_02312C25_8480_462e_B496_A309A0528246"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_2938C572_2DD5_49c0_83E7_D6CA858C3E99" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_63EC627B_10C5_4ad4_9ACB_16F15D134E95"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_32FD762A_BB0F_4d7f_83A5_E1D6810564A4" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_07421B6C_BB4A_4cb8_88A6_DEFE42339F33"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_60569298_8A17_471d_843A_A89477FEEE25" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_E664FF98_8824_4538_87ED_4F1AB1BE3B79"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_2797EA55_3910_4cc5_88BC_F9299BC23170" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_5EC4553B_D043_4113_A102_CE79A52ECAF6"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+					</UML:ModelElement.taggedValue>
+					<UML:Association.connection>
+						<UML:AssociationEnd visibility="public" aggregation="none" isOrdered="false" targetScope="instance" changeable="none" isNavigable="true" type="EAID_8226AE51_E0BA_4018_A05A_34D9879434EB">
+							<UML:AssociationEnd.multiplicity>
+								<UML:Multiplicity>
+									<UML:Multiplicity.range>
+										<UML:MultiplicityRange lower="0" upper="-1"/>
+									</UML:Multiplicity.range>
+								</UML:Multiplicity>
+							</UML:AssociationEnd.multiplicity>
+							<UML:AssociationEnd.participant>
+								<UML:UseCase xmi.idref="EAID_8226AE51_E0BA_4018_A05A_34D9879434EB"/>
+							</UML:AssociationEnd.participant>
+							<UML:ModelElement.taggedValue>
+								<UML:TaggedValue xmi.id="EAID_403D7264_14E4_40c9_B914_FB00AB84C0C9" isSpecification="false">
+									<UML:TaggedValue.dataValue>Unspecified</UML:TaggedValue.dataValue>
+									<UML:TaggedValue.type>
+										<UML:TagDefinition xmi.idref="EAID_D16C4C1E_1CD1_4708_A27F_3C1F04C76EB6"/>
+									</UML:TaggedValue.type>
+								</UML:TaggedValue>
+								<UML:TaggedValue xmi.id="EAID_F3EA0634_DF12_452d_9722_B672AAAEA11B" isSpecification="false">
+									<UML:TaggedValue.dataValue>Union=0;Derived=0;AllowDuplicates=0;Owned=0;Navigable=Unspecified;</UML:TaggedValue.dataValue>
+									<UML:TaggedValue.type>
+										<UML:TagDefinition xmi.idref="EAID_D5348806_CFB4_48a1_9440_4744470A8901"/>
+									</UML:TaggedValue.type>
+								</UML:TaggedValue>
+							</UML:ModelElement.taggedValue>
+						</UML:AssociationEnd>
+						<UML:AssociationEnd visibility="public" aggregation="none" isOrdered="false" targetScope="instance" changeable="none" isNavigable="true" type="EAID_254A4F22_CCAF_424c_8F5D_00C68D35BDC8">
+							<UML:AssociationEnd.multiplicity>
+								<UML:Multiplicity>
+									<UML:Multiplicity.range>
+										<UML:MultiplicityRange lower="0" upper="-1"/>
+									</UML:Multiplicity.range>
+								</UML:Multiplicity>
+							</UML:AssociationEnd.multiplicity>
+							<UML:AssociationEnd.participant>
+								<UML:Actor xmi.idref="EAID_254A4F22_CCAF_424c_8F5D_00C68D35BDC8"/>
+							</UML:AssociationEnd.participant>
+							<UML:ModelElement.taggedValue>
+								<UML:TaggedValue xmi.id="EAID_39D5B3F2_374C_43ef_89B5_3B5B406C01CD" isSpecification="false">
+									<UML:TaggedValue.dataValue>Unspecified</UML:TaggedValue.dataValue>
+									<UML:TaggedValue.type>
+										<UML:TagDefinition xmi.idref="EAID_D16C4C1E_1CD1_4708_A27F_3C1F04C76EB6"/>
+									</UML:TaggedValue.type>
+								</UML:TaggedValue>
+								<UML:TaggedValue xmi.id="EAID_DA72AD6E_5DAB_49af_A5A4_7F47DA6CC618" isSpecification="false">
+									<UML:TaggedValue.dataValue>Union=0;Derived=0;AllowDuplicates=0;Owned=0;Navigable=Unspecified;</UML:TaggedValue.dataValue>
+									<UML:TaggedValue.type>
+										<UML:TagDefinition xmi.idref="EAID_97900E50_3BC4_40f7_A970_31D1A943E7B9"/>
+									</UML:TaggedValue.type>
+								</UML:TaggedValue>
+							</UML:ModelElement.taggedValue>
+						</UML:AssociationEnd>
+					</UML:Association.connection>
+				</UML:Association>
+				<UML:UseCase name="Request a tablet" xmi.id="EAID_2D31AB2D_647E_4935_B2D5_25DAC9DDB61D" visibility="public" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+					<UML:ModelElement.taggedValue>
+						<UML:TaggedValue xmi.id="EAID_629AFF8F_6493_40f6_8272_458F915B67E0" isSpecification="false">
+							<UML:TaggedValue.dataValue>ninja</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_AE50382D_3D13_4abc_AED0_132ADE90EFA5"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_099DB59C_6CF3_45a0_87B0_2540B75C1C48" isSpecification="false">
+							<UML:TaggedValue.dataValue>1.0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_09F854B7_12E1_4fa8_81E2_D14E647F244F"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_70D92C6E_1AC3_4672_A2E8_1B299A6F1EE7" isSpecification="false">
+							<UML:TaggedValue.dataValue>1</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_9321D2FB_9A38_4788_9626_D6D69B5CAC43"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_C9ED7314_63B2_4a33_B2C6_040397A4DAD3" isSpecification="false">
+							<UML:TaggedValue.dataValue>2021-11-21 23:45:04</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_8924E26C_0328_48a4_9D4B_3424491B8118"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_E25E2EE4_DB33_4398_8F19_A16DF9346551" isSpecification="false">
+							<UML:TaggedValue.dataValue>2021-11-21 23:45:10</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_ED5EB09A_31C0_42e1_9E85_14230B849E7B"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_DF150EFC_F9AF_4959_9F47_C6337FFA66B5" isSpecification="false">
+							<UML:TaggedValue.dataValue>Proposed</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_674E1BD8_6713_418e_9175_49675BFE307A"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_DDD80DAE_EE4C_43de_AB30_F9EF8E5AF8C8" isSpecification="false">
+							<UML:TaggedValue.dataValue>&lt;none&gt;</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_4FC42C03_B7EC_47a0_9E77_A0E5A3423E08"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_A4AAEAA5_01F3_4893_80FD_824A4D032298" isSpecification="false">
+							<UML:TaggedValue.dataValue>1.0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_A2B24608_36B8_4b3c_981D_37EA7C3D0929"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_7BC95C1E_1B77_4a87_A4B4_1FEA5884EA16" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_A217AFCD_09F9_4e2b_8B28_7067E115892F"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_0DC8FF5D_C126_45d1_BAB8_1CC5DD49B22E" isSpecification="false">
+							<UML:TaggedValue.dataValue>Package1</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_690B1101_87E3_4789_ACA4_866B0D30DB76"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_11C3C6AA_0B3D_4e85_809E_3C1457833A7E" isSpecification="false">
+							<UML:TaggedValue.dataValue>1</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_9321D2FB_9A38_4788_9626_D6D69B5CAC43"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_9CB7C454_20E9_44af_B626_EBF21F539820" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_76503E65_B22B_47d1_8653_6CB6D08CC93B"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_C1DB9379_A348_466e_8E27_3D3EB9444FF2" isSpecification="false">
+							<UML:TaggedValue.dataValue>BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_F5224412_2B8B_4645_B8E6_5268992C0810"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+					</UML:ModelElement.taggedValue>
+					<UML:GeneralizableElement.generalization>
+						<UML:Generalization xmi.idref="EAID_9DFB15E7_510F_4347_BB4C_8D9DD75987F6"/>
+					</UML:GeneralizableElement.generalization>
+				</UML:UseCase>
+				<UML:Actor name="Employee" xmi.id="EAID_314DD71A_9F51_4134_A046_2020DC130584" visibility="public" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+					<UML:ModelElement.taggedValue>
+						<UML:TaggedValue xmi.id="EAID_5F99DD91_5546_4680_A70C_1C6DDB30C7DC" isSpecification="false">
+							<UML:TaggedValue.dataValue>ninja</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_AE50382D_3D13_4abc_AED0_132ADE90EFA5"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_6C059489_03AE_4df7_AF59_586ACAD18A9B" isSpecification="false">
+							<UML:TaggedValue.dataValue>1.0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_09F854B7_12E1_4fa8_81E2_D14E647F244F"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_C16A3CF4_4ACA_4ec3_B49C_F9D877C518D9" isSpecification="false">
+							<UML:TaggedValue.dataValue>1</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_9321D2FB_9A38_4788_9626_D6D69B5CAC43"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_50C8F9BE_FF6E_4372_82D6_8BFFB9A8DABF" isSpecification="false">
+							<UML:TaggedValue.dataValue>2021-11-21 23:40:54</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_8924E26C_0328_48a4_9D4B_3424491B8118"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_2117CEE2_3813_44f3_AC90_D6B6709A31D1" isSpecification="false">
+							<UML:TaggedValue.dataValue>2021-11-21 23:41:11</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_ED5EB09A_31C0_42e1_9E85_14230B849E7B"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_AC30A99C_38A7_40f4_9FFA_A25F15D91514" isSpecification="false">
+							<UML:TaggedValue.dataValue>Proposed</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_674E1BD8_6713_418e_9175_49675BFE307A"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_FA86E68D_B8CD_464f_8A07_A5ACE10A02BA" isSpecification="false">
+							<UML:TaggedValue.dataValue>&lt;none&gt;</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_4FC42C03_B7EC_47a0_9E77_A0E5A3423E08"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_3E129083_BEE0_4637_B1E8_AD14895B20FE" isSpecification="false">
+							<UML:TaggedValue.dataValue>1.0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_A2B24608_36B8_4b3c_981D_37EA7C3D0929"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_6EB7E355_4CB6_4bcb_AFAA_CFE6E2D8F0FF" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_A217AFCD_09F9_4e2b_8B28_7067E115892F"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_7EB3D7D6_A672_4b1a_8C1F_C6482BE13535" isSpecification="false">
+							<UML:TaggedValue.dataValue>Package1</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_690B1101_87E3_4789_ACA4_866B0D30DB76"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_9298204D_18D0_420a_817E_6D8755929A43" isSpecification="false">
+							<UML:TaggedValue.dataValue>1</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_9321D2FB_9A38_4788_9626_D6D69B5CAC43"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_CFEBD835_AA46_470a_8F06_B83595FF3D93" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_76503E65_B22B_47d1_8653_6CB6D08CC93B"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_BF76B8E5_40DA_4e97_A88C_0B5A5360A2BC" isSpecification="false">
+							<UML:TaggedValue.dataValue>BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_F5224412_2B8B_4645_B8E6_5268992C0810"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+					</UML:ModelElement.taggedValue>
+				</UML:Actor>
+				<UML:UseCase name="Approve a mobile device reques" xmi.id="EAID_66F5EEF7_1D0B_4c43_9776_60981D501A24" visibility="public" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+					<UML:ModelElement.taggedValue>
+						<UML:TaggedValue xmi.id="EAID_36F56912_98C5_4f35_917F_1729B18A3410" isSpecification="false">
+							<UML:TaggedValue.dataValue>ninja</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_AE50382D_3D13_4abc_AED0_132ADE90EFA5"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_70B7616C_0BFA_4d5d_9D45_74714C7BF5A0" isSpecification="false">
+							<UML:TaggedValue.dataValue>1.0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_09F854B7_12E1_4fa8_81E2_D14E647F244F"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_18C4FF47_4078_4ed9_80DC_8E801C5AD44D" isSpecification="false">
+							<UML:TaggedValue.dataValue>1</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_9321D2FB_9A38_4788_9626_D6D69B5CAC43"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_F8BA0B25_D9CC_4a88_8186_EBC4483A72A6" isSpecification="false">
+							<UML:TaggedValue.dataValue>2021-11-21 23:51:34</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_8924E26C_0328_48a4_9D4B_3424491B8118"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_E16BE72E_1952_44a9_837E_CA49B50E0A8E" isSpecification="false">
+							<UML:TaggedValue.dataValue>2021-11-21 23:51:43</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_ED5EB09A_31C0_42e1_9E85_14230B849E7B"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_31E28752_65F2_4ab9_89E1_A1F0AFA551B3" isSpecification="false">
+							<UML:TaggedValue.dataValue>Proposed</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_674E1BD8_6713_418e_9175_49675BFE307A"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_2A7A9D75_D519_4d45_BCA5_EAAFB142DD6F" isSpecification="false">
+							<UML:TaggedValue.dataValue>&lt;none&gt;</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_4FC42C03_B7EC_47a0_9E77_A0E5A3423E08"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_BD631DB2_66BC_4f05_85EA_20246A0CD4F1" isSpecification="false">
+							<UML:TaggedValue.dataValue>1.0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_A2B24608_36B8_4b3c_981D_37EA7C3D0929"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_2964E2B3_2D5D_444c_83D4_8D08DC9CA48C" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_A217AFCD_09F9_4e2b_8B28_7067E115892F"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_0CDFE4CE_1827_4f7e_9FC0_DEF6CE67A50B" isSpecification="false">
+							<UML:TaggedValue.dataValue>Package1</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_690B1101_87E3_4789_ACA4_866B0D30DB76"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_F630D206_6462_4141_B618_01B4CB61E7B5" isSpecification="false">
+							<UML:TaggedValue.dataValue>1</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_9321D2FB_9A38_4788_9626_D6D69B5CAC43"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_6503C49D_76EC_4b00_8C6F_D18F14E5CD54" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_76503E65_B22B_47d1_8653_6CB6D08CC93B"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_9EAF3C5B_29C7_40ca_9098_76233610A0D5" isSpecification="false">
+							<UML:TaggedValue.dataValue>BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_F5224412_2B8B_4645_B8E6_5268992C0810"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+					</UML:ModelElement.taggedValue>
+				</UML:UseCase>
+				<UML:UseCase name="View list of mobile devices to approve" xmi.id="EAID_8226AE51_E0BA_4018_A05A_34D9879434EB" visibility="public" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+					<UML:ModelElement.taggedValue>
+						<UML:TaggedValue xmi.id="EAID_9EEC029B_F8F7_4f7a_A269_D1920521D0E0" isSpecification="false">
+							<UML:TaggedValue.dataValue>ninja</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_AE50382D_3D13_4abc_AED0_132ADE90EFA5"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_0B80448C_6CF1_4907_A352_62B97E9C0620" isSpecification="false">
+							<UML:TaggedValue.dataValue>1.0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_09F854B7_12E1_4fa8_81E2_D14E647F244F"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_15586A6A_749A_4743_9E43_8B5EB79FF78D" isSpecification="false">
+							<UML:TaggedValue.dataValue>1</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_9321D2FB_9A38_4788_9626_D6D69B5CAC43"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_08604A6F_C299_4970_A8AD_39C42857BD8A" isSpecification="false">
+							<UML:TaggedValue.dataValue>2021-11-21 23:45:54</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_8924E26C_0328_48a4_9D4B_3424491B8118"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_8382453C_670F_432e_96C9_38727226BB48" isSpecification="false">
+							<UML:TaggedValue.dataValue>2021-11-21 23:46:14</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_ED5EB09A_31C0_42e1_9E85_14230B849E7B"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_9C7D1300_52CB_48a5_A006_677E9F9DDAFB" isSpecification="false">
+							<UML:TaggedValue.dataValue>Proposed</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_674E1BD8_6713_418e_9175_49675BFE307A"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_C156B64C_E04A_4013_9B30_9C538E3ADF7E" isSpecification="false">
+							<UML:TaggedValue.dataValue>&lt;none&gt;</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_4FC42C03_B7EC_47a0_9E77_A0E5A3423E08"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_DAE26976_24E6_4150_98B9_5F104C320118" isSpecification="false">
+							<UML:TaggedValue.dataValue>1.0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_A2B24608_36B8_4b3c_981D_37EA7C3D0929"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_24E56675_8D11_4a0c_BB5E_D5C415819BCD" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_A217AFCD_09F9_4e2b_8B28_7067E115892F"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_51917E33_4423_4bc7_8F7D_CBA2079387AB" isSpecification="false">
+							<UML:TaggedValue.dataValue>Package1</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_690B1101_87E3_4789_ACA4_866B0D30DB76"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_CC4E2B4D_659F_4230_A4F9_5EEB613230C3" isSpecification="false">
+							<UML:TaggedValue.dataValue>1</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_9321D2FB_9A38_4788_9626_D6D69B5CAC43"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_13365652_88A8_4408_902E_5D95E47CFB1D" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_76503E65_B22B_47d1_8653_6CB6D08CC93B"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_3E5D1115_4180_44ba_BBA5_F471C9E22265" isSpecification="false">
+							<UML:TaggedValue.dataValue>BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_F5224412_2B8B_4645_B8E6_5268992C0810"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+					</UML:ModelElement.taggedValue>
+				</UML:UseCase>
+				<UML:UseCase name="Request a smart phone" xmi.id="EAID_86838CF8_CE96_4dfb_927E_6018E7D9511A" visibility="public" isSpecification="false" isRoot="false" isLeaf="false" isAbstract="false">
+					<UML:ModelElement.taggedValue>
+						<UML:TaggedValue xmi.id="EAID_9FF636BC_7ACB_4e55_9872_F52DEAA9F16C" isSpecification="false">
+							<UML:TaggedValue.dataValue>ninja</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_AE50382D_3D13_4abc_AED0_132ADE90EFA5"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_1338594F_14A2_464b_AE47_9DFBA37B8359" isSpecification="false">
+							<UML:TaggedValue.dataValue>1.0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_09F854B7_12E1_4fa8_81E2_D14E647F244F"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_ED6F61D7_9AB4_4aef_8F4D_806E7F416F26" isSpecification="false">
+							<UML:TaggedValue.dataValue>1</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_9321D2FB_9A38_4788_9626_D6D69B5CAC43"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_77C42AA0_4818_48c7_90EE_950CEB4E5FA4" isSpecification="false">
+							<UML:TaggedValue.dataValue>2021-11-21 23:42:44</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_8924E26C_0328_48a4_9D4B_3424491B8118"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_47E1ED8B_AF79_4fde_9AAF_118C87EF4202" isSpecification="false">
+							<UML:TaggedValue.dataValue>2021-11-21 23:42:51</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_ED5EB09A_31C0_42e1_9E85_14230B849E7B"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_B6274925_DF44_4ee5_98F6_EC07176209C1" isSpecification="false">
+							<UML:TaggedValue.dataValue>Proposed</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_674E1BD8_6713_418e_9175_49675BFE307A"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_2C2136EC_C87B_47ce_8F50_2CAD6D6575EA" isSpecification="false">
+							<UML:TaggedValue.dataValue>&lt;none&gt;</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_4FC42C03_B7EC_47a0_9E77_A0E5A3423E08"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_A6B28D52_BC38_4b0c_952A_BFC674AF83FC" isSpecification="false">
+							<UML:TaggedValue.dataValue>1.0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_A2B24608_36B8_4b3c_981D_37EA7C3D0929"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_49B68AC5_37A8_4459_BF41_66D1FCC92BC2" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_A217AFCD_09F9_4e2b_8B28_7067E115892F"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_5141F85A_E3B8_43be_925D_C27820850E85" isSpecification="false">
+							<UML:TaggedValue.dataValue>Package1</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_690B1101_87E3_4789_ACA4_866B0D30DB76"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_DE34287F_B3BB_4109_93EF_991C1ABF6E08" isSpecification="false">
+							<UML:TaggedValue.dataValue>1</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_9321D2FB_9A38_4788_9626_D6D69B5CAC43"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_4CBA37FC_0CFF_4964_8668_FD3F4B8F2925" isSpecification="false">
+							<UML:TaggedValue.dataValue>0</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_76503E65_B22B_47d1_8653_6CB6D08CC93B"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+						<UML:TaggedValue xmi.id="EAID_52C761DC_D943_4eeb_8B8B_9EDB0757FDB8" isSpecification="false">
+							<UML:TaggedValue.dataValue>BackColor=-1;BorderColor=-1;BorderWidth=-1;FontColor=-1;VSwimLanes=1;HSwimLanes=1;BorderStyle=0;</UML:TaggedValue.dataValue>
+							<UML:TaggedValue.type>
+								<UML:TagDefinition xmi.idref="EAID_F5224412_2B8B_4645_B8E6_5268992C0810"/>
+							</UML:TaggedValue.type>
+						</UML:TaggedValue>
+					</UML:ModelElement.taggedValue>
+					<UML:GeneralizableElement.generalization>
+						<UML:Generalization xmi.idref="EAID_88CFDBC6_D05F_4df9_AE16_1F13937E1EFE"/>
+					</UML:GeneralizableElement.generalization>
+				</UML:UseCase>
+				<UML:TagDefinition xmi.id="EAID_32D14510_A224_4fc2_81FD_F1C8995A37E1" name="created_date" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_9CE4283A_5461_4aa8_A0A5_EF537B3C1FC2" name="modified_date" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_73C8216D_786B_4dd1_834D_5D4453AA0FB7" name="package" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_16F7EB3C_1B2A_42ea_AD6C_F571FA206F67" name="type" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_EDFB15D9_CBAA_4fff_9E7E_AAA202003EF4" name="swimlanes" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_30478DE9_1D4F_4ee0_ADA5_98BDB7CD54B8" name="matrixitems" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_A3918C98_74C2_4d4f_8A78_83CF601F5D9C" name="ea_localid" isSpecification="false" tagType="String"/>
+				<UML:TagDefinition xmi.id="EAID_7E167956_05EE_4327_A545_16626F8508E5" name="EAStyle" isSpecification="false" tagType="String"/>
+			</UML:Namespace.ownedElement>
+			<UML:ModelElement.taggedValue>
+				<UML:TaggedValue xmi.id="EAID_32B5DF48_6614_4ee4_936E_EF1F7D6ACB81" isSpecification="false">
+					<UML:TaggedValue.dataValue>EAID_87FFBCA3_7A00_4c61_B8E3_3632973DC30F</UML:TaggedValue.dataValue>
+					<UML:TaggedValue.type>
+						<UML:TagDefinition xmi.idref="EAID_B0534EDE_6490_4003_982A_3468E5D42EBC"/>
+					</UML:TaggedValue.type>
+				</UML:TaggedValue>
+				<UML:TaggedValue xmi.id="EAID_6CE0D75E_C6BA_4a8b_BF81_876E57C6D9EC" isSpecification="false">
+					<UML:TaggedValue.dataValue>2021-11-21 23:39:28</UML:TaggedValue.dataValue>
+					<UML:TaggedValue.type>
+						<UML:TagDefinition xmi.idref="EAID_7EED8757_660C_4236_9DDD_BF65974BFC9A"/>
+					</UML:TaggedValue.type>
+				</UML:TaggedValue>
+				<UML:TaggedValue xmi.id="EAID_8236300A_1D72_4607_AA3F_C4061FC53EE2" isSpecification="false">
+					<UML:TaggedValue.dataValue>2021-11-21 23:39:28</UML:TaggedValue.dataValue>
+					<UML:TaggedValue.type>
+						<UML:TagDefinition xmi.idref="EAID_927B9F2B_2906_4c66_9CFC_83DC7088BD81"/>
+					</UML:TaggedValue.type>
+				</UML:TaggedValue>
+				<UML:TaggedValue xmi.id="EAID_0CB9B510_2E24_47b3_9F46_246CD508FC74" isSpecification="false">
+					<UML:TaggedValue.dataValue>FALSE</UML:TaggedValue.dataValue>
+					<UML:TaggedValue.type>
+						<UML:TagDefinition xmi.idref="EAID_54B2B028_8C92_4728_84BC_180E8F724334"/>
+					</UML:TaggedValue.type>
+				</UML:TaggedValue>
+				<UML:TaggedValue xmi.id="EAID_3A1BD5CA_3F81_4644_86A7_BB4080FC61FB" isSpecification="false">
+					<UML:TaggedValue.dataValue>1.0</UML:TaggedValue.dataValue>
+					<UML:TaggedValue.type>
+						<UML:TagDefinition xmi.idref="EAID_09F854B7_12E1_4fa8_81E2_D14E647F244F"/>
+					</UML:TaggedValue.type>
+				</UML:TaggedValue>
+				<UML:TaggedValue xmi.id="EAID_24F055EC_2547_4f58_9382_123D397C7B5D" isSpecification="false">
+					<UML:TaggedValue.dataValue>FALSE</UML:TaggedValue.dataValue>
+					<UML:TaggedValue.type>
+						<UML:TagDefinition xmi.idref="EAID_6B280D4A_6BCA_41fa_8EA6_AEF6986F9CAB"/>
+					</UML:TaggedValue.type>
+				</UML:TaggedValue>
+				<UML:TaggedValue xmi.id="EAID_59B0A192_19EC_49df_AC9A_B7B1C4C09DDE" isSpecification="false">
+					<UML:TaggedValue.dataValue>FALSE</UML:TaggedValue.dataValue>
+					<UML:TaggedValue.type>
+						<UML:TagDefinition xmi.idref="EAID_0B243D02_E327_46cc_A497_43191A2A9A5B"/>
+					</UML:TaggedValue.type>
+				</UML:TaggedValue>
+				<UML:TaggedValue xmi.id="EAID_17A5CBA7_DF8A_47f4_8FAB_F47B6E465CA9" isSpecification="false">
+					<UML:TaggedValue.dataValue>FALSE</UML:TaggedValue.dataValue>
+					<UML:TaggedValue.type>
+						<UML:TagDefinition xmi.idref="EAID_EB99ED11_A32C_4e7e_AE10_B27911B35B73"/>
+					</UML:TaggedValue.type>
+				</UML:TaggedValue>
+				<UML:TaggedValue xmi.id="EAID_ED84B49B_1A16_4607_B7E0_00935744DB16" isSpecification="false">
+					<UML:TaggedValue.dataValue>isModel=1;VICON=3;</UML:TaggedValue.dataValue>
+					<UML:TaggedValue.type>
+						<UML:TagDefinition xmi.idref="EAID_B280D24C_C5F5_4e7a_AF55_9DF0F28AC817"/>
+					</UML:TaggedValue.type>
+				</UML:TaggedValue>
+				<UML:TaggedValue xmi.id="EAID_548DC750_7057_4e97_AAA2_D821E89BAD63" isSpecification="false">
+					<UML:TaggedValue.dataValue>1.0</UML:TaggedValue.dataValue>
+					<UML:TaggedValue.type>
+						<UML:TagDefinition xmi.idref="EAID_A2B24608_36B8_4b3c_981D_37EA7C3D0929"/>
+					</UML:TaggedValue.type>
+				</UML:TaggedValue>
+				<UML:TaggedValue xmi.id="EAID_FF0BFD7D_4332_424a_849F_81F4804E1B15" isSpecification="false">
+					<UML:TaggedValue.dataValue>Proposed</UML:TaggedValue.dataValue>
+					<UML:TaggedValue.type>
+						<UML:TagDefinition xmi.idref="EAID_674E1BD8_6713_418e_9175_49675BFE307A"/>
+					</UML:TaggedValue.type>
+				</UML:TaggedValue>
+				<UML:TaggedValue xmi.id="EAID_536066BF_F368_45fd_A432_5D72AA4777D0" isSpecification="false">
+					<UML:TaggedValue.dataValue>ninja</UML:TaggedValue.dataValue>
+					<UML:TaggedValue.type>
+						<UML:TagDefinition xmi.idref="EAID_AE50382D_3D13_4abc_AED0_132ADE90EFA5"/>
+					</UML:TaggedValue.type>
+				</UML:TaggedValue>
+				<UML:TaggedValue xmi.id="EAID_2FD72D8A_A33B_45b6_856C_34EB91CBCE4D" isSpecification="false">
+					<UML:TaggedValue.dataValue>1</UML:TaggedValue.dataValue>
+					<UML:TaggedValue.type>
+						<UML:TagDefinition xmi.idref="EAID_9321D2FB_9A38_4788_9626_D6D69B5CAC43"/>
+					</UML:TaggedValue.type>
+				</UML:TaggedValue>
+				<UML:TaggedValue xmi.id="EAID_E9AA2C16_8F9B_4ef6_AB34_8972CB9C7BA8" isSpecification="false">
+					<UML:TaggedValue.dataValue>Public</UML:TaggedValue.dataValue>
+					<UML:TaggedValue.type>
+						<UML:TagDefinition xmi.idref="EAID_9FF2D834_B751_49cf_9B52_2E23514FE68E"/>
+					</UML:TaggedValue.type>
+				</UML:TaggedValue>
+			</UML:ModelElement.taggedValue>
+		</UML:Model>
+		<UML:Diagram name="Package1" xmi.id="EAID_9C2DCDB9_EE35_4875_B3D5_AF410BC4FBB2" diagramType="UseCaseDiagram" owner="EAPK_A6C4D6BB_B917_49e0_BE17_F6D3C6E6DAA9" toolName="Enterprise Architect 2.5">
+			<UML:ModelElement.taggedValue>
+				<UML:TaggedValue xmi.id="EAID_3D827DD6_F39C_434a_BAA8_F14FF0535080" isSpecification="false">
+					<UML:TaggedValue.dataValue>1.0</UML:TaggedValue.dataValue>
+					<UML:TaggedValue.type>
+						<UML:TagDefinition xmi.idref="EAID_09F854B7_12E1_4fa8_81E2_D14E647F244F"/>
+					</UML:TaggedValue.type>
+				</UML:TaggedValue>
+				<UML:TaggedValue xmi.id="EAID_B1BDBE17_0F36_496e_B73D_D9C89C672284" isSpecification="false">
+					<UML:TaggedValue.dataValue>ninja</UML:TaggedValue.dataValue>
+					<UML:TaggedValue.type>
+						<UML:TagDefinition xmi.idref="EAID_AE50382D_3D13_4abc_AED0_132ADE90EFA5"/>
+					</UML:TaggedValue.type>
+				</UML:TaggedValue>
+				<UML:TaggedValue xmi.id="EAID_2A02994D_504B_4a99_9DA9_269DC8A0A7C5" isSpecification="false">
+					<UML:TaggedValue.dataValue>2021-11-21 23:40:17</UML:TaggedValue.dataValue>
+					<UML:TaggedValue.type>
+						<UML:TagDefinition xmi.idref="EAID_32D14510_A224_4fc2_81FD_F1C8995A37E1"/>
+					</UML:TaggedValue.type>
+				</UML:TaggedValue>
+				<UML:TaggedValue xmi.id="EAID_F7EBF410_2226_4bf7_BF89_F68E79F178FA" isSpecification="false">
+					<UML:TaggedValue.dataValue>2021-11-21 23:52:02</UML:TaggedValue.dataValue>
+					<UML:TaggedValue.type>
+						<UML:TagDefinition xmi.idref="EAID_9CE4283A_5461_4aa8_A0A5_EF537B3C1FC2"/>
+					</UML:TaggedValue.type>
+				</UML:TaggedValue>
+				<UML:TaggedValue xmi.id="EAID_74F07FBE_0A6C_4bba_87A1_835345BA1ED1" isSpecification="false">
+					<UML:TaggedValue.dataValue>EAPK_A6C4D6BB_B917_49e0_BE17_F6D3C6E6DAA9</UML:TaggedValue.dataValue>
+					<UML:TaggedValue.type>
+						<UML:TagDefinition xmi.idref="EAID_73C8216D_786B_4dd1_834D_5D4453AA0FB7"/>
+					</UML:TaggedValue.type>
+				</UML:TaggedValue>
+				<UML:TaggedValue xmi.id="EAID_0263EF61_0BCE_466d_885C_BFE7C3FABA28" isSpecification="false">
+					<UML:TaggedValue.dataValue>Use Case</UML:TaggedValue.dataValue>
+					<UML:TaggedValue.type>
+						<UML:TagDefinition xmi.idref="EAID_16F7EB3C_1B2A_42ea_AD6C_F571FA206F67"/>
+					</UML:TaggedValue.type>
+				</UML:TaggedValue>
+				<UML:TaggedValue xmi.id="EAID_7C00F6C8_838E_42fa_8414_63AACA589F5B" isSpecification="false">
+					<UML:TaggedValue.dataValue>locked=false;orientation=0;width=0;inbar=false;names=false;color=-1;bold=false;fcol=0;tcol=-1;ofCol=-1;ufCol=-1;hl=1;ufh=0;hh=0;cls=0;bw=0;hli=0;bro=0;SwimlaneFont=lfh:-10,lfw:0,lfi:0,lfu:0,lfs:0,lfface:Calibri,lfe:0,lfo:0,lfchar:1,lfop:0,lfcp:0,lfq:0,lfpf=0,lfWidth=0;</UML:TaggedValue.dataValue>
+					<UML:TaggedValue.type>
+						<UML:TagDefinition xmi.idref="EAID_EDFB15D9_CBAA_4fff_9E7E_AAA202003EF4"/>
+					</UML:TaggedValue.type>
+				</UML:TaggedValue>
+				<UML:TaggedValue xmi.id="EAID_8A2E06B5_1161_4fc9_A633_78AEC415B11E" isSpecification="false">
+					<UML:TaggedValue.dataValue>locked=false;matrixactive=false;swimlanesactive=true;kanbanactive=false;width=1;clrLine=0;</UML:TaggedValue.dataValue>
+					<UML:TaggedValue.type>
+						<UML:TagDefinition xmi.idref="EAID_30478DE9_1D4F_4ee0_ADA5_98BDB7CD54B8"/>
+					</UML:TaggedValue.type>
+				</UML:TaggedValue>
+				<UML:TaggedValue xmi.id="EAID_489EE9B9_91D1_4a25_AB8F_C68F075251E2" isSpecification="false">
+					<UML:TaggedValue.dataValue>1068</UML:TaggedValue.dataValue>
+					<UML:TaggedValue.type>
+						<UML:TagDefinition xmi.idref="EAID_A3918C98_74C2_4d4f_8A78_83CF601F5D9C"/>
+					</UML:TaggedValue.type>
+				</UML:TaggedValue>
+				<UML:TaggedValue xmi.id="EAID_E232E837_3313_403b_90DD_640684B2E64B" isSpecification="false">
+					<UML:TaggedValue.dataValue>ShowPrivate=1;ShowProtected=1;ShowPublic=1;HideRelationships=0;Locked=0;Border=1;HighlightForeign=1;PackageContents=1;SequenceNotes=0;ScalePrintImage=0;PPgs.cx=1;PPgs.cy=1;DocSize.cx=803;DocSize.cy=1146;ShowDetails=0;Orientation=P;Zoom=100;ShowTags=0;OpParams=1;VisibleAttributeDetail=0;ShowOpRetType=1;ShowIcons=1;CollabNums=0;HideProps=0;ShowReqs=0;ShowCons=0;PaperSize=9;HideParents=0;UseAlias=0;HideAtts=0;HideOps=0;HideStereo=0;HideElemStereo=0;ShowTests=0;ShowMaint=0;ConnectorNotation=UML 2.1;ExplicitNavigability=0;ShowShape=1;AllDockable=0;AdvancedElementProps=1;AdvancedFeatureProps=1;AdvancedConnectorProps=1;m_bElementClassifier=1;SPT=1;ShowNotes=0;SuppressBrackets=0;SuppConnectorLabels=0;PrintPageHeadFoot=0;ShowAsList=0;</UML:TaggedValue.dataValue>
+					<UML:TaggedValue.type>
+						<UML:TagDefinition xmi.idref="EAID_7E167956_05EE_4327_A545_16626F8508E5"/>
+					</UML:TaggedValue.type>
+				</UML:TaggedValue>
+				<UML:TaggedValue xmi.id="EAID_D77CA4F9_DEE2_43dd_8863_3B5C47B0CAF5" isSpecification="false">
+					<UML:TaggedValue.dataValue>SaveTag=0A76D799;ExcludeRTF=0;DocAll=0;HideQuals=0;AttPkg=1;ShowTests=0;ShowMaint=0;SuppressFOC=1;MatrixActive=0;SwimlanesActive=1;KanbanActive=0;MatrixLineWidth=1;MatrixLineClr=0;MatrixLocked=0;TConnectorNotation=UML 2.1;TExplicitNavigability=0;AdvancedElementProps=1;AdvancedFeatureProps=1;AdvancedConnectorProps=1;m_bElementClassifier=1;SPT=1;MDGDgm=;STBLDgm=;ShowNotes=0;VisibleAttributeDetail=0;ShowOpRetType=1;SuppressBrackets=0;SuppConnectorLabels=0;PrintPageHeadFoot=0;ShowAsList=0;SuppressedCompartments=;Theme=:119;</UML:TaggedValue.dataValue>
+					<UML:TaggedValue.type>
+						<UML:TagDefinition xmi.idref="EAID_714502A4_56D4_4214_B896_D176722C6AAC"/>
+					</UML:TaggedValue.type>
+				</UML:TaggedValue>
+			</UML:ModelElement.taggedValue>
+			<UML:Diagram.element>
+				<UML:DiagramElement geometry="Left=251;Top=431;Right=356;Bottom=501;imgL=257;imgT=445;imgR=400;imgB=540;" subject="EAID_66F5EEF7_1D0B_4c43_9776_60981D501A24" seqno="1" style="DUID=FDD39EBF;"/>
+				<UML:DiagramElement geometry="Left=251;Top=319;Right=356;Bottom=389;imgL=257;imgT=292;imgR=400;imgB=388;" subject="EAID_8226AE51_E0BA_4018_A05A_34D9879434EB" seqno="2" style="DUID=0CB000D8;"/>
+				<UML:DiagramElement geometry="Left=426;Top=255;Right=531;Bottom=325;imgL=495;imgT=205;imgR=639;imgB=300;" subject="EAID_2D31AB2D_647E_4935_B2D5_25DAC9DDB61D" seqno="3" style="DUID=2E3F6B1A;"/>
+				<UML:DiagramElement geometry="Left=426;Top=151;Right=531;Bottom=221;imgL=495;imgT=63;imgR=639;imgB=158;" subject="EAID_86838CF8_CE96_4dfb_927E_6018E7D9511A" seqno="4" style="DUID=5B27366D;"/>
+				<UML:DiagramElement geometry="Left=252;Top=184;Right=357;Bottom=254;imgL=258;imgT=108;imgR=401;imgB=203;" subject="EAID_0B079583_47A0_4357_B56D_F585AF713E07" seqno="5" style="DUID=773C84EC;"/>
+				<UML:DiagramElement geometry="Left=150;Top=340;Right=195;Bottom=430;imgL=119;imgT=321;imgR=180;imgB=443;" subject="EAID_254A4F22_CCAF_424c_8F5D_00C68D35BDC8" seqno="6" style="DUID=62431AC4;"/>
+				<UML:DiagramElement geometry="Left=133;Top=174;Right=178;Bottom=264;imgL=95;imgT=94;imgR=157;imgB=217;" subject="EAID_314DD71A_9F51_4134_A046_2020DC130584" seqno="7" style="DUID=C2E86377;"/>
+				<UML:DiagramElement geometry="SX=0;SY=0;EX=0;EY=0;EDGE=4;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;Path=;" subject="EAID_88CFDBC6_D05F_4df9_AE16_1F13937E1EFE" style="Mode=3;EOID=773C84EC;SOID=5B27366D;Color=-1;LWidth=0;Hidden=0;"/>
+				<UML:DiagramElement geometry="SX=0;SY=0;EX=0;EY=0;EDGE=4;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;Path=;" subject="EAID_9DFB15E7_510F_4347_BB4C_8D9DD75987F6" style="Mode=3;EOID=773C84EC;SOID=2E3F6B1A;Color=-1;LWidth=0;Hidden=0;"/>
+				<UML:DiagramElement geometry="SX=0;SY=0;EX=0;EY=0;EDGE=4;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;Path=;" subject="EAID_AC98345C_3C5C_4637_9AD4_768AA51A174C" style="Mode=3;EOID=62431AC4;SOID=0CB000D8;Color=-1;LWidth=0;Hidden=0;"/>
+				<UML:DiagramElement geometry="SX=0;SY=0;EX=0;EY=0;EDGE=4;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;Path=;" subject="EAID_350D2631_41BA_45c3_855D_79CE11B2896F" style="Mode=3;EOID=62431AC4;SOID=FDD39EBF;Color=-1;LWidth=0;Hidden=0;"/>
+				<UML:DiagramElement geometry="SX=0;SY=0;EX=0;EY=0;EDGE=4;$LLB=;LLT=;LMT=;LMB=;LRT=;LRB=;IRHS=;ILHS=;Path=;" subject="EAID_1D92DEB2_FDB3_42eb_9C1B_2EC1D494DD37" style="Mode=3;EOID=C2E86377;SOID=773C84EC;Color=-1;LWidth=0;Hidden=0;"/>
+			</UML:Diagram.element>
+		</UML:Diagram>
+	</XMI.content>
+	<XMI.extensions xmi.extender="Enterprise Architect 2.5"/>
+</XMI>
