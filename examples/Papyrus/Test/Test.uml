@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_KIPowErMEeyxbefCBTrC2A" name="Test">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_KRE0oErMEeyxbefCBTrC2A">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_f8NrYErMEeyxbefCBTrC2A" name="Klient banku"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_ghp6wErMEeyxbefCBTrC2A" name="Wpłata pieniedzy"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_90kJQErOEeyxbefCBTrC2A" name="Kasjer"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_M4yWYErPEeyxbefCBTrC2A" name="Wypłata pieniędzy"/>
+  <packagedElement xmi:type="uml:Association" xmi:id="_d3ONcErPEeyxbefCBTrC2A" memberEnd="_d3Se4ErPEeyxbefCBTrC2A _d3U7IErPEeyxbefCBTrC2A">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_d3RQwErPEeyxbefCBTrC2A" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_d3RQwUrPEeyxbefCBTrC2A" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_d3Se4ErPEeyxbefCBTrC2A" name="wpłata pieniedzy" type="_ghp6wErMEeyxbefCBTrC2A" association="_d3ONcErPEeyxbefCBTrC2A"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_d3U7IErPEeyxbefCBTrC2A" name="klient banku" type="_f8NrYErMEeyxbefCBTrC2A" association="_d3ONcErPEeyxbefCBTrC2A"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_e-mFMErPEeyxbefCBTrC2A" memberEnd="_e-nTUkrPEeyxbefCBTrC2A _e-n6YErPEeyxbefCBTrC2A">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_e-nTUErPEeyxbefCBTrC2A" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_e-nTUUrPEeyxbefCBTrC2A" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_e-nTUkrPEeyxbefCBTrC2A" name="wypłata pieniędzy" type="_M4yWYErPEeyxbefCBTrC2A" association="_e-mFMErPEeyxbefCBTrC2A"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_e-n6YErPEeyxbefCBTrC2A" type="_f8NrYErMEeyxbefCBTrC2A" association="_e-mFMErPEeyxbefCBTrC2A"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_f3xv8ErPEeyxbefCBTrC2A" memberEnd="_f3y-EUrPEeyxbefCBTrC2A _f3y-EkrPEeyxbefCBTrC2A">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_f3yXAErPEeyxbefCBTrC2A" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_f3y-EErPEeyxbefCBTrC2A" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_f3y-EUrPEeyxbefCBTrC2A" name="wpłata pieniedzy" type="_ghp6wErMEeyxbefCBTrC2A" association="_f3xv8ErPEeyxbefCBTrC2A"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_f3y-EkrPEeyxbefCBTrC2A" name="kasjer" type="_90kJQErOEeyxbefCBTrC2A" association="_f3xv8ErPEeyxbefCBTrC2A"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_grqD8ErPEeyxbefCBTrC2A" memberEnd="_grrSEErPEeyxbefCBTrC2A _grrSEUrPEeyxbefCBTrC2A">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_grqrAErPEeyxbefCBTrC2A" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_grqrAUrPEeyxbefCBTrC2A" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_grrSEErPEeyxbefCBTrC2A" name="wypłata pieniędzy" type="_M4yWYErPEeyxbefCBTrC2A" association="_grqD8ErPEeyxbefCBTrC2A"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_grrSEUrPEeyxbefCBTrC2A" type="_90kJQErOEeyxbefCBTrC2A" association="_grqD8ErPEeyxbefCBTrC2A"/>
+  </packagedElement>
+</uml:Model>
