@@ -95,6 +95,7 @@ class FrameUC(LabelFrame):
         # print(root.tag, root.attrib)
 
         uc_xml_elems = []
+
         # uc_xml_elems = root.findall(".//MasterView/UseCase")  # visual paradigm 'Xml_structure': 'simple'
         uc_xml_elems.extend(root.findall(".//UseCase"))  # visual paradigm 'Xml_structure': 'simple'
         uc_xml_elems.extend(root.findall(".//Model[@modelType='UseCase']"))  # visual paradigm 'Xml_structure': 'traditional' (old)
@@ -103,6 +104,9 @@ class FrameUC(LabelFrame):
         uc_xml_elems.extend(root.findall(".//packagedElement[@xmi:type='uml:UseCase']", namespaces))  # Papyrus
 
         uc_xml_elems.extend(root.findall(".//UMLUseCase"))  # Sinvas
+
+        namespaces = {'xsi': 'http://www.w3.org/2001/XMLSchema-instance'}
+        uc_xml_elems.extend(root.findall(".//packagedElement[@xsi:type='uml:UseCase']", namespaces))  # GenMyModel
 
         # for elem in root:
         #     print(elem.tag, elem.attrib)
