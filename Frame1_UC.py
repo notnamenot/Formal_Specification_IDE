@@ -92,7 +92,7 @@ class FrameUC(LabelFrame):
     def find_use_cases(self, xml_path):
         tree = ET.parse(xml_path)
         root = tree.getroot()
-        # print(root.tag, root.attrib)
+        print(root.tag, root.attrib)
 
         uc_xml_elems = []
 
@@ -107,6 +107,14 @@ class FrameUC(LabelFrame):
 
         namespaces = {'xsi': 'http://www.w3.org/2001/XMLSchema-instance'}
         uc_xml_elems.extend(root.findall(".//packagedElement[@xsi:type='uml:UseCase']", namespaces))  # GenMyModel
+
+        namespaces = {'UML': 'omg.org/UML1.3'}
+        uc_xml_elems.extend(root.findall(".//UML:UseCase", namespaces))  # EnterpriseArchitect xml 1.1
+
+        namespaces = {'xmi': 'http://schema.omg.org/spec/XMI/2.1'}
+        uc_xml_elems.extend(root.findall(".//packagedElement[@xmi:type='uml:UseCase']", namespaces))  # EnterpriseArchitect xml 2.1
+
+
 
         # for elem in root:
         #     print(elem.tag, elem.attrib)
