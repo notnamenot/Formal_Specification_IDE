@@ -59,12 +59,6 @@ class FrameScenarios(LabelFrame):
             for step in use_case[STEPS]:
                 frame_scenario.add_step_frame(step[TEXT], step[SELECTED_WORDS])
 
-def bind_tree(widget, event, callback):
-    "Binds an event to a widget and all its descendants."
-    widget.bind(event, callback)
-    for child in widget.children.values():
-        bind_tree(child, event, callback)
-
 class Scenario(LabelFrame):
     def __init__(self, master, name, *args, **kwargs):
         super().__init__(master=master, relief="flat", highlightthickness=1, *args, **kwargs)
@@ -77,7 +71,6 @@ class Scenario(LabelFrame):
         self.frame_id_name.pack(fill=X)
         self.frame_id_name.rowconfigure(1, weight=1)
         self.frame_id_name.columnconfigure(1, weight=1)
-        # self.frame_id_name.bind('<Button-1>', lambda e: self.scenario_clicked(e))
 
         # self.lbl_scenario_id = Label(self.frame_id_name, text=self.id + "    ")
         # self.lbl_scenario_id.grid(row=0, column=0, sticky=N + S)
@@ -98,11 +91,13 @@ class Scenario(LabelFrame):
         # self.inp_step.insert(0, 'Enter step..')  # f'{len(self.step_frames)+1}.'
         self.inp_step.pack(side=LEFT, fill=X, expand=True)
 
-        bind_tree(self, '<Button-1>', lambda e: self.scenario_clicked(e))
+        self.bind_LMB_click(self)
 
+    def bind_LMB_click(self, widget):   # Binds an event to a widget and all its descendants
+        widget.bind('<Button-1>', lambda e: self.scenario_clicked(e))
+        for child in widget.children.values():
+            self.bind_LMB_click(child)
 
-
-    # Every Scenario's widget has to hav explicitly assigned bind function on click
     def scenario_clicked(self, event):
         # print("scenario clicked", event.widget)
         self.master.state.set_curr_uc(self.name)
@@ -151,12 +146,10 @@ class Step(Frame):
         words = text.split()
 
         self.lbl_id = Label(self, text=f"{self.id}.")
-        # self.lbl_id.bind('<Button-1>', lambda e: self.master.scenario_clicked(e))
         self.lbl_id.pack(side=LEFT)
 
         for i in range(len(words)+1):
             if i == len(words):  # delete button jest na końcu
-                # self.master.step_frames.remove(self)
                 text = "Delete"
                 btn = DeleteStepButton(self, text=text)
                 btn.pack(side=RIGHT)
@@ -167,7 +160,7 @@ class Step(Frame):
                     btn.config(bg="yellow")
                 btn.pack(side=LEFT)
 
-        bind_tree(self, '<Button-1>', lambda e: self.master.scenario_clicked(e))
+        self.master.bind_LMB_click(self)
 
     def change_id(self, new_id):
         self.id = new_id
