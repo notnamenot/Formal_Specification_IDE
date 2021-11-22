@@ -2,9 +2,8 @@ from tkinter import *
 from tkinter import filedialog
 from PIL import ImageTk, Image
 import os
-import xml.etree.ElementTree as ET
-
-from State import State
+# import xml.etree.ElementTree as ET
+from lxml import etree as ET
 
 MAX_WIDTH = 600
 MAX_HEIGHT = 800
@@ -89,32 +88,34 @@ class FrameUC(LabelFrame):
 
         self.state.add_use_cases(use_cases)
 
+
+    def gather_rules(self, namespaces):
+        matches = []
+        matches.append(".//UseCase")                        # visual paradigm 'Xml_structure': 'simple'
+        matches.append(".//Model[@modelType='UseCase']")    # visual paradigm 'Xml_structure': 'traditional'
+        matches.append(".//UMLUseCase")                     # Sinvas
+        matches.append(".//Behavioral_Elements.Use_Cases.UseCase/Foundation.Core.ModelElement.name")     # EnterpriseArchitect XMI 1.0 UML 1.3
+        if "xmi" in namespaces:
+            matches.append(".//packagedElement[@xmi:type='uml:UseCase']")   # Papyrus {'xmi': 'http://www.omg.org/spec/XMI/20131001'}
+                                                                            # EnterpriseArchitect xmi 2.1 <= 2.5.1, uml 2.1 <= 2.5.1 {'xmi': 'http://schema.omg.org/spec/XMI/2.1'}
+        if "xsi" in namespaces:
+            matches.append(".//packagedElement[@xsi:type='uml:UseCase']")   # GenMyModel {'xsi': 'http://www.w3.org/2001/XMLSchema-instance'}
+        if "UML" in namespaces:
+            matches.append(".//UML:UseCase")                # EnterpriseArchitect XMI 1.1 UML 1.3 {'UML': 'omg.org/UML1.3'},
+                                                            # EnterpriseArchitect XMI 1.2 UML 1.4 {'UML': 'org.omg.xmi.namespace.UML'}
+        return matches
+
     def find_use_cases(self, xml_path):
         tree = ET.parse(xml_path)
         root = tree.getroot()
-        print(root.tag, root.attrib)
+        # print(root.tag, root.attrib, root.nsmap)
+        namespaces = root.nsmap
+
+        matches = self.gather_rules(namespaces)
 
         uc_xml_elems = []
-
-        # uc_xml_elems = root.findall(".//MasterView/UseCase")  # visual paradigm 'Xml_structure': 'simple'
-        uc_xml_elems.extend(root.findall(".//UseCase"))  # visual paradigm 'Xml_structure': 'simple'
-        uc_xml_elems.extend(root.findall(".//Model[@modelType='UseCase']"))  # visual paradigm 'Xml_structure': 'traditional' (old)
-
-        namespaces = {'xmi': 'http://www.omg.org/spec/XMI/20131001'}
-        uc_xml_elems.extend(root.findall(".//packagedElement[@xmi:type='uml:UseCase']", namespaces))  # Papyrus
-
-        uc_xml_elems.extend(root.findall(".//UMLUseCase"))  # Sinvas
-
-        namespaces = {'xsi': 'http://www.w3.org/2001/XMLSchema-instance'}
-        uc_xml_elems.extend(root.findall(".//packagedElement[@xsi:type='uml:UseCase']", namespaces))  # GenMyModel
-
-        uc_xml_elems.extend(root.findall(".//Behavioral_Elements.Use_Cases.UseCase/Foundation.Core.ModelElement.name")) # EnterpriseArchitect XMI 1.0 UML 1.3
-        namespaces = {'UML': 'omg.org/UML1.3'}
-        uc_xml_elems.extend(root.findall(".//UML:UseCase", namespaces))  # EnterpriseArchitect XMI 1.1 UML 1.3
-        namespaces = {'UML': 'org.omg.xmi.namespace.UML'}
-        uc_xml_elems.extend(root.findall(".//UML:UseCase", namespaces))  # EnterpriseArchitect XMI 1.2 UML 1.4
-        namespaces = {'xmi': 'http://schema.omg.org/spec/XMI/2.1'}
-        uc_xml_elems.extend(root.findall(".//packagedElement[@xmi:type='uml:UseCase']", namespaces))  # EnterpriseArchitect xmi 2.1 <= 2.5.1, uml 2.1 <= 2.5.1
+        for match in matches:
+            uc_xml_elems.extend(root.findall(match, namespaces=namespaces))
 
         # for elem in root:
         #     print(elem.tag, elem.attrib)
@@ -124,9 +125,9 @@ class FrameUC(LabelFrame):
             # print(elem.tag, elem.attrib, elem.text)
             if 'Name' in elem.attrib:
                 use_cases.append(elem.attrib['Name'])
-            if 'name' in elem.attrib:
+            elif 'name' in elem.attrib:
                 use_cases.append(elem.attrib['name'])
-            if elem.tag == 'Foundation.Core.ModelElement.name':
+            elif elem.tag == 'Foundation.Core.ModelElement.name':
                 use_cases.append(elem.text)
 
         use_cases = list(set(use_cases))  # remove duplicates
