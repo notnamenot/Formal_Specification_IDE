@@ -42,7 +42,6 @@ class FrameScenarios(LabelFrame):
 
     def add_scenario_frame(self, name):
         frame_scenario = Scenario(self, name)
-        frame_scenario.bind('<Button-1>', lambda e: frame_scenario.scenario_clicked(e))
         frame_scenario.pack(fill=X, pady=(0, 10), padx=5)
         self.scenarios_frames.append(frame_scenario)
         return frame_scenario
@@ -60,6 +59,11 @@ class FrameScenarios(LabelFrame):
             for step in use_case[STEPS]:
                 frame_scenario.add_step_frame(step[TEXT], step[SELECTED_WORDS])
 
+def bind_tree(widget, event, callback):
+    "Binds an event to a widget and all its descendants."
+    widget.bind(event, callback)
+    for child in widget.children.values():
+        bind_tree(child, event, callback)
 
 class Scenario(LabelFrame):
     def __init__(self, master, name, *args, **kwargs):
@@ -73,35 +77,34 @@ class Scenario(LabelFrame):
         self.frame_id_name.pack(fill=X)
         self.frame_id_name.rowconfigure(1, weight=1)
         self.frame_id_name.columnconfigure(1, weight=1)
-        self.frame_id_name.bind('<Button-1>', lambda e: self.scenario_clicked(e))
+        # self.frame_id_name.bind('<Button-1>', lambda e: self.scenario_clicked(e))
 
         # self.lbl_scenario_id = Label(self.frame_id_name, text=self.id + "    ")
         # self.lbl_scenario_id.grid(row=0, column=0, sticky=N + S)
-        # self.lbl_scenario_id.bind('<Button-1>', lambda e: self.scenario_clicked(e))
         self.lbl_scenario_name = Label(self.frame_id_name, text=name, font=("Arial", 12))
         self.lbl_scenario_name.grid(row=0, column=1, sticky=N + S)
-        self.lbl_scenario_name.bind('<Button-1>', lambda e: self.scenario_clicked(e))
 
         self.btn_add_step = Button(self, text="Add", command=self.add_step_clicked)
         self.btn_add_step.pack(side=BOTTOM, fill=X)
-        self.btn_add_step.bind('<Button-1>', lambda e: self.scenario_clicked(e))
 
         self.frame_enter_step = Frame(self)
         self.frame_enter_step.pack(side=BOTTOM, fill=X)
-        self.frame_enter_step.bind('<Button-1>', lambda e: self.scenario_clicked(e))
 
         self.lbl_next_step_id = Label(self.frame_enter_step, text="1.")
         self.lbl_next_step_id.pack(side=LEFT)
-        self.lbl_next_step_id.bind('<Button-1>', lambda e: self.scenario_clicked(e))
 
         self.inp_step = Entry(self.frame_enter_step)
         # self.inp_step.insert(0, f'{self.number_of_steps+1}.')  # f'{len(self.step_frames)+1}.'
         # self.inp_step.insert(0, 'Enter step..')  # f'{len(self.step_frames)+1}.'
         self.inp_step.pack(side=LEFT, fill=X, expand=True)
-        self.inp_step.bind('<Button-1>', lambda e: self.scenario_clicked(e))
+
+        bind_tree(self, '<Button-1>', lambda e: self.scenario_clicked(e))
+
+
 
     # Every Scenario's widget has to hav explicitly assigned bind function on click
     def scenario_clicked(self, event):
+        # print("scenario clicked", event.widget)
         self.master.state.set_curr_uc(self.name)
         self.focus_force()
         for scenario in self.master.scenarios_frames:
@@ -121,7 +124,6 @@ class Scenario(LabelFrame):
 
     def add_step_frame(self, step_text, selected_words):
         step_frame = Step(self, step_text, selected_words)
-        step_frame.bind('<Button-1>', lambda e: self.scenario_clicked(e))
         step_frame.pack(fill=X)
         self.step_frames.append(step_frame)
         self.set_lbl_next_step_id()
@@ -149,7 +151,7 @@ class Step(Frame):
         words = text.split()
 
         self.lbl_id = Label(self, text=f"{self.id}.")
-        self.lbl_id.bind('<Button-1>', lambda e: self.master.scenario_clicked(e))
+        # self.lbl_id.bind('<Button-1>', lambda e: self.master.scenario_clicked(e))
         self.lbl_id.pack(side=LEFT)
 
         for i in range(len(words)+1):
@@ -157,15 +159,15 @@ class Step(Frame):
                 # self.master.step_frames.remove(self)
                 text = "Delete"
                 btn = DeleteStepButton(self, text=text)
-                btn.bind('<Button-1>', lambda e: self.master.scenario_clicked(e))
                 btn.pack(side=RIGHT)
             else:
                 text = words[i]
                 btn = StepWordButton(self, text=text)
                 if text in selected_words:
                     btn.config(bg="yellow")
-                btn.bind('<Button-1>', lambda e: self.master.scenario_clicked(e))
                 btn.pack(side=LEFT)
+
+        bind_tree(self, '<Button-1>', lambda e: self.master.scenario_clicked(e))
 
     def change_id(self, new_id):
         self.id = new_id
