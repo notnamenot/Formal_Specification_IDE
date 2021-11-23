@@ -12,9 +12,9 @@ class State:
     def __init__(self):
         self.all_uc_diagrams = []
         self.curr_uc_diagram = {}
-        self.curr_uc = {}
+        self.curr_uc = {}   # kliknięty scenariusz
 
-    def add_uc_diagram(self, img_path):
+    def add_uc_diagram(self, img_path):  # and set_curr_uc_diagram
         self.curr_uc_diagram = {IMG_PATH: img_path, XML_PATH: "", USE_CASES: []}
         self.all_uc_diagrams.append(self.curr_uc_diagram)
         self.curr_uc = {}
@@ -22,24 +22,34 @@ class State:
     def set_xml_path(self, xml_path):
         self.curr_uc_diagram[XML_PATH] = xml_path
 
-    def get_all_uc_diagrams_number(self):
+    def get_all_uc_diagrams_cnt(self):
         return len(self.all_uc_diagrams)
 
-    def change_curr_uc_diagram(self, idx):
+    def set_curr_uc_diagram(self, idx):
         self.curr_uc_diagram = self.all_uc_diagrams[idx]
         self.curr_uc = {}
 
-    def set_curr_uc_diagram(self, img_path):
-        for diagram in self.all_uc_diagrams:
-            if diagram[IMG_PATH] == img_path:
-                self.curr_uc_diagram = diagram
-                break
+    def delete_curr_uc_diagram(self):
+        i = self.get_curr_uc_diagram_seq()
+        self.all_uc_diagrams.pop(i)
+        if self.get_all_uc_diagrams_cnt() > 0:
+            self.curr_uc_diagram = self.all_uc_diagrams[0]
+        else:
+            self.curr_uc_diagram = {}
         self.curr_uc = {}
+
+    def change_curr_uc_diagram(self, img_path):
+        for i, diagram in enumerate(self.all_uc_diagrams):
+            if diagram[IMG_PATH] == img_path:
+                self.set_curr_uc_diagram(i)
+                break
+        # self.curr_uc = {}
 
     def get_curr_uc_diagram_seq(self):  # ew trzymać w jsonie numerek
         for i, diagram in enumerate(self.all_uc_diagrams):
             if diagram[IMG_PATH] == self.curr_uc_diagram[IMG_PATH]:
                 return i
+        return -1  # all diagrams deleted
 
     def get_curr_img_path(self):
         return self.curr_uc_diagram[IMG_PATH]

@@ -24,35 +24,34 @@ class FrameUC(LabelFrame):
         self.frame_import_UC.columnconfigure(1, weight=1)  # <
         self.frame_import_UC.columnconfigure(2, weight=2)  # nazwy
         self.frame_import_UC.columnconfigure(3, weight=1)  # >
+        self.frame_import_UC.columnconfigure(4, weight=1)  # button delete
 
-        self.btn_import_image = Button(self.frame_import_UC, text="Import files", command=self.open_img)
-        # self.btn_import_image.pack(side=LEFT)
-        self.btn_import_image.grid(row=0, column=0, rowspan=2, sticky=W, padx=(0, 20))
+        self.btn_import = Button(self.frame_import_UC, text="Import files", command=self.import_clicked)
+        self.btn_import.grid(row=0, column=0, rowspan=2, sticky=W, padx=(5,5))
 
         # self.btn_import_xml = Button(self.frame_import_UC, text="Import xml", command=self.open_xml)
-        # self.btn_import_xml.pack(side=LEFT)
 
-        self.btn_prev = Button(self.frame_import_UC, text="<", state=DISABLED, command=self.prev_uc_clicked)
-        # self.btn_prev.pack(side=LEFT)
+        self.btn_prev = Button(self.frame_import_UC, text="<", state=DISABLED, command=self.prev_uc_diagram_clicked)
         self.btn_prev.grid(row=0, column=1, rowspan=2, sticky=NS, padx=(5, 5))
 
-        self.lbl_img_name = Label(self.frame_import_UC, text="Image file name")
-        # self.lbl_img_name.pack(side=LEFT)
+        self.lbl_img_name = Label(self.frame_import_UC, text="<img_file_name>")
         self.lbl_img_name.grid(row=0, column=2)
 
-        self.lbl_xml_name = Label(self.frame_import_UC, text="XML file name")
+        self.lbl_xml_name = Label(self.frame_import_UC, text="<xml_file_name>")
         self.lbl_xml_name.grid(row=1, column=2)
 
-        self.btn_next = Button(self.frame_import_UC, text=">", state=DISABLED, command=self.next_uc_clicked)
-        # self.btn_next.pack(side=LEFT)
+        self.btn_next = Button(self.frame_import_UC, text=">", state=DISABLED, command=self.next_uc_diagram_clicked)
         self.btn_next.grid(row=0, column=3, rowspan=2, sticky=NS, padx=(5, 5))
 
-        # img = ImageTk.PhotoImage(Image.open("uc_place_holder.png"))  # TODO wrzucić to shape
+        self.btn_delete = Button(self.frame_import_UC, text="Delete", state=DISABLED, command=self.delete_uc_diagram_clicked)
+        self.btn_delete.grid(row=0, column=4, rowspan=2, sticky=NS, padx=(5, 5))
+
+        # img = ImageTk.PhotoImage(Image.open("uc_place_holder.png"))
         # self.panel = Label(self, image=img)
         self.panel = Label(self)
         self.panel.pack()
 
-    def open_img(self):
+    def import_clicked(self):
         img_path = filedialog.askopenfilename(initialdir=".", title="Select image", filetypes=(("image files", "*.png"),
                                                                                                ("image files", "*.jpg"),
                                                                                                ("image files", "*.jpeg"),
@@ -63,10 +62,10 @@ class FrameUC(LabelFrame):
         contains_img, contains_xml = self.state.contains_img_xml(img_path)
 
         if contains_img and not contains_xml:
-            self.state.set_curr_uc_diagram(img_path)
+            self.state.change_curr_uc_diagram(img_path)
             self.open_xml()
         elif contains_img:
-            self.state.set_curr_uc_diagram(img_path)
+            self.state.change_curr_uc_diagram(img_path)
         else:
             self.state.add_uc_diagram(img_path)  # also sets curr_uc_diagram
             self.open_xml()
@@ -87,23 +86,6 @@ class FrameUC(LabelFrame):
         use_cases = self.find_use_cases(xml_path)
 
         self.state.add_use_cases(use_cases)
-
-
-    def gather_rules(self, namespaces):
-        matches = []
-        matches.append(".//UseCase")                        # visual paradigm 'Xml_structure': 'simple'
-        matches.append(".//Model[@modelType='UseCase']")    # visual paradigm 'Xml_structure': 'traditional'
-        matches.append(".//UMLUseCase")                     # Sinvas
-        matches.append(".//Behavioral_Elements.Use_Cases.UseCase/Foundation.Core.ModelElement.name")     # EnterpriseArchitect XMI 1.0 UML 1.3
-        if "xmi" in namespaces:
-            matches.append(".//packagedElement[@xmi:type='uml:UseCase']")   # Papyrus {'xmi': 'http://www.omg.org/spec/XMI/20131001'}
-                                                                            # EnterpriseArchitect xmi 2.1 <= 2.5.1, uml 2.1 <= 2.5.1 {'xmi': 'http://schema.omg.org/spec/XMI/2.1'}
-        if "xsi" in namespaces:
-            matches.append(".//packagedElement[@xsi:type='uml:UseCase']")   # GenMyModel {'xsi': 'http://www.w3.org/2001/XMLSchema-instance'}
-        if "UML" in namespaces:
-            matches.append(".//UML:UseCase")                # EnterpriseArchitect XMI 1.1 UML 1.3 {'UML': 'omg.org/UML1.3'},
-                                                            # EnterpriseArchitect XMI 1.2 UML 1.4 {'UML': 'org.omg.xmi.namespace.UML'}
-        return matches
 
     def find_use_cases(self, xml_path):
         tree = ET.parse(xml_path)
@@ -131,44 +113,72 @@ class FrameUC(LabelFrame):
                 use_cases.append(elem.text)
 
         use_cases = list(set(use_cases))  # remove duplicates
-
         return use_cases
 
-    def next_uc_clicked(self):
-        self.state.change_curr_uc_diagram(self.state.get_curr_uc_diagram_seq() + 1)
+    def gather_rules(self, namespaces):
+        matches = []
+        matches.append(".//UseCase")                        # visual paradigm 'Xml_structure': 'simple'
+        matches.append(".//Model[@modelType='UseCase']")    # visual paradigm 'Xml_structure': 'traditional'
+        matches.append(".//UMLUseCase")                     # Sinvas
+        matches.append(".//Behavioral_Elements.Use_Cases.UseCase/Foundation.Core.ModelElement.name")     # EnterpriseArchitect XMI 1.0 UML 1.3
+        if "xmi" in namespaces:
+            matches.append(".//packagedElement[@xmi:type='uml:UseCase']")   # Papyrus {'xmi': 'http://www.omg.org/spec/XMI/20131001'}
+                                                                            # EnterpriseArchitect xmi 2.1 <= 2.5.1, uml 2.1 <= 2.5.1 {'xmi': 'http://schema.omg.org/spec/XMI/2.1'}
+        if "xsi" in namespaces:
+            matches.append(".//packagedElement[@xsi:type='uml:UseCase']")   # GenMyModel {'xsi': 'http://www.w3.org/2001/XMLSchema-instance'}
+        if "UML" in namespaces:
+            matches.append(".//UML:UseCase")                # EnterpriseArchitect XMI 1.1 UML 1.3 {'UML': 'omg.org/UML1.3'},
+                                                            # EnterpriseArchitect XMI 1.2 UML 1.4 {'UML': 'org.omg.xmi.namespace.UML'}
+        return matches
+
+    def prev_uc_diagram_clicked(self):
+        self.state.set_curr_uc_diagram(self.state.get_curr_uc_diagram_seq() - 1)
         self.reload()
 
-    def prev_uc_clicked(self):
-        self.state.change_curr_uc_diagram(self.state.get_curr_uc_diagram_seq() - 1)
+    def next_uc_diagram_clicked(self):
+        self.state.set_curr_uc_diagram(self.state.get_curr_uc_diagram_seq() + 1)
+        self.reload()
+
+    def delete_uc_diagram_clicked(self):
+        self.state.delete_curr_uc_diagram()
         self.reload()
 
     def reload(self):
         self.set_buttons_state()
 
-        img_path = self.state.get_curr_img_path()
-        _, img_name = os.path.split(img_path)
-        self.lbl_img_name.config(text=img_name)
+        if not self.state.all_uc_diagrams:
+            self.lbl_img_name.config(text="<img_file_name>")
+            self.lbl_xml_name.config(text="<xml_file_name>")
+            self.panel.configure(image="")
+        else:
+            img_path = self.state.get_curr_img_path()
+            _, img_name = os.path.split(img_path)
+            self.lbl_img_name.config(text=img_name)
 
-        xml_path = self.state.get_curr_xml_path()
-        _, xml_name = os.path.split(xml_path)
-        self.lbl_xml_name.config(text=xml_name)
+            xml_path = self.state.get_curr_xml_path()
+            _, xml_name = os.path.split(xml_path)
+            self.lbl_xml_name.config(text=xml_name)
 
-        self.set_uc_diagram_img(img_path)
+            self.set_uc_diagram_img(img_path)
 
         self.master.refresh_frames()
 
     def set_buttons_state(self):
         curr_uc_diagram_seq = self.state.get_curr_uc_diagram_seq()
-        all_uc_diagrams_number = self.state.get_all_uc_diagrams_number()
+        all_uc_diagrams_cnt = self.state.get_all_uc_diagrams_cnt()
 
-        if curr_uc_diagram_seq == 0:
+        if curr_uc_diagram_seq <= 0:
             self.btn_prev.configure(state=DISABLED)
         else:
             self.btn_prev.configure(state=NORMAL)
-        if curr_uc_diagram_seq == all_uc_diagrams_number-1:
+        if curr_uc_diagram_seq == all_uc_diagrams_cnt-1:
             self.btn_next.configure(state=DISABLED)
         else:
             self.btn_next.configure(state=NORMAL)
+        if all_uc_diagrams_cnt > 0:
+            self.btn_delete.configure(state=NORMAL)
+        else:
+            self.btn_delete.configure(state=DISABLED)
 
     def set_uc_diagram_img(self, img_path):
         i = Image.open(img_path)

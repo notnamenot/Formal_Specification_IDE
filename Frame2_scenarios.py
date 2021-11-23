@@ -54,10 +54,11 @@ class FrameScenarios(LabelFrame):
             self.scenarios_frames.pop()
 
         # 2. Add new scenarios
-        for use_case in self.state.curr_uc_diagram[USE_CASES]:
-            frame_scenario = self.add_scenario_frame(use_case[NAME])
-            for step in use_case[STEPS]:
-                frame_scenario.add_step_frame(step[TEXT], step[SELECTED_WORDS])
+        if self.state.curr_uc_diagram:
+            for use_case in self.state.curr_uc_diagram[USE_CASES]:
+                frame_scenario = self.add_scenario_frame(use_case[NAME])
+                for step in use_case[STEPS]:
+                    frame_scenario.add_step_frame(step[TEXT], step[SELECTED_WORDS])
 
 class Scenario(LabelFrame):
     def __init__(self, master, name, *args, **kwargs):
