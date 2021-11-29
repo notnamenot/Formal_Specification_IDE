@@ -29,6 +29,10 @@ class Application(Tk):
         self.frame2_scenarios = FrameScenarios(self, self.state)
         self.frame2_scenarios.grid(row=0, column=1, sticky=N+S)
 
+        # self.frame3_flowchart = FrameFlowchart(self)
+        # self.frame3_flowchart.grid(row=0, column=2, sticky=N+S)
+
+    def add_frame3_flowchart(self):
         self.frame3_flowchart = FrameFlowchart(self)
         self.frame3_flowchart.grid(row=0, column=2, sticky=N+S)
 

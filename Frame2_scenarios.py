@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter.messagebox import showinfo
 
 from State import USE_CASES, NAME, STEPS, TEXT, SELECTED_WORDS
 
@@ -10,19 +11,34 @@ class FrameScenarios(LabelFrame):
 
         self.scenarios_frames = []
 
-        self.frame_input_scenario = Frame(self)
-        self.frame_input_scenario.pack(side=BOTTOM)
+        self.btn_ready = Button(self, text="Gotowe", width=50, state=DISABLED, command=self.ready_clicked)
+        self.btn_ready.pack(side=BOTTOM)
 
-        # input_scenario_id = Entry(frame_input_scenario, width=3, borderwidth=3)
-        # input_scenario_id.grid(row=0, column=0)
-        # input_scenario_id.insert(0, "UC")
+        # self.frame_input_scenario = Frame(self)
+        # self.frame_input_scenario.pack(side=BOTTOM)
+        #
+        # # input_scenario_id = Entry(frame_input_scenario, width=3, borderwidth=3)
+        # # input_scenario_id.grid(row=0, column=0)
+        # # input_scenario_id.insert(0, "UC")
+        #
+        # self.input_scenario_name = Entry(self.frame_input_scenario, width=50, borderwidth=3)
+        # self.input_scenario_name.grid(row=0, column=0)
+        # self.input_scenario_name.insert(0, "Enter scenario...")
+        #
+        # self.btn_add_scenario = Button(self.frame_input_scenario, text="Add", command=self.add_scenario_clicked)
+        # self.btn_add_scenario.grid(row=0, column=1)
 
-        self.input_scenario_name = Entry(self.frame_input_scenario, width=50, borderwidth=3)
-        self.input_scenario_name.grid(row=0, column=0)
-        self.input_scenario_name.insert(0, "Enter scenario...")
+    def ready_clicked(self):
+        for uc in self.state.curr_uc_diagram["use_cases"]:
+            if not uc["steps"]:
+                showinfo(title='Błąd', message="Uzupełnij wszystkie scenariusze!")
+                return
+            for step in uc["steps"]:
+                if not step["selected_words"]:
+                    showinfo(title='Błąd', message="Wybierz czasowniki we wszystkich scenariuszach!")
+                    return
 
-        self.btn_add_scenario = Button(self.frame_input_scenario, text="Add", command=self.add_scenario_clicked)
-        self.btn_add_scenario.grid(row=0, column=1)
+        self.master.add_frame3_flowchart()
 
     def add_scenario_clicked(self):
         scenario = self.input_scenario_name.get().strip()
@@ -60,6 +76,8 @@ class FrameScenarios(LabelFrame):
                 for step in use_case[STEPS]:
                     frame_scenario.add_step_frame(step[TEXT], step[SELECTED_WORDS])
 
+        self.btn_ready.configure(state=NORMAL)
+
 class Scenario(LabelFrame):
     def __init__(self, master, name, *args, **kwargs):
         super().__init__(master=master, relief="flat", highlightthickness=1, *args, **kwargs)
@@ -76,7 +94,7 @@ class Scenario(LabelFrame):
         # self.lbl_scenario_id = Label(self.frame_id_name, text=self.id + "    ")
         # self.lbl_scenario_id.grid(row=0, column=0, sticky=N + S)
         self.lbl_scenario_name = Label(self.frame_id_name, text=name, font=("Arial", 12))
-        self.lbl_scenario_name.grid(row=0, column=1, sticky=N + S)
+        self.lbl_scenario_name.grid(row=0, column=1, sticky=N+S)
 
         self.btn_add_step = Button(self, text="Add", command=self.add_step_clicked)
         self.btn_add_step.pack(side=BOTTOM, fill=X)
