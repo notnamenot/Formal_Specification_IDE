@@ -6,6 +6,15 @@ STEPS = "steps"
 SEQ = "seq"
 SELECTED_WORDS = "selected_words"
 TEXT = "text"
+CONNECTIONS = "connections"
+
+SEQUENCE = "Sequence"
+BRANCH = "Branch"
+BRANCHRE = "BranchRe"
+CONCUR = "Concur"
+CONCURRE = "ConcurRe"
+
+from collections import defaultdict
 
 
 class State:
@@ -65,7 +74,13 @@ class State:
 
     def add_use_cases(self, use_cases):
         for use_case_name in use_cases:
-            self.curr_uc_diagram[USE_CASES].append({NAME: use_case_name, STEPS: []})
+            self.curr_uc_diagram[USE_CASES].append({NAME: use_case_name,
+                                                    STEPS: [],
+                                                    CONNECTIONS: {SEQUENCE: defaultdict(list),
+                                                                  BRANCH: defaultdict(list),
+                                                                  BRANCHRE: defaultdict(list),
+                                                                  CONCUR: defaultdict(list),
+                                                                  CONCURRE: defaultdict(list)}})
 
     def add_step(self, step_text):
         self.curr_uc[STEPS].append({SEQ: len(self.curr_uc[STEPS])+1, TEXT: step_text, SELECTED_WORDS: []})
@@ -128,7 +143,25 @@ class State:
 # 											"selected_words": ["inserts"]
 # 										},
 # 										...
-# 									]
+# 									],
+#                         "connections":
+#                                     {
+#                                         "Sequence":
+#                                             {
+#                                                 "selected_word2": ["selected_word3"],
+#                                                 "selected_word5": ["selected_word6"]
+#                                             },
+#                                         "Branch":  # OR - potrzebne warunki
+#                                             {
+#                                                 "selected_word1": ["selected_word2", "selcted_word5"]  # from: [to1, to2]
+#                                             },
+#                                         "BranchRe":
+#                                             {
+#                                                 "selected_word7": ["selected_word3", "selcted_word6"]  # to: [from1, from2]
+#                                             },
+#                                         "Concur": {...},
+#                                         "ConcurRe": {...}
+#                                     }
 # 						},
 # 						...
 # 					]
