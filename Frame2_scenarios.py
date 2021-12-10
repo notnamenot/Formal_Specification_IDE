@@ -109,6 +109,7 @@ class Scenario(LabelFrame):
         # self.inp_step.insert(0, f'{self.number_of_steps+1}.')  # f'{len(self.step_frames)+1}.'
         # self.inp_step.insert(0, 'Enter step..')  # f'{len(self.step_frames)+1}.'
         self.inp_step.pack(side=LEFT, fill=X, expand=True)
+        self.inp_step.bind('<Return>', self.on_enter_clicked)
 
         self.bind_LMB_click(self)
 
@@ -124,6 +125,9 @@ class Scenario(LabelFrame):
         for scenario in self.master.scenarios_frames:
             scenario.config(relief="flat")
         self.config(relief="groove")  # borderwidth=5, highlightbackground="green", highlightthickness=1
+
+    def on_enter_clicked(self, event):
+        self.add_step_clicked()
 
     def add_step_clicked(self):
         step_text = self.inp_step.get().strip()
