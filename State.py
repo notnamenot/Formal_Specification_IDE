@@ -76,11 +76,11 @@ class State:
         for use_case_name in use_cases:
             self.curr_uc_diagram[USE_CASES].append({NAME: use_case_name,
                                                     STEPS: [],
-                                                    CONNECTIONS: {SEQUENCE: defaultdict(list),
-                                                                  BRANCH: defaultdict(list),
-                                                                  BRANCHRE: defaultdict(list),
-                                                                  CONCUR: defaultdict(list),
-                                                                  CONCURRE: defaultdict(list)}})
+                                                    CONNECTIONS: {SEQUENCE: defaultdict(set), # set a nie list żeby były unikalne wartości
+                                                                  BRANCH: defaultdict(set),
+                                                                  BRANCHRE: defaultdict(set),
+                                                                  CONCUR: defaultdict(set),
+                                                                  CONCURRE: defaultdict(set)}})
 
     def add_step(self, step_text):
         self.curr_uc[STEPS].append({SEQ: len(self.curr_uc[STEPS])+1, TEXT: step_text, SELECTED_WORDS: []})

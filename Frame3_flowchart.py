@@ -1,5 +1,7 @@
 from tkinter import *
 from tkinter.ttk import *
+import pydot
+from PIL import ImageTk, Image
 
 from State import STEPS, SELECTED_WORDS, CONNECTIONS, SEQUENCE, BRANCH, BRANCHRE, CONCUR, CONCURRE
 
@@ -37,14 +39,6 @@ class FrameFlowchart(LabelFrame):
         self.cb_conn_type.pack(side=LEFT)
         #self.cb_conn_type.bind('<<ComboboxSelected>>', self.check_can_add)  # check_can_add(self, event):
 
-        # Adding combobox drop down list
-        # connectionchoosen['values'] = (' Sequence',
-        #                                ' Branch',
-        #                                ' BranchRe',
-        #                                ' Concur',
-        #                                ' ConcurRe'
-        #                                )
-
         self.sv_to = StringVar()
         self.sv_to.trace_add('write', self.check_can_add)
         self.cb_to = Combobox(self.frame_add_connection, width=20,
@@ -58,6 +52,9 @@ class FrameFlowchart(LabelFrame):
 
         self.btn_add_conn = Button(self.frame_add_connection, text="Add", command=self.add_conn_clicked, state=DISABLED)
         self.btn_add_conn.pack(side=LEFT)
+
+        self.panel = Label(self)
+        self.panel.pack(side=TOP)
 
     def reset_add_conn_frame(self):
         self.sv_from.set("from activity")
@@ -73,48 +70,51 @@ class FrameFlowchart(LabelFrame):
         sv_conn = self.sv_conn.get()
         sv_to = self.sv_to.get()
 
-        print(sv_from, sv_to, sv_conn)
+        #print(sv_from, sv_to, sv_conn)
         if sv_from != "from activity" and sv_to != "to activity" and sv_conn != "connection type":
             self.btn_add_conn.config(state=NORMAL)
 
     def add_conn_clicked(self):
-
         sv_from = self.sv_from.get()
         sv_conn = self.sv_conn.get()
         sv_to = self.sv_to.get()
 
         if sv_conn in [SEQUENCE, BRANCH, CONCUR]:
-            self.state.curr_uc[CONNECTIONS][sv_conn][sv_from].append(sv_to)
+            self.state.curr_uc[CONNECTIONS][sv_conn][sv_from].add(sv_to)  # append jest do listy a mamy set
         elif sv_conn in [BRANCHRE, CONCURRE]:
-            self.state.curr_uc[CONNECTIONS][sv_conn][sv_to].append(sv_from)
+            self.state.curr_uc[CONNECTIONS][sv_conn][sv_to].add(sv_from)
 
         self.reset_add_conn_frame()
         self.btn_add_conn.config(state=DISABLED)
 
         print(self.state.curr_uc)
+
+        self.redraw_flowchart()
         #TODO reprint flowchart i save conn
 
+    def redraw_flowchart(self):
 
-    def create_connections_types_widgets(self):
-        self.lbl_start = Label(self, text="Start", bg="#eddeb4", padx=8, pady=8, width=8)
-        self.lbl_start.pack(side=LEFT, anchor=NW)
+        graph = pydot.Dot(graph_type='digraph')
 
-        self.lbl_seq = Label(self, text="Sequence", bg="#8aaceb", padx=8, pady=8, width=8)
-        self.lbl_seq.pack(side=LEFT, anchor=NW)
+        for conn_type, value_dict in  self.state.curr_uc[CONNECTIONS].items():  #key, value
+            if self.state.curr_uc[CONNECTIONS][conn_type]: # if not empty
+                if conn_type in [SEQUENCE, BRANCH, CONCUR]:
+                    for from_, to_list in self.state.curr_uc[CONNECTIONS][conn_type].items():
+                        for to in to_list:
+                            edge = pydot.Edge(from_, to)
+                            graph.add_edge(edge)
+                elif conn_type in [BRANCHRE, CONCURRE]:
+                    for to, from_list in self.state.curr_uc[CONNECTIONS][conn_type].items():
+                        for from_ in from_list:
+                            edge = pydot.Edge(from_, to)
+                            graph.add_edge(edge)
 
-        self.lbl_branch = Label(self, text="Branch", bg="#6df776", padx=8, pady=8, width=8)
-        self.lbl_branch.pack(side=LEFT, anchor=NW)
+        # TODO add start to node wo prev, add end to node wo next,
 
-        self.lbl_branch_re = Label(self, text="BranchRe", bg="#5acc61", padx=8, pady=8, width=8)
-        self.lbl_branch_re.pack(side=LEFT, anchor=NW)
+        graph.write_png('example1_graph.png')
 
-        self.lbl_concur = Label(self, text="Concur", bg="#eb9f73", padx=8, pady=8, width=8)
-        self.lbl_concur.pack(side=LEFT, anchor=NW)
+        img = ImageTk.PhotoImage(image=Image.open("example1_graph.png"))
 
-        self.lbl_concur_re = Label(self, text="ConcurRe", bg="#cc845a", padx=8, pady=8, width=8)
-        self.lbl_concur_re.pack(side=LEFT, anchor=NW)
-
-        self.lbl_end = Label(self, text="End", bg="#eddeb4", padx=8, pady=8, width=8)
-        self.lbl_end.pack(side=LEFT, anchor=NW)
-
+        self.panel.configure(image=img)
+        self.panel.image = img
 
