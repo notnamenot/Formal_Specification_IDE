@@ -1,6 +1,9 @@
 from tkinter import *
 from tkinter.ttk import *
-import pydot
+# import pydot
+import pygraphviz as pgv
+# import graphviz
+
 from PIL import ImageTk, Image
 
 from State import STEPS, SELECTED_WORDS, CONNECTIONS, SEQUENCE, BRANCH, BRANCHRE, CONCUR, CONCURRE
@@ -92,29 +95,96 @@ class FrameFlowchart(LabelFrame):
         self.redraw_flowchart()
         #TODO reprint flowchart i save conn
 
+    # def redraw_flowchart(self):
+    #
+    #     graph = pydot.Dot(graph_type='digraph')
+    #
+    #     for conn_type, value_dict in self.state.curr_uc[CONNECTIONS].items():  #key, value
+    #         if self.state.curr_uc[CONNECTIONS][conn_type]:  # if not empty
+    #             if conn_type in [SEQUENCE, BRANCH, CONCUR]:
+    #                 for from_, to_list in self.state.curr_uc[CONNECTIONS][conn_type].items():
+    #                     for to in to_list:
+    #                         edge = pydot.Edge(from_, to)
+    #                         graph.add_edge(edge)
+    #             elif conn_type in [BRANCHRE, CONCURRE]:
+    #                 for to, from_list in self.state.curr_uc[CONNECTIONS][conn_type].items():
+    #                     for from_ in from_list:
+    #                         edge = pydot.Edge(from_, to)
+    #                         graph.add_edge(edge)
+    #
+    #     # TODO add start to node wo prev, add end to node wo next,
+    #
+    #     graph.write_png('example1_graph.png')
+    #
+    #     img = ImageTk.PhotoImage(image=Image.open("example1_graph.png"))
+    #
+    #     self.panel.configure(image=img)
+    #     self.panel.image = img
+
     def redraw_flowchart(self):
+        # g = pgv.Digraph('G', filename='flowchcart.gv')  # directed graph
+        g = pgv.AGraph(strict=False, directed=True, rankdir="TB", engine='dot')  # directed graph
+        g.node_attr["shape"] = "box"
 
-        graph = pydot.Dot(graph_type='digraph')
+        self.add_nodes(g)
+        self.add_edges(g)
+        self.add_start_node(g)
+        self.add_end_node(g)
 
-        for conn_type, value_dict in  self.state.curr_uc[CONNECTIONS].items():  #key, value
-            if self.state.curr_uc[CONNECTIONS][conn_type]: # if not empty
-                if conn_type in [SEQUENCE, BRANCH, CONCUR]:
-                    for from_, to_list in self.state.curr_uc[CONNECTIONS][conn_type].items():
-                        for to in to_list:
-                            edge = pydot.Edge(from_, to)
-                            graph.add_edge(edge)
-                elif conn_type in [BRANCHRE, CONCURRE]:
-                    for to, from_list in self.state.curr_uc[CONNECTIONS][conn_type].items():
-                        for from_ in from_list:
-                            edge = pydot.Edge(from_, to)
-                            graph.add_edge(edge)
+        g.layout()
+        g.draw("file2.png")
 
-        # TODO add start to node wo prev, add end to node wo next,
-
-        graph.write_png('example1_graph.png')
-
-        img = ImageTk.PhotoImage(image=Image.open("example1_graph.png"))
+        img = ImageTk.PhotoImage(image=Image.open("file2.png"))
 
         self.panel.configure(image=img)
         self.panel.image = img
+
+        # g.node('start', shape='ellipse')
+        # g.node('end', shape='ellipse')
+
+    def add_nodes(self, g):
+        for conn_type, value_dict in self.state.curr_uc[CONNECTIONS].items():  #key, value
+            if self.state.curr_uc[CONNECTIONS][conn_type]:  # if not empty
+                if conn_type in [BRANCH]:
+                    for from_ in self.state.curr_uc[CONNECTIONS][conn_type]:  #  g.add_nodes_from(nodelist) gdzie nodelist to lista kluczy
+                        g.add_node(from_, shape='diamond')
+                        # g.node(from_, shape='diamond')
+                elif conn_type in [SEQUENCE, BRANCHRE, CONCUR, CONCURRE]:
+                    for from_ in self.state.curr_uc[CONNECTIONS][conn_type]:
+                        # g.node(from_, shape='box')
+                        g.add_node(from_, shape='box')
+
+    def add_edges(self, g):
+        for conn_type, value_dict in self.state.curr_uc[CONNECTIONS].items():  #key, value
+            if self.state.curr_uc[CONNECTIONS][conn_type]:  # if not empty
+                if conn_type in [SEQUENCE, BRANCH, CONCUR]:
+                    for from_, to_list in self.state.curr_uc[CONNECTIONS][conn_type].items():
+                        for to in to_list:
+                            # g.edge(from_, to)
+                            g.add_edge(from_, to)
+                elif conn_type in [BRANCHRE, CONCURRE]:
+                    for to, from_list in self.state.curr_uc[CONNECTIONS][conn_type].items():
+                        for from_ in from_list:
+                            # g.edge(from_, to)
+                            g.add_edge(from_, to)
+
+    def add_start_node(self, g):
+        # n = g.in_degree(g.nodes())
+        start_nodes = [node for node, in_degree in g.in_degree(g.nodes(), with_labels=True).items() if in_degree == 0]
+        for i, node in enumerate(start_nodes):
+            s = f"start{i}"
+            g.add_node(s, shape='ellipse', label="start")
+            g.add_edge(s, node)
+
+    def add_end_node(self, g):
+        # n = g.in_degree(g.nodes())
+        end_nodes = [node for node, out_degree in g.out_degree(g.nodes(), with_labels=True).items() if out_degree == 0]
+        for i, node in enumerate(end_nodes):
+            s = f"end{i}"
+            g.add_node(s, shape='ellipse', label="end")
+            g.add_edge(node, s)
+
+    def refresh(self):
+        self.reset_add_conn_frame()
+        self.redraw_flowchart()
 

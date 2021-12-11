@@ -32,11 +32,20 @@ class Application(Tk):
         # self.frame3_flowchart = FrameFlowchart(self)
         # self.frame3_flowchart.grid(row=0, column=2, sticky=N+S)
 
-    def add_frame3_flowchart(self):
+    def add_frame3_flowchart(self): # TODO do poprawy każde naciśnięcie przycisku gotowe dodaje nowy frame
         self.frame3_flowchart = FrameFlowchart(self, self.state)
         self.frame3_flowchart.grid(row=0, column=2, sticky=N+S)
 
     def refresh_frames(self):
         # print("from refresh_frames\nall\n", self.state.all_uc_diagrams, "\ncurr\n", self.state.curr_uc_diagram)
         self.frame2_scenarios.refresh()
-        # TODO i refresh flowchart
+        print("c1", self.winfo_children())
+        if len(self.winfo_children()) == 3:
+            self.frame3_flowchart.grid_remove()
+        print("c2", self.winfo_children())
+        # if len(self.winfo_children()) == 3 and self.state.curr_uc_connections_exist(): # przy przeładowywaniu żaden scenariusz nie jest wybrany - TODO zaznaczyć pierwszy
+        #     self.frame3_flowchart.refresh()
+        # elif len(self.winfo_children()) == 3 and self.state.curr_uc[CONNECTIONS]:
+
+        # TODO else remove
+
