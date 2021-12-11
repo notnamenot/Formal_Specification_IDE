@@ -11,7 +11,7 @@ class Flowchart(pgv.AGraph):
         self.graph_attr["ranksep"] = "0.2"
 
         self.node_attr["shape"] = "box"
-        self.node_attr["style"] = "filled"
+        self.node_attr["style"] = "filled,rounded"
         self.node_attr["fillcolor"] = "#74b1ed"
         self.node_attr["color"] = "#3d6fa1"
 
