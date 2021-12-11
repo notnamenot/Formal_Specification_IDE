@@ -11,7 +11,7 @@ class FrameScenarios(LabelFrame):
 
         self.scenarios_frames = []
 
-        self.btn_ready = Button(self, text="Gotowe", width=50, state=DISABLED, command=self.ready_clicked)
+        self.btn_ready = Button(self, text="Ready!", width=50, state=DISABLED, command=self.ready_clicked)
         self.btn_ready.pack(side=BOTTOM)
 
         # self.frame_input_scenario = Frame(self)
@@ -29,16 +29,21 @@ class FrameScenarios(LabelFrame):
         # self.btn_add_scenario.grid(row=0, column=1)
 
     def ready_clicked(self):
-        for uc in self.state.curr_uc_diagram["use_cases"]:
-            if not uc["steps"]:
-                showinfo(title='Błąd', message="Uzupełnij wszystkie scenariusze!")
-                return
-            for step in uc["steps"]:
-                if not step["selected_words"]:
-                    showinfo(title='Błąd', message="Wybierz czasowniki we wszystkich scenariuszach!")
-                    return
+        err_msg = self.validate_state()
+        if err_msg:
+            showinfo(title='Error', message=err_msg)
+            return
 
         self.master.add_frame3_flowchart()
+
+    def validate_state(self):  # should be in State class??
+        for uc in self.state.curr_uc_diagram["use_cases"]:
+            if not uc["steps"]:
+                return "Fill in all scenarios!"
+            for step in uc["steps"]:
+                if not step["selected_words"]:
+                    return "Choose activity in each step!"
+        return ""
 
     def add_scenario_clicked(self):
         scenario = self.input_scenario_name.get().strip()
@@ -64,19 +69,25 @@ class FrameScenarios(LabelFrame):
 
     def refresh(self):
         # print("from refresh\nall\n", self.state.all_uc_diagrams, "\ncurr diag\n", self.state.curr_uc_diagram, "\ncurr uc\n", self.state.curr_uc)
-        # 1. remove current scenarios
+        # 1. remove old scenarios
         for scenario in reversed(self.scenarios_frames):
             scenario.destroy()
             self.scenarios_frames.pop()
 
-        # 2. Add new scenarios
+        # 2. add new scenarios
         if self.state.curr_uc_diagram:
             for use_case in self.state.curr_uc_diagram[USE_CASES]:
                 frame_scenario = self.add_scenario_frame(use_case[NAME])
                 for step in use_case[STEPS]:
                     frame_scenario.add_step_frame(step[TEXT], step[SELECTED_WORDS])
 
-        self.btn_ready.configure(state=NORMAL)
+        # 3. set curr scenario and focus on first scenario
+        if self.scenarios_frames:
+            self.btn_ready.configure(state=NORMAL)
+            self.scenarios_frames[0].scenario_clicked(Event)
+        else:
+            self.btn_ready.configure(state=DISABLED)
+
 
 class Scenario(LabelFrame):
     def __init__(self, master, name, *args, **kwargs):
@@ -84,7 +95,7 @@ class Scenario(LabelFrame):
         # self.id = ""  # TODO uzupełniać albo wywalić
         self.name = name
 
-        self.step_frames = []  # TODO trzebaby pamiętać przy usuwaniu stepa żeby stąd też czyścić
+        self.step_frames = []  # pamiętać przy usuwaniu stepa żeby stąd też czyścić
 
         self.frame_id_name = LabelFrame(self, relief="flat")  # relief="ridge"
         self.frame_id_name.pack(fill=X)
@@ -125,6 +136,8 @@ class Scenario(LabelFrame):
         for scenario in self.master.scenarios_frames:
             scenario.config(relief="flat")
         self.config(relief="groove")  # borderwidth=5, highlightbackground="green", highlightthickness=1
+
+        self.master.master.on_refresh_frame3_flowchart()
 
     def on_enter_clicked(self, event):
         self.add_step_clicked()
@@ -201,11 +214,13 @@ class StepWordButton(Button):
     def click_function(self):
         if self['bg'] == 'white':
             self['bg'] = 'yellow'
-            self.master.master.master.state.add_selected_word(self.master.id, self['text']) # self.master - Step, self.master.master - Scenario, self.master.master.master - scenarios frame
+            self.master.master.master.state.add_selected_word(self.master.id, self['text']) # self.master - Step, self.master.master - Scenario, self.master.master.master - FrameScenarios
         elif self['bg'] == 'yellow':
             self['bg'] = 'white'
             self.master.master.master.state.remove_selected_word(self.master.id, self['text'])
 
+        self.master.master.master.state.remove_connections()
+        self.master.master.master.master.remove_frame3_flowchart()
         # print("selected_verbs word clicked: ", self.master.master.selected_verbs)
         print("selected_verbs word clicked: ", self.master.master.master.state.curr_uc)
 
@@ -220,8 +235,12 @@ class DeleteStepButton(Button):
         for item in self.master.winfo_children():
             if item['bg'] == 'yellow':
                 self.master.master.master.state.remove_selected_word(self.master.id, item["text"])
-        self.master.master.delete_step(self.master.id - 1)  # self.master - Step,   self.master.master - Scenario
+        self.master.master.delete_step(self.master.id - 1)  # self.master - Step,   self.master.master - Scenario,   self.master.master.master - FrameScenarios, self.master.master.master.master - Application TRAGEZA :(
         self.master.master.master.state.delete_step(self.master.id)
+        self.master.master.master.state.remove_connections()  # remove all connections from current UC
+        self.master.master.master.master.remove_frame3_flowchart()
+
+
         self.master.destroy()  # self.master = Step
 
         # print("selected_verbs after delete: ", self.master.master.selected_verbs)

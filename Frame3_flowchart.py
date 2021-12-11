@@ -1,8 +1,5 @@
 from tkinter import *
 from tkinter.ttk import *
-# import pydot
-import pygraphviz as pgv
-# import graphviz
 
 from PIL import ImageTk, Image
 
@@ -94,6 +91,10 @@ class FrameFlowchart(LabelFrame):
         self.redraw_flowchart()
 
     def redraw_flowchart(self):
+        if not self.state.curr_uc_connections_exist():   # curr_uc nie ma jeszcze connections, ale inne uc mogą już mieć
+            self.panel.configure(image="")
+            return
+
         g = Flowchart()
 
         self.add_nodes(g)
@@ -114,7 +115,6 @@ class FrameFlowchart(LabelFrame):
             if self.state.curr_uc[CONNECTIONS][conn_type]:  # if not empty
                 if conn_type in [SEQUENCE, BRANCH, BRANCHRE, CONCUR, CONCURRE]:
                     for from_ in self.state.curr_uc[CONNECTIONS][conn_type]:
-                        # g.node(from_, shape='box')
                         g.add_conn_first_node(conn_type, from_)
 
     def add_edges(self, g):
@@ -130,6 +130,9 @@ class FrameFlowchart(LabelFrame):
                             g.add_edge(from_, to)
 
     def refresh(self):
+        selected_words = [step[SELECTED_WORDS][0] for step in self.state.curr_uc[STEPS] ] #if step[SELECTED_WORDS] != []
+        self.cb_from.config(values=selected_words)
+        self.cb_to.config(values=selected_words)
         self.reset_comboboxes()
         self.redraw_flowchart()
 

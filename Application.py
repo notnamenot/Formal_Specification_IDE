@@ -32,20 +32,38 @@ class Application(Tk):
         # self.frame3_flowchart = FrameFlowchart(self)
         # self.frame3_flowchart.grid(row=0, column=2, sticky=N+S)
 
-    def add_frame3_flowchart(self): # TODO do poprawy każde naciśnięcie przycisku gotowe dodaje nowy frame
+    def add_frame3_flowchart(self):
+        if self.frame3_exists():
+            # print("frame3 existed")
+            return
+
         self.frame3_flowchart = FrameFlowchart(self, self.state)
         self.frame3_flowchart.grid(row=0, column=2, sticky=N+S)
+        self.frame3_flowchart_refresh()
 
-    def refresh_frames(self):
+    def remove_frame3_flowchart(self):
+        if self.frame3_exists():
+            print("frame3 destroyed")
+            self.frame3_flowchart.destroy()  # .grid_remove()
+
+    def on_uc_diagram_changed(self):
         # print("from refresh_frames\nall\n", self.state.all_uc_diagrams, "\ncurr\n", self.state.curr_uc_diagram)
         self.frame2_scenarios.refresh()
-        print("c1", self.winfo_children())
-        if len(self.winfo_children()) == 3:
-            self.frame3_flowchart.grid_remove()
-        print("c2", self.winfo_children())
-        # if len(self.winfo_children()) == 3 and self.state.curr_uc_connections_exist(): # przy przeładowywaniu żaden scenariusz nie jest wybrany - TODO zaznaczyć pierwszy
-        #     self.frame3_flowchart.refresh()
-        # elif len(self.winfo_children()) == 3 and self.state.curr_uc[CONNECTIONS]:
+        if self.state.curr_uc_diagram_connections_exist() and not self.frame2_scenarios.validate_state():  # istnieje już jakiś flowchart i wszędzie są selected_words
+            self.add_frame3_flowchart()
+            self.frame3_flowchart_refresh()
+        else:
+            self.remove_frame3_flowchart()
 
-        # TODO else remove
+    def frame3_flowchart_refresh(self):
+        self.frame3_flowchart.refresh()
 
+    def on_refresh_frame3_flowchart(self):
+        if self.frame3_exists():
+            self.frame3_flowchart_refresh()
+
+    def frame3_exists(self):
+        for child in self.winfo_children():
+            if type(child) == FrameFlowchart:
+                return True
+        return False

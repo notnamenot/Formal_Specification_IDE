@@ -82,6 +82,25 @@ class State:
                                                                   CONCUR: defaultdict(set),
                                                                   CONCURRE: defaultdict(set)}})
 
+    def curr_uc_connections_exist(self):
+        if not self.curr_uc:
+            return False
+        for conn_type, _ in self.curr_uc[CONNECTIONS].items():
+            if self.curr_uc[CONNECTIONS][conn_type]:  # if not empty
+                return True
+        return False
+
+    def curr_uc_diagram_connections_exist(self):
+        if not self.curr_uc_diagram:
+            return False
+        if not self.curr_uc:
+            return False
+        for use_case in self.curr_uc_diagram[USE_CASES]:
+            for conn_type in use_case[CONNECTIONS]:
+                if use_case[CONNECTIONS][conn_type]:     # if not empty
+                    return True
+        return False
+
     def add_step(self, step_text):
         self.curr_uc[STEPS].append({SEQ: len(self.curr_uc[STEPS])+1, TEXT: step_text, SELECTED_WORDS: []})
 
@@ -120,6 +139,9 @@ class State:
             if step[SEQ] == step_id:
                 step[SELECTED_WORDS].remove(word)
 
+    def remove_connections(self):
+        for conn_type, values_list in self.curr_uc[CONNECTIONS].items():
+            self.curr_uc[CONNECTIONS][conn_type].clear()
 
 
 # [

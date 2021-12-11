@@ -161,7 +161,7 @@ class FrameUC(LabelFrame):
 
             self.set_uc_diagram_img(img_path)
 
-        self.master.refresh_frames()
+        self.master.on_uc_diagram_changed()
 
     def set_buttons_state(self):
         curr_uc_diagram_seq = self.state.get_curr_uc_diagram_seq()
