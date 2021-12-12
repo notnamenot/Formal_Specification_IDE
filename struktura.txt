@@ -1,0 +1,59 @@
+[
+	{
+		"img_path":  "path_to_img",
+		"xml_path":  "path_to_xml",
+		"use_cases": 
+					[
+						{
+							"name":  "Display account balance",
+							"steps": 
+									[ 
+										{
+											"seq": 1,
+											"text": "System displays welcome screen",
+											"selected_words": ["displays"]											
+										},
+										{
+											"seq": 2,
+											"text": "User inserts Card",
+											"selected_words": ["inserts"]											
+										},
+										...
+									],
+							"connections": 
+										{
+											"Sequence":
+														{ 
+															"selected_word2": 	["selected_word3"],					
+															"selected_word5": 	["selected_word6"],
+															...															
+														},
+											"Branch": 																	# OR - potrzebne warunki
+														{
+															"selected_word1": 	[										# from: [{to1}, {to2}]
+																					{
+																						"word": "selected_word2",
+																						"cond": "T"
+																					},
+																					{
+																						"word": "selcted_word5",
+																						"cond": "F"
+																					},
+																					...
+																				],
+															...																				
+														},												
+											"BranchRe": 
+														{
+															"selected_word7": 	["selected_word3", "selcted_word6"],		# to: [from1, from2]	
+															...
+														},
+											"Concur": 	{...},		# from: [to1, to2]
+											"ConcurRe": {...}		# to:	[from1, from2]	
+										}
+						},
+						...
+					]		
+	},
+	...
+]
