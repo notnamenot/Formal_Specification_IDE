@@ -12,7 +12,6 @@ class FrameFlowchart(LabelFrame):
         super().__init__(master=master, text="Workflow Diagram", *args, **kwargs)
 
         self.state = state
-        selected_words = [step[SELECTED_WORDS][0] for step in self.state.curr_uc[STEPS]]
 
         self.frame_add_connection = Frame(self)
         self.frame_add_connection.pack(side=TOP)
@@ -21,14 +20,13 @@ class FrameFlowchart(LabelFrame):
         # registering the observer
         self.sv_from.trace_add('write', self.check_can_add)
         self.cb_from = Combobox(self.frame_add_connection, width=20,
-                                textvariable=self.sv_from, state="readonly",
-                                values=selected_words)
+                                textvariable=self.sv_from, state="readonly")
         self.cb_from.pack(side=LEFT)
         #self.cb_from.bind('<<ComboboxSelected>>', self.check_can_add)
 
         self.sv_conn = StringVar()
         self.sv_conn.trace_add('write', self.check_can_add)
-        self.sv_conn.trace_add('write', self.check_branch_cond)  # pierwsze?
+        self.sv_conn.trace_add('write', self.check_branch_cond)  # wykona się przed check_can_add
         self.conn_types = [SEQUENCE, BRANCH, BRANCHRE, CONCUR, CONCURRE]
         self.cb_conn_type = Combobox(self.frame_add_connection, width=20,
                                      textvariable=self.sv_conn, state="readonly",
@@ -43,8 +41,7 @@ class FrameFlowchart(LabelFrame):
         self.sv_to = StringVar()
         self.sv_to.trace_add('write', self.check_can_add)
         self.cb_to = Combobox(self.frame_add_connection, width=20,
-                              textvariable=self.sv_to, state="readonly",
-                              values=selected_words)
+                              textvariable=self.sv_to, state="readonly")
         self.cb_to.pack(side=LEFT)
         # self.cb_to.current(0)
         #self.cb_to.bind('<<ComboboxSelected>>', self.check_can_add)
@@ -95,6 +92,11 @@ class FrameFlowchart(LabelFrame):
                 self.inp_cond.pack_forget()
 
     def add_conn_clicked(self):
+        self.update_state()
+        self.reset_conn_widgets()
+        self.redraw_flowchart()
+
+    def update_state(self):
         sv_from = self.sv_from.get()
         sv_conn = self.sv_conn.get()
         sv_to = self.sv_to.get()
@@ -112,10 +114,6 @@ class FrameFlowchart(LabelFrame):
 
         print("after add connections", self.state.curr_uc)
 
-        self.reset_conn_widgets()
-
-        self.redraw_flowchart()
-
     def redraw_flowchart(self):
         if not self.state.curr_uc_connections_exist():   # curr_uc nie ma jeszcze connections, ale inne uc mogą już mieć
             self.panel.configure(image="")
@@ -129,6 +127,7 @@ class FrameFlowchart(LabelFrame):
         g.add_end_nodes()
 
         g.layout()  # engine='dot'
+        # https://stackoverflow.com/a/18610140/12615981 draw without saving
         g.draw("file2.png")
 
         img = ImageTk.PhotoImage(image=Image.open("file2.png"))

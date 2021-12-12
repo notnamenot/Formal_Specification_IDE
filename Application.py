@@ -29,22 +29,21 @@ class Application(Tk):
         self.frame2_scenarios = FrameScenarios(self, self.state)
         self.frame2_scenarios.grid(row=0, column=1, sticky=N+S)
 
-        # self.frame3_flowchart = FrameFlowchart(self)
+        self.frame3_flowchart = FrameFlowchart(self, self.state)
         # self.frame3_flowchart.grid(row=0, column=2, sticky=N+S)
 
     def add_frame3_flowchart(self):
-        if self.frame3_exists():
+        if self.is_frame3_flowchart_visible():
             # print("frame3 existed")
             return
 
-        self.frame3_flowchart = FrameFlowchart(self, self.state)
+        # self.frame3_flowchart = FrameFlowchart(self, self.state)
         self.frame3_flowchart.grid(row=0, column=2, sticky=N+S)
         self.frame3_flowchart_refresh()
 
     def remove_frame3_flowchart(self):
-        if self.frame3_exists():
-            print("frame3 destroyed")
-            self.frame3_flowchart.destroy()  # .grid_remove()
+        if self.is_frame3_flowchart_visible():
+            self.frame3_flowchart.grid_forget()
 
     def on_uc_diagram_changed(self):
         # print("from refresh_frames\nall\n", self.state.all_uc_diagrams, "\ncurr\n", self.state.curr_uc_diagram)
@@ -59,11 +58,11 @@ class Application(Tk):
         self.frame3_flowchart.refresh()
 
     def on_refresh_frame3_flowchart(self):
-        if self.frame3_exists():
+        if self.is_frame3_flowchart_visible():
             self.frame3_flowchart_refresh()
 
-    def frame3_exists(self):
-        for child in self.winfo_children():
-            if type(child) == FrameFlowchart:
-                return True
+    def is_frame3_flowchart_visible(self):
+        if self.frame3_flowchart.winfo_ismapped():  # winfo_exists()
+            return True
         return False
+
