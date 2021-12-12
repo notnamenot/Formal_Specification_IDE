@@ -12,8 +12,7 @@ class FrameFlowchart(LabelFrame):
         super().__init__(master=master, text="Workflow Diagram", *args, **kwargs)
 
         self.state = state
-        self.selected_words = [step[SELECTED_WORDS][0] for step in state.curr_uc[STEPS]]
-        print("selected_words", self.selected_words)
+        selected_words = [step[SELECTED_WORDS][0] for step in self.state.curr_uc[STEPS]]
 
         self.frame_add_connection = Frame(self)
         self.frame_add_connection.pack(side=TOP)
@@ -23,15 +22,13 @@ class FrameFlowchart(LabelFrame):
         self.sv_from.trace_add('write', self.check_can_add)
         self.cb_from = Combobox(self.frame_add_connection, width=20,
                                 textvariable=self.sv_from, state="readonly",
-                                values=self.selected_words)
+                                values=selected_words)
         self.cb_from.pack(side=LEFT)
         #self.cb_from.bind('<<ComboboxSelected>>', self.check_can_add)
 
-
         self.sv_conn = StringVar()
-        # registering the observer
-        self.sv_conn.trace_add('write', self.check_branch_cond) # TOTO czy można tak dodać drugie?
         self.sv_conn.trace_add('write', self.check_can_add)
+        self.sv_conn.trace_add('write', self.check_branch_cond)  # pierwsze?
         self.conn_types = [SEQUENCE, BRANCH, BRANCHRE, CONCUR, CONCURRE]
         self.cb_conn_type = Combobox(self.frame_add_connection, width=20,
                                      textvariable=self.sv_conn, state="readonly",
@@ -40,14 +37,14 @@ class FrameFlowchart(LabelFrame):
         #self.cb_conn_type.bind('<<ComboboxSelected>>', self.check_can_add)  # check_can_add(self, event):
 
         self.sv_cond = StringVar()
+        self.sv_cond.trace_add('write', self.check_can_add)  # self.sv_cond.trace('w', self.check_can_add)
         self.inp_cond = Entry(self.frame_add_connection, textvariable=self.sv_cond, width=10)
-        self.inp_cond.trace_add('write', self.check_can_add)
 
         self.sv_to = StringVar()
         self.sv_to.trace_add('write', self.check_can_add)
         self.cb_to = Combobox(self.frame_add_connection, width=20,
                               textvariable=self.sv_to, state="readonly",
-                              values=self.selected_words)
+                              values=selected_words)
         self.cb_to.pack(side=LEFT)
         # self.cb_to.current(0)
         #self.cb_to.bind('<<ComboboxSelected>>', self.check_can_add)
@@ -75,11 +72,14 @@ class FrameFlowchart(LabelFrame):
         sv_from = self.sv_from.get()
         sv_conn = self.sv_conn.get()
         sv_to = self.sv_to.get()
+        sv_cond = self.inp_cond.get()
 
         #print(sv_from, sv_to, sv_conn)
         if sv_from != "from activity" and sv_to != "to activity" and sv_conn != "connection type":
-            if self.inp_cond.winfo_ismapped() and sv_to != "condition":
+            if not self.inp_cond.winfo_ismapped() or (self.inp_cond.winfo_ismapped() and sv_cond != "condition" and sv_cond != ""):
                 self.btn_add_conn.config(state=NORMAL)
+            else:
+                self.btn_add_conn.config(state=DISABLED)
 
     def check_branch_cond(self, var, indx, mode):
         if self.sv_conn.get() == BRANCH:
@@ -87,6 +87,7 @@ class FrameFlowchart(LabelFrame):
                 self.btn_add_conn.pack_forget()  # forget()
                 self.cb_to.pack_forget()
                 self.inp_cond.pack(side=LEFT)
+                self.inp_cond.wait_visibility()  # żeby winfo_ismapped()self załapało
                 self.cb_to.pack(side=LEFT)
                 self.btn_add_conn.pack(side=LEFT)
         else:
@@ -150,7 +151,7 @@ class FrameFlowchart(LabelFrame):
                             g.add_edge(from_, to)
 
     def refresh(self):
-        selected_words = [step[SELECTED_WORDS][0] for step in self.state.curr_uc[STEPS] ] #if step[SELECTED_WORDS] != []
+        selected_words = [step[SELECTED_WORDS][0] for step in self.state.curr_uc[STEPS]]  #if step[SELECTED_WORDS] != []
         self.cb_from.config(values=selected_words)
         self.cb_to.config(values=selected_words)
         self.reset_conn_widgets()
