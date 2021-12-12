@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter.ttk import *
 
 from PIL import ImageTk, Image
+import io
 
 from Flowchart import Flowchart
 from State import STEPS, SELECTED_WORDS, CONNECTIONS, WORD, COND, SEQUENCE, BRANCH, BRANCHRE, CONCUR, CONCURRE
@@ -54,6 +55,10 @@ class FrameFlowchart(LabelFrame):
         self.panel = Label(self)
         self.panel.pack(side=TOP)
 
+        self.blocks = Label(self)
+        self.blocks.pack(side=BOTTOM)
+        self.draw_blocks()
+
     def reset_conn_widgets(self):
         self.sv_from.set("from activity")
         self.sv_conn.set("connection type")
@@ -70,7 +75,7 @@ class FrameFlowchart(LabelFrame):
         sv_from = self.sv_from.get()
         sv_conn = self.sv_conn.get()
         sv_to = self.sv_to.get()
-        sv_cond = self.inp_cond.get()
+        sv_cond = self.inp_cond.get().strip()
 
         if sv_from != "from activity" and sv_to != "to activity" and sv_conn != "connection type":
             if not self.inp_cond.winfo_ismapped() or (self.inp_cond.winfo_ismapped() and sv_cond != "condition" and sv_cond != ""):
@@ -100,7 +105,7 @@ class FrameFlowchart(LabelFrame):
         sv_from = self.sv_from.get()
         sv_conn = self.sv_conn.get()
         sv_to = self.sv_to.get()
-        sv_cond = self.inp_cond.get()
+        sv_cond = self.inp_cond.get().strip()
 
         if sv_conn in [BRANCH]:
             to_list = self.state.curr_uc[CONNECTIONS][sv_conn][sv_from]
@@ -114,6 +119,28 @@ class FrameFlowchart(LabelFrame):
 
         print("after add connections", self.state.curr_uc)
 
+    def draw_blocks(self):
+        g = Flowchart()
+        g.graph_attr["rankdir"] = "LR"
+        g.edge_attr["style"] = "invis"
+        # g.graph_attr["splines"] = "ortho"
+        # g.graph_attr["rotate"] = "90"
+        # g.graph_attr["ratio"] = "0.5"
+        g.add_conn_first_node(SEQUENCE, SEQUENCE)
+        g.add_conn_first_node(BRANCH, BRANCH)
+        g.add_conn_first_node(BRANCHRE, BRANCHRE)
+        g.add_conn_first_node(CONCUR, CONCUR)
+        g.add_conn_first_node(CONCURRE, CONCURRE)
+        g.add_edge(SEQUENCE, BRANCH)
+        g.add_edge(BRANCH, BRANCHRE)
+        g.add_edge(BRANCHRE, CONCUR)
+        g.add_edge(CONCUR, CONCURRE)
+        g.layout(prog='dot')
+        byte_arr = g.draw(path=None, format='png')
+        image = ImageTk.PhotoImage(image=Image.open(io.BytesIO(byte_arr)))
+        self.blocks.configure(image=image)
+        self.blocks.image = image
+
     def redraw_flowchart(self):
         if not self.state.curr_uc_connections_exist():   # curr_uc nie ma jeszcze connections, ale inne uc mogą już mieć
             self.panel.configure(image="")
@@ -126,7 +153,8 @@ class FrameFlowchart(LabelFrame):
         g.add_start_nodes()
         g.add_end_nodes()
 
-        g.layout()  # engine='dot'
+        # g.layout()  # engine='dot'
+        g.layout(prog='dot')  # ładnie z góry na dół
         # https://stackoverflow.com/a/18610140/12615981 draw without saving
         g.draw("file2.png")
 

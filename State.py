@@ -80,7 +80,7 @@ class State:
             self.curr_uc_diagram[USE_CASES].append({NAME: use_case_name,
                                                     STEPS: [],
                                                     CONNECTIONS: {SEQUENCE: defaultdict(set),  # set a nie list żeby były unikalne wartości
-                                                                  BRANCH: defaultdict(list),    # w tym setcie są słowniki, a słownik nie jest hashowalny więc unikalność sprawdzmy przy dodawaniu
+                                                                  BRANCH: defaultdict(list),    # w wartościach są słowniki, a słownik nie jest hashowalny więc unikalność sprawdzmy przy dodawaniu
                                                                   BRANCHRE: defaultdict(set),
                                                                   CONCUR: defaultdict(set),
                                                                   CONCURRE: defaultdict(set)}})

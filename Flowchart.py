@@ -23,6 +23,8 @@ class Flowchart(pgv.AGraph):
 
         self.graph_attr["rankdir"] = "TB"
         self.graph_attr["ranksep"] = "0.2"
+        # self.graph_attr["splines"] = "ortho"
+        # self.graph_attr["splines"] = "True"
 
         self.node_attr["shape"] = "box"
         self.node_attr["style"] = "filled,rounded"
