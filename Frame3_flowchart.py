@@ -4,7 +4,7 @@ from tkinter.ttk import *
 from PIL import ImageTk, Image
 
 from Flowchart import Flowchart
-from State import STEPS, SELECTED_WORDS, CONNECTIONS, SEQUENCE, BRANCH, BRANCHRE, CONCUR, CONCURRE
+from State import STEPS, SELECTED_WORDS, CONNECTIONS, WORD, COND, SEQUENCE, BRANCH, BRANCHRE, CONCUR, CONCURRE
 
 
 class FrameFlowchart(LabelFrame):
@@ -49,10 +49,10 @@ class FrameFlowchart(LabelFrame):
         # self.cb_to.current(0)
         #self.cb_to.bind('<<ComboboxSelected>>', self.check_can_add)
 
-        self.reset_conn_widgets()
-
-        self.btn_add_conn = Button(self.frame_add_connection, text="Add", command=self.add_conn_clicked, state=DISABLED)
+        self.btn_add_conn = Button(self.frame_add_connection, text="Add", command=self.add_conn_clicked)
         self.btn_add_conn.pack(side=LEFT)
+
+        self.reset_conn_widgets()
 
         self.panel = Label(self)
         self.panel.pack(side=TOP)
@@ -64,6 +64,7 @@ class FrameFlowchart(LabelFrame):
         self.sv_cond.set("condition")
         if self.inp_cond.winfo_ismapped():
             self.inp_cond.pack_forget()
+        self.btn_add_conn.config(state=DISABLED)
 
     #def check_can_add(self, event): self.cb_conn_type.bind('<<ComboboxSelected>>', self.check_can_add)
     #def check_can_add(self):
@@ -74,7 +75,6 @@ class FrameFlowchart(LabelFrame):
         sv_to = self.sv_to.get()
         sv_cond = self.inp_cond.get()
 
-        #print(sv_from, sv_to, sv_conn)
         if sv_from != "from activity" and sv_to != "to activity" and sv_conn != "connection type":
             if not self.inp_cond.winfo_ismapped() or (self.inp_cond.winfo_ismapped() and sv_cond != "condition" and sv_cond != ""):
                 self.btn_add_conn.config(state=NORMAL)
@@ -98,16 +98,21 @@ class FrameFlowchart(LabelFrame):
         sv_from = self.sv_from.get()
         sv_conn = self.sv_conn.get()
         sv_to = self.sv_to.get()
+        sv_cond = self.inp_cond.get()
 
-        if sv_conn in [SEQUENCE, BRANCH, CONCUR]:
+        if sv_conn in [BRANCH]:
+            to_list = self.state.curr_uc[CONNECTIONS][sv_conn][sv_from]
+            to_list.append({WORD: sv_to, COND: sv_cond})
+            unique_to_list = list({v[WORD]: v for v in to_list}.values())   # https://stackoverflow.com/questions/11092511/python-list-of-unique-dictionaries
+            self.state.curr_uc[CONNECTIONS][sv_conn][sv_from] = unique_to_list
+        elif sv_conn in [SEQUENCE, CONCUR]:
             self.state.curr_uc[CONNECTIONS][sv_conn][sv_from].add(sv_to)  # append jest do listy a mamy set
         elif sv_conn in [BRANCHRE, CONCURRE]:
             self.state.curr_uc[CONNECTIONS][sv_conn][sv_to].add(sv_from)
 
-        self.reset_conn_widgets()
-        self.btn_add_conn.config(state=DISABLED)
+        print("after add connections", self.state.curr_uc)
 
-        print(self.state.curr_uc)
+        self.reset_conn_widgets()
 
         self.redraw_flowchart()
 
@@ -141,7 +146,11 @@ class FrameFlowchart(LabelFrame):
     def add_edges(self, g):
         for conn_type, value_dict in self.state.curr_uc[CONNECTIONS].items():  #key, value
             if self.state.curr_uc[CONNECTIONS][conn_type]:  # if not empty
-                if conn_type in [SEQUENCE, BRANCH, CONCUR]:
+                if conn_type in [BRANCH]:
+                    for from_, to_list in self.state.curr_uc[CONNECTIONS][conn_type].items():
+                        for to in to_list:
+                            g.add_edge(from_, to[WORD], label=to[COND])
+                if conn_type in [SEQUENCE, CONCUR]:
                     for from_, to_list in self.state.curr_uc[CONNECTIONS][conn_type].items():
                         for to in to_list:
                             g.add_edge(from_, to)

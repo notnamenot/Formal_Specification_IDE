@@ -1,3 +1,5 @@
+from collections import defaultdict
+
 IMG_PATH = "img_path"
 XML_PATH = "xml_path"
 USE_CASES = "use_cases"
@@ -8,13 +10,14 @@ SELECTED_WORDS = "selected_words"
 TEXT = "text"
 CONNECTIONS = "connections"
 
+WORD = "word"
+COND = "cond"
+
 SEQUENCE = "Sequence"
 BRANCH = "Branch"
 BRANCHRE = "BranchRe"
 CONCUR = "Concur"
 CONCURRE = "ConcurRe"
-
-from collections import defaultdict
 
 
 class State:
@@ -76,8 +79,8 @@ class State:
         for use_case_name in use_cases:
             self.curr_uc_diagram[USE_CASES].append({NAME: use_case_name,
                                                     STEPS: [],
-                                                    CONNECTIONS: {SEQUENCE: defaultdict(set), # set a nie list żeby były unikalne wartości
-                                                                  BRANCH: defaultdict(set),
+                                                    CONNECTIONS: {SEQUENCE: defaultdict(set),  # set a nie list żeby były unikalne wartości
+                                                                  BRANCH: defaultdict(list),    # w tym setcie są słowniki, a słownik nie jest hashowalny więc unikalność sprawdzmy przy dodawaniu
                                                                   BRANCHRE: defaultdict(set),
                                                                   CONCUR: defaultdict(set),
                                                                   CONCURRE: defaultdict(set)}})
@@ -171,11 +174,23 @@ class State:
 #                                         "Sequence":
 #                                             {
 #                                                 "selected_word2": ["selected_word3"],
-#                                                 "selected_word5": ["selected_word6"]
+#                                                 "selected_word5": ["selected_word6"],
+#                                                 ...
 #                                             },
 #                                         "Branch":  # OR - potrzebne warunki
 #                                             {
-#                                                 "selected_word1": ["selected_word2", "selcted_word5"]  # from: [to1, to2]
+#                                                 "selected_word1": 	[		# from: [{to1}, {to2}]
+# 																					{
+# 																						"word": "selected_word2",
+# 																						"cond": "T"
+# 																					},
+# 																					{
+# 																						"word": "selcted_word5",
+# 																						"cond": "F"
+# 																					},
+# 																					...
+# 																				],
+# 															...
 #                                             },
 #                                         "BranchRe":
 #                                             {
