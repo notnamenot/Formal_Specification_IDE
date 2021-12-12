@@ -30,14 +30,18 @@ class FrameFlowchart(LabelFrame):
 
         self.sv_conn = StringVar()
         # registering the observer
-        self.sv_conn.trace_add('write', self.check_can_add) # TODO if Branch add selection of cond
-        #self.conn_types = ['Sequence', 'Branch', 'BranchRe', 'Concur', 'ConcurRe']
+        self.sv_conn.trace_add('write', self.check_branch_cond) # TOTO czy można tak dodać drugie?
+        self.sv_conn.trace_add('write', self.check_can_add)
         self.conn_types = [SEQUENCE, BRANCH, BRANCHRE, CONCUR, CONCURRE]
         self.cb_conn_type = Combobox(self.frame_add_connection, width=20,
                                      textvariable=self.sv_conn, state="readonly",
                                      values=self.conn_types)
         self.cb_conn_type.pack(side=LEFT)
         #self.cb_conn_type.bind('<<ComboboxSelected>>', self.check_can_add)  # check_can_add(self, event):
+
+        self.sv_cond = StringVar()
+        self.inp_cond = Entry(self.frame_add_connection, textvariable=self.sv_cond, width=10)
+        self.inp_cond.trace_add('write', self.check_can_add)
 
         self.sv_to = StringVar()
         self.sv_to.trace_add('write', self.check_can_add)
@@ -48,7 +52,7 @@ class FrameFlowchart(LabelFrame):
         # self.cb_to.current(0)
         #self.cb_to.bind('<<ComboboxSelected>>', self.check_can_add)
 
-        self.reset_comboboxes()
+        self.reset_conn_widgets()
 
         self.btn_add_conn = Button(self.frame_add_connection, text="Add", command=self.add_conn_clicked, state=DISABLED)
         self.btn_add_conn.pack(side=LEFT)
@@ -56,10 +60,13 @@ class FrameFlowchart(LabelFrame):
         self.panel = Label(self)
         self.panel.pack(side=TOP)
 
-    def reset_comboboxes(self):
+    def reset_conn_widgets(self):
         self.sv_from.set("from activity")
         self.sv_conn.set("connection type")
         self.sv_to.set("to activity")
+        self.sv_cond.set("condition")
+        if self.inp_cond.winfo_ismapped():
+            self.inp_cond.pack_forget()
 
     #def check_can_add(self, event): self.cb_conn_type.bind('<<ComboboxSelected>>', self.check_can_add)
     #def check_can_add(self):
@@ -71,7 +78,20 @@ class FrameFlowchart(LabelFrame):
 
         #print(sv_from, sv_to, sv_conn)
         if sv_from != "from activity" and sv_to != "to activity" and sv_conn != "connection type":
-            self.btn_add_conn.config(state=NORMAL)
+            if self.inp_cond.winfo_ismapped() and sv_to != "condition":
+                self.btn_add_conn.config(state=NORMAL)
+
+    def check_branch_cond(self, var, indx, mode):
+        if self.sv_conn.get() == BRANCH:
+            if not self.inp_cond.winfo_ismapped():
+                self.btn_add_conn.pack_forget()  # forget()
+                self.cb_to.pack_forget()
+                self.inp_cond.pack(side=LEFT)
+                self.cb_to.pack(side=LEFT)
+                self.btn_add_conn.pack(side=LEFT)
+        else:
+            if self.inp_cond.winfo_ismapped():
+                self.inp_cond.pack_forget()
 
     def add_conn_clicked(self):
         sv_from = self.sv_from.get()
@@ -83,7 +103,7 @@ class FrameFlowchart(LabelFrame):
         elif sv_conn in [BRANCHRE, CONCURRE]:
             self.state.curr_uc[CONNECTIONS][sv_conn][sv_to].add(sv_from)
 
-        self.reset_comboboxes()
+        self.reset_conn_widgets()
         self.btn_add_conn.config(state=DISABLED)
 
         print(self.state.curr_uc)
@@ -110,7 +130,7 @@ class FrameFlowchart(LabelFrame):
         self.panel.configure(image=img)
         self.panel.image = img
 
-    def add_nodes(self, g):
+    def add_nodes(self, g):  # TODO co jeśli jeden node jest np. zarówno rebranch i concur??
         for conn_type, value_dict in self.state.curr_uc[CONNECTIONS].items():  #key, value
             if self.state.curr_uc[CONNECTIONS][conn_type]:  # if not empty
                 if conn_type in [SEQUENCE, BRANCH, BRANCHRE, CONCUR, CONCURRE]:
@@ -133,6 +153,6 @@ class FrameFlowchart(LabelFrame):
         selected_words = [step[SELECTED_WORDS][0] for step in self.state.curr_uc[STEPS] ] #if step[SELECTED_WORDS] != []
         self.cb_from.config(values=selected_words)
         self.cb_to.config(values=selected_words)
-        self.reset_comboboxes()
+        self.reset_conn_widgets()
         self.redraw_flowchart()
 
