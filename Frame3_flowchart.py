@@ -20,7 +20,7 @@ class FrameFlowchart(LabelFrame):
         self.sv_from = StringVar()
         # registering the observer
         self.sv_from.trace_add('write', self.check_can_add)
-        self.cb_from = Combobox(self.frame_add_connection, width=20,
+        self.cb_from = Combobox(self.frame_add_connection, width=15,
                                 textvariable=self.sv_from, state="readonly")
         self.cb_from.pack(side=LEFT)
         #self.cb_from.bind('<<ComboboxSelected>>', self.check_can_add)
@@ -29,7 +29,7 @@ class FrameFlowchart(LabelFrame):
         self.sv_conn.trace_add('write', self.check_can_add)
         self.sv_conn.trace_add('write', self.check_branch_cond)  # wykona się przed check_can_add
         self.conn_types = [SEQUENCE, BRANCH, BRANCHRE, CONCUR, CONCURRE]
-        self.cb_conn_type = Combobox(self.frame_add_connection, width=20,
+        self.cb_conn_type = Combobox(self.frame_add_connection, width=15,
                                      textvariable=self.sv_conn, state="readonly",
                                      values=self.conn_types)
         self.cb_conn_type.pack(side=LEFT)
@@ -41,7 +41,7 @@ class FrameFlowchart(LabelFrame):
 
         self.sv_to = StringVar()
         self.sv_to.trace_add('write', self.check_can_add)
-        self.cb_to = Combobox(self.frame_add_connection, width=20,
+        self.cb_to = Combobox(self.frame_add_connection, width=15,
                               textvariable=self.sv_to, state="readonly")
         self.cb_to.pack(side=LEFT)
         # self.cb_to.current(0)

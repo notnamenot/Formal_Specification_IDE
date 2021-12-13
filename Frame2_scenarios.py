@@ -152,6 +152,8 @@ class Scenario(LabelFrame):
         self.add_step_frame(step_text, [])
         self.master.state.add_step(step_text)  # TODO albo najpierw self.master.state.add_step a potem refresh
         # print(self.master.state.curr_uc,"\n",self.master.state.curr_uc_diagram,"\n",self.master.state.all_uc_diagrams)
+        self.master.state.remove_connections()  # remove all connections from current UC
+        self.master.master.remove_frame3_flowchart()
 
     def add_step_frame(self, step_text, selected_words):
         step_frame = Step(self, step_text, selected_words)
