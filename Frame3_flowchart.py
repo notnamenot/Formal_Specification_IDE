@@ -55,6 +55,8 @@ class FrameFlowchart(LabelFrame):
         self.panel = Label(self)
         self.panel.pack(side=TOP)
 
+        self.btn_save = Button(self, text="Save", command=self.save_clicked)
+
         self.blocks = Label(self)
         self.blocks.pack(side=BOTTOM)
         self.draw_blocks()
@@ -100,6 +102,7 @@ class FrameFlowchart(LabelFrame):
         self.update_state()
         self.reset_conn_widgets()
         self.redraw_flowchart()
+        self.show_btn_save()
 
     def update_state(self):
         sv_from = self.sv_from.get()
@@ -142,10 +145,6 @@ class FrameFlowchart(LabelFrame):
         self.blocks.image = image
 
     def redraw_flowchart(self):
-        if not self.state.curr_uc_connections_exist():   # curr_uc nie ma jeszcze connections, ale inne uc mogą już mieć
-            self.panel.configure(image="")
-            return
-
         g = Flowchart()
 
         self.add_nodes(g)
@@ -191,5 +190,21 @@ class FrameFlowchart(LabelFrame):
         self.cb_from.config(values=selected_words)
         self.cb_to.config(values=selected_words)
         self.reset_conn_widgets()
-        self.redraw_flowchart()
+        if self.state.curr_uc_connections_exist():
+            self.redraw_flowchart()
+            self.show_btn_save()
+        else:
+            self.panel.configure(image="")
+            self.hide_btn_save()
 
+    def show_btn_save(self):
+        if not self.btn_save.winfo_ismapped():
+            self.btn_save.pack(side=BOTTOM, fill=X)
+
+    def hide_btn_save(self):
+        if self.btn_save.winfo_ismapped():
+            self.btn_save.pack_forget()
+
+    def save_clicked(self):
+        #TODO create logic specification
+        pass

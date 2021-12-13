@@ -214,6 +214,7 @@ class StepWordButton(Button):
         self.config(borderwidth=0)
 
     def click_function(self):
+        #TODO unclick reszte żeby zaznaczony mógł być tylko jeden
         if self['bg'] == 'white':
             self['bg'] = 'yellow'
             self.master.master.master.state.add_selected_word(self.master.id, self['text']) # self.master - Step, self.master.master - Scenario, self.master.master.master - FrameScenarios
