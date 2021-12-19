@@ -21,14 +21,14 @@
 										...
 									],
 							"connections": 
-										{
-											"Sequence":
+										{	
+											"Sequence":																	# from: [to1, to2]
 														{ 
 															"selected_word2": 	["selected_word3"],					
 															"selected_word5": 	["selected_word6"],
 															...															
 														},
-											"Branch": 																	# OR - potrzebne warunki
+											"Branch": 		// CHANGED Branch -> Cond																# OR - potrzebne warunki
 														{
 															"selected_word1": 	[										# from: [{to1}, {to2}]
 																					{
@@ -43,13 +43,14 @@
 																				],
 															...																				
 														},												
-											"BranchRe": 
-														{
-															"selected_word7": 	["selected_word3", "selcted_word6"],		# to: [from1, from2]	
-															...
-														},
-											"Concur": 	{...},		# from: [to1, to2]
-											"ConcurRe": {...}		# to:	[from1, from2]	
+											// "BranchRe": 			// REMOVED
+											// 			{
+											// 				"selected_word7": 	["selected_word3", "selcted_word6"],	# to: [from1, from2]	
+											// 				...
+											// 			},
+											"Concur": 	{...},															# from: [to1, to2]			// CHANGED Concur -> Para		
+											// "ConcurRe": {...}														# to:	[from1, from2]		// REMOVED
+											"Alt": 		{...},															# from: [to1, to2]			// NEW
 										}
 						},
 						...

@@ -1,17 +1,19 @@
 import pygraphviz as pgv
 
-from State import SEQUENCE, BRANCH, BRANCHRE, CONCUR, CONCURRE
+from State import SEQUENCE, COND, BRANCHRE, PARA, CONCURRE, ALT
 
 COLOR_SEQUENCE_BORDER = "#245c8a"
 COLOR_SEQUENCE_FILL = "#3485c7"
 COLOR_BRANCH_BORDER = "#227a22"
 COLOR_BRANCH_FILL = "#3acf3a"
-COLOR_BRANCHRE_BORDER = "#0b3b0b"
-COLOR_BRANCHRE_FILL = "#156b15"
-COLOR_CONCUR_BORDER = "#db6f3d"
+# COLOR_BRANCHRE_BORDER = "#0b3b0b"
+# COLOR_BRANCHRE_FILL = "#156b15"
+COLOR_CONCUR_BORDER = "#853a10"
 COLOR_CONCUR_FILL = "#ff8045"
-COLOR_CONCURRE_BORDER = "#703012"
-COLOR_CONCURRE_FILL = "#9e4419"
+# COLOR_CONCURRE_BORDER = "#703012"
+# COLOR_CONCURRE_FILL = "#9e4419"
+COLOR_ALT_BORDER = "#441b66"
+COLOR_ALT_FILL = "#9438e0"
 COLOR_START_STOP_BORDER = "#747575"
 COLOR_START_STOP_FILL = "#989a9c"
 COLOR_PLAIN_NODE_BORDER = "#3d6fa1"
@@ -35,14 +37,16 @@ class Flowchart(pgv.AGraph):
     def add_conn_first_node(self, type, label):
         if type == SEQUENCE:
             self.add_sequence_node(label)
-        elif type == BRANCH:
+        elif type == COND:
             self.add_branch_node(label)
-        elif type == BRANCHRE:
-            self.add_branchre_node(label)
-        elif type == CONCUR:
+        # elif type == BRANCHRE:
+        #     self.add_branchre_node(label)
+        elif type == PARA:
             self.add_concur_node(label)
-        elif type == CONCURRE:
-            self.add_concurre_node(label)
+        # elif type == CONCURRE:
+        #     self.add_concurre_node(label)
+        elif type == ALT:
+            self.add_alt_node(label)
 
     def add_sequence_node(self, label):
         super().add_node(label, shape='box', label=label, color=COLOR_SEQUENCE_BORDER, fillcolor=COLOR_SEQUENCE_FILL)
@@ -50,14 +54,17 @@ class Flowchart(pgv.AGraph):
     def add_branch_node(self, label):
         super().add_node(label, shape='diamond', label=label, color=COLOR_BRANCH_BORDER, fillcolor=COLOR_BRANCH_FILL)
 
-    def add_branchre_node(self, label):
-        super().add_node(label, shape='box', label=label, color=COLOR_BRANCHRE_BORDER, fillcolor=COLOR_BRANCHRE_FILL)
+    # def add_branchre_node(self, label):
+    #     super().add_node(label, shape='box', label=label, color=COLOR_BRANCHRE_BORDER, fillcolor=COLOR_BRANCHRE_FILL)
 
     def add_concur_node(self, label):
         super().add_node(label, shape='box', label=label, color=COLOR_CONCUR_BORDER, fillcolor=COLOR_CONCUR_FILL)
 
-    def add_concurre_node(self, label):
-        super().add_node(label, shape='box', label=label, color=COLOR_CONCURRE_BORDER, fillcolor=COLOR_CONCURRE_FILL)
+    # def add_concurre_node(self, label):
+    #     super().add_node(label, shape='box', label=label, color=COLOR_CONCURRE_BORDER, fillcolor=COLOR_CONCURRE_FILL)
+
+    def add_alt_node(self, label):
+        super().add_node(label, shape='box', label=label, color=COLOR_ALT_BORDER, fillcolor=COLOR_ALT_FILL)
 
     def add_end_nodes(self):
         end_nodes = [node for node, out_degree in self.out_degree(self.nodes(), with_labels=True).items() if out_degree == 0]

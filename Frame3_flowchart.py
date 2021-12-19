@@ -5,7 +5,7 @@ from PIL import ImageTk, Image
 import io
 
 from Flowchart import Flowchart
-from State import STEPS, SELECTED_WORDS, CONNECTIONS, WORD, COND, SEQUENCE, BRANCH, BRANCHRE, CONCUR, CONCURRE
+from State import STEPS, SELECTED_WORDS, CONNECTIONS, WORD, COND_TEXT, SEQUENCE, COND, BRANCHRE, PARA, CONCURRE, ALT
 
 
 class FrameFlowchart(LabelFrame):
@@ -28,7 +28,13 @@ class FrameFlowchart(LabelFrame):
         self.sv_conn = StringVar()
         self.sv_conn.trace_add('write', self.check_can_add)
         self.sv_conn.trace_add('write', self.check_branch_cond)  # wykona się przed check_can_add
-        self.conn_types = [SEQUENCE, BRANCH, BRANCHRE, CONCUR, CONCURRE]
+        self.conn_types = [SEQUENCE,
+                           COND,
+                           # BRANCHRE,
+                           PARA,
+                           # CONCURRE,
+                           ALT
+                           ]
         self.cb_conn_type = Combobox(self.frame_add_connection, width=15,
                                      textvariable=self.sv_conn, state="readonly",
                                      values=self.conn_types)
@@ -86,7 +92,7 @@ class FrameFlowchart(LabelFrame):
                 self.btn_add_conn.config(state=DISABLED)
 
     def check_branch_cond(self, var, indx, mode):
-        if self.sv_conn.get() == BRANCH:
+        if self.sv_conn.get() == COND:
             if not self.inp_cond.winfo_ismapped():
                 self.btn_add_conn.pack_forget()  # forget()
                 self.cb_to.pack_forget()
@@ -110,12 +116,12 @@ class FrameFlowchart(LabelFrame):
         sv_to = self.sv_to.get()
         sv_cond = self.inp_cond.get().strip()
 
-        if sv_conn in [BRANCH]:
+        if sv_conn in [COND]:
             to_list = self.state.curr_uc[CONNECTIONS][sv_conn][sv_from]
-            to_list.append({WORD: sv_to, COND: sv_cond})
+            to_list.append({WORD: sv_to, COND_TEXT: sv_cond})
             unique_to_list = list({v[WORD]: v for v in to_list}.values())   # https://stackoverflow.com/questions/11092511/python-list-of-unique-dictionaries
             self.state.curr_uc[CONNECTIONS][sv_conn][sv_from] = unique_to_list
-        elif sv_conn in [SEQUENCE, CONCUR]:
+        elif sv_conn in [SEQUENCE, PARA, ALT]:
             self.state.curr_uc[CONNECTIONS][sv_conn][sv_from].add(sv_to)  # append jest do listy a mamy set
         elif sv_conn in [BRANCHRE, CONCURRE]:
             self.state.curr_uc[CONNECTIONS][sv_conn][sv_to].add(sv_from)
@@ -130,14 +136,17 @@ class FrameFlowchart(LabelFrame):
         # g.graph_attr["rotate"] = "90"
         # g.graph_attr["ratio"] = "0.5"
         g.add_conn_first_node(SEQUENCE, SEQUENCE)
-        g.add_conn_first_node(BRANCH, BRANCH)
-        g.add_conn_first_node(BRANCHRE, BRANCHRE)
-        g.add_conn_first_node(CONCUR, CONCUR)
-        g.add_conn_first_node(CONCURRE, CONCURRE)
-        g.add_edge(SEQUENCE, BRANCH)
-        g.add_edge(BRANCH, BRANCHRE)
-        g.add_edge(BRANCHRE, CONCUR)
-        g.add_edge(CONCUR, CONCURRE)
+        g.add_conn_first_node(COND, COND)
+        # g.add_conn_first_node(BRANCHRE, BRANCHRE)
+        g.add_conn_first_node(PARA, PARA)
+        # g.add_conn_first_node(CONCURRE, CONCURRE)
+        g.add_conn_first_node(ALT, ALT)
+        g.add_edge(SEQUENCE, COND)
+        # g.add_edge(COND, BRANCHRE)
+        g.add_edge(COND, PARA)
+        # g.add_edge(BRANCHRE, PARA)
+        # g.add_edge(PARA, CONCURRE)
+        g.add_edge(PARA, ALT)
         g.layout(prog='dot')
         byte_arr = g.draw(path=None, format='png')
         image = ImageTk.PhotoImage(image=Image.open(io.BytesIO(byte_arr)))
@@ -165,25 +174,25 @@ class FrameFlowchart(LabelFrame):
     def add_nodes(self, g):  # TODO co jeśli jeden node jest np. zarówno rebranch i concur??
         for conn_type, value_dict in self.state.curr_uc[CONNECTIONS].items():  #key, value
             if self.state.curr_uc[CONNECTIONS][conn_type]:  # if not empty
-                if conn_type in [SEQUENCE, BRANCH, BRANCHRE, CONCUR, CONCURRE]:
+                if conn_type in [SEQUENCE, COND, BRANCHRE, PARA, CONCURRE, ALT]:
                     for from_ in self.state.curr_uc[CONNECTIONS][conn_type]:
                         g.add_conn_first_node(conn_type, from_)
 
     def add_edges(self, g):
         for conn_type, value_dict in self.state.curr_uc[CONNECTIONS].items():  #key, value
             if self.state.curr_uc[CONNECTIONS][conn_type]:  # if not empty
-                if conn_type in [BRANCH]:
+                if conn_type in [COND]:
                     for from_, to_list in self.state.curr_uc[CONNECTIONS][conn_type].items():
                         for to in to_list:
-                            g.add_edge(from_, to[WORD], label=to[COND])
-                if conn_type in [SEQUENCE, CONCUR]:
+                            g.add_edge(from_, to[WORD], label=to[COND_TEXT])
+                if conn_type in [SEQUENCE, PARA, ALT]:
                     for from_, to_list in self.state.curr_uc[CONNECTIONS][conn_type].items():
                         for to in to_list:
                             g.add_edge(from_, to)
-                elif conn_type in [BRANCHRE, CONCURRE]:
-                    for to, from_list in self.state.curr_uc[CONNECTIONS][conn_type].items():
-                        for from_ in from_list:
-                            g.add_edge(from_, to)
+                # elif conn_type in [BRANCHRE, CONCURRE]:
+                #     for to, from_list in self.state.curr_uc[CONNECTIONS][conn_type].items():
+                #         for from_ in from_list:
+                #             g.add_edge(from_, to)
 
     def refresh(self):
         selected_words = [step[SELECTED_WORDS][0] for step in self.state.curr_uc[STEPS]]  #if step[SELECTED_WORDS] != []

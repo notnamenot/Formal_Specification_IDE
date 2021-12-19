@@ -11,13 +11,14 @@ TEXT = "text"
 CONNECTIONS = "connections"
 
 WORD = "word"
-COND = "cond"
+COND_TEXT = "cond"
 
 SEQUENCE = "Sequence"
-BRANCH = "Branch"
+COND = "Cond"   # old COND
 BRANCHRE = "BranchRe"
-CONCUR = "Concur"
+PARA = "Para"   # old Concur
 CONCURRE = "ConcurRe"
+ALT = "Alt"
 
 
 class State:
@@ -80,10 +81,12 @@ class State:
             self.curr_uc_diagram[USE_CASES].append({NAME: use_case_name,
                                                     STEPS: [],
                                                     CONNECTIONS: {SEQUENCE: defaultdict(set),  # set a nie list żeby były unikalne wartości
-                                                                  BRANCH: defaultdict(list),    # w wartościach są słowniki, a słownik nie jest hashowalny więc unikalność sprawdzmy przy dodawaniu
-                                                                  BRANCHRE: defaultdict(set),
-                                                                  CONCUR: defaultdict(set),
-                                                                  CONCURRE: defaultdict(set)}})
+                                                                  COND: defaultdict(list),  # w wartościach są słowniki, a słownik nie jest hashowalny więc unikalność sprawdzmy przy dodawaniu
+                                                                  # BRANCHRE: defaultdict(set),
+                                                                  PARA: defaultdict(set),
+                                                                  #CONCURRE: defaultdict(set)
+                                                                  ALT: defaultdict(set)
+                                                                  }})
 
     def curr_uc_connections_exist(self):
         if not self.curr_uc:
@@ -146,62 +149,65 @@ class State:
         for conn_type, values_list in self.curr_uc[CONNECTIONS].items():
             self.curr_uc[CONNECTIONS][conn_type].clear()
 
-
-# [
-# 	{
-# 		"img_path":  "path_to_img",
-# 		"xml_path":  "path_to_xml",
-# 		"use_cases":
-# 					[
-# 						{
-# 							"name":  "Display account balance",
-# 							"steps":
-# 									[
-# 										{
-# 											"seq": 1,
-# 											"text": "System displays welcome screen",
-# 											"selected_words": ["displays"]
-# 										},
-# 										{
-# 											"seq": 2,
-# 											"text": "User inserts Card",
-# 											"selected_words": ["inserts"]
-# 										},
-# 										...
-# 									],
-#                         "connections":
-#                                     {
-#                                         "Sequence":
-#                                             {
-#                                                 "selected_word2": ["selected_word3"],
-#                                                 "selected_word5": ["selected_word6"],
-#                                                 ...
-#                                             },
-#                                         "Branch":  # OR - potrzebne warunki
-#                                             {
-#                                                 "selected_word1": 	[		# from: [{to1}, {to2}]
-# 																					{
-# 																						"word": "selected_word2",
-# 																						"cond": "T"
-# 																					},
-# 																					{
-# 																						"word": "selcted_word5",
-# 																						"cond": "F"
-# 																					},
-# 																					...
-# 																				],
-# 															...
-#                                             },
-#                                         "BranchRe":
-#                                             {
-#                                                 "selected_word7": ["selected_word3", "selcted_word6"]  # to: [from1, from2]
-#                                             },
-#                                         "Concur": {...},
-#                                         "ConcurRe": {...}
-#                                     }
-# 						},
-# 						...
-# 					]
-# 	},
-# 	...
-# ]
+"""
+[
+	{
+		"img_path":  "path_to_img",
+		"xml_path":  "path_to_xml",
+		"use_cases": 
+					[
+						{
+							"name":  "Display account balance",
+							"steps": 
+									[ 
+										{
+											"seq": 1,
+											"text": "System displays welcome screen",
+											"selected_words": ["displays"]											
+										},
+										{
+											"seq": 2,
+											"text": "User inserts Card",
+											"selected_words": ["inserts"]											
+										},
+										...
+									],
+							"connections": 
+										{	
+											"Sequence":																	# from: [to1, to2]
+														{ 
+															"selected_word2": 	["selected_word3"],					
+															"selected_word5": 	["selected_word6"],
+															...															
+														},
+											"Branch": 		// CHANGED Branch -> Cond																# OR - potrzebne warunki
+														{
+															"selected_word1": 	[										# from: [{to1}, {to2}]
+																					{
+																						"word": "selected_word2",
+																						"cond": "T"
+																					},
+																					{
+																						"word": "selcted_word5",
+																						"cond": "F"
+																					},
+																					...
+																				],
+															...																				
+														},												
+											// "BranchRe": 			// REMOVED
+											// 			{
+											// 				"selected_word7": 	["selected_word3", "selcted_word6"],	# to: [from1, from2]	
+											// 				...
+											// 			},
+											"Concur": 	{...},															# from: [to1, to2]			// CHANGED Concur -> Para		
+											// "ConcurRe": {...}														# to:	[from1, from2]		// REMOVED
+											"Alt": 		{...},															# from: [to1, to2]			// NEW
+										}
+						},
+						...
+					]		
+	},
+	...
+]
+"""
