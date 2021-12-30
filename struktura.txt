@@ -28,7 +28,7 @@
 															"selected_word5": 	["selected_word6"],
 															...															
 														},
-											"Branch": 		// CHANGED Branch -> Cond																# OR - potrzebne warunki
+											"Cond": 		// CHANGED Branch -> Cond																# OR - potrzebne warunki, zakładamy tylko TRUE i FALSE
 														{
 															"selected_word1": 	[										# from: [{to1}, {to2}]
 																					{
@@ -38,8 +38,7 @@
 																					{
 																						"word": "selcted_word5",
 																						"cond": "F"
-																					},
-																					...
+																					}
 																				],
 															...																				
 														},												
@@ -48,9 +47,19 @@
 											// 				"selected_word7": 	["selected_word3", "selcted_word6"],	# to: [from1, from2]	
 											// 				...
 											// 			},
-											"Concur": 	{...},															# from: [to1, to2]			// CHANGED Concur -> Para		
+											"Para": 	{ 																# from: [to1, to2]			// CHANGED Concur -> Para			
+															"selected_word6": 	["selected_word7", "selected_word8"],
+															...															
+														},															
 											// "ConcurRe": {...}														# to:	[from1, from2]		// REMOVED
-											"Alt": 		{...},															# from: [to1, to2]			// NEW
+											"Alt": 		{ 																# from: [to1, to2]			// NEW
+															"selected_word2": 	["selected_word3", "selected_word4"],
+															...															
+														},																
+											"Loop":		{																# self loops, również słownik dla spójnego formatu 
+															"selected_word7": ["selected_word7"],
+															"selected_word8": ["selected_word8"]
+														}								
 										}
 						},
 						...
