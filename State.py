@@ -205,6 +205,10 @@ class State:
 											"Concur": 	{...},															# from: [to1, to2]			// CHANGED Concur -> Para		
 											// "ConcurRe": {...}														# to:	[from1, from2]		// REMOVED
 											"Alt": 		{...},															# from: [to1, to2]			// NEW
+											"Loop":		{																# self loops, również słownik dla spójnego formatu 
+															"selected_word7": ["selected_word7"],
+															"selected_word8": ["selected_word8"]
+														}								
 										}
 						},
 						...
