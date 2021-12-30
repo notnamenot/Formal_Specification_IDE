@@ -5,10 +5,6 @@ from tkinter.ttk import *
 from PIL import ImageTk, Image
 import io
 
-from Flowchart import Flowchart
-from State import STEPS, SELECTED_WORDS, CONNECTIONS, WORD, COND_TEXT, SEQUENCE, COND, BRANCHRE, PARA, CONCURRE, ALT, LOOP
-
-
 class FrameFlowchart(LabelFrame):
     def __init__(self, master, state, *args, **kwargs):
         super().__init__(master=master, text="Workflow Diagram", *args, **kwargs)
@@ -45,9 +41,35 @@ class FrameFlowchart(LabelFrame):
         self.cb_conn_type.pack(side=LEFT)
         #self.cb_conn_type.bind('<<ComboboxSelected>>', self.check_can_add)  # check_can_add(self, event):
 
-        self.sv_cond = StringVar()
-        self.sv_cond.trace_add('write', self.check_can_add)  # self.sv_cond.trace('w', self.check_can_add)
-        self.inp_cond = Entry(self.frame_add_connection, textvariable=self.sv_cond, width=10)
+        #  FRAME COND
+
+        self.frame_cond = Frame(self.frame_add_connection)
+
+        # self.sv_cond_T = StringVar()
+        # self.sv_cond_T.set("True")
+        # self.inp_cond_T = Entry(self.frame_cond, textvariable=self.sv_cond_T, width=6, state="readonly")
+        # self.inp_cond_T.pack(side=LEFT)
+
+        self.sv_to_cond_T = StringVar()
+        self.sv_to_cond_T.trace_add('write', self.check_can_add)
+        self.cb_to_cond_T = Combobox(self.frame_cond, width=18, textvariable=self.sv_to_cond_T, state="readonly")
+        self.cb_to_cond_T.pack(side=LEFT)
+
+        # self.sv_cond_F = StringVar()
+        # self.sv_cond_F.set("False")
+        # self.inp_cond_F = Entry(self.frame_cond, textvariable=self.sv_cond_F, width=6, state="readonly")
+        # self.inp_cond_F.pack(side=LEFT)
+
+        self.sv_to_cond_F = StringVar()
+        self.sv_to_cond_F.trace_add('write', self.check_can_add)
+        self.cb_to_cond_F = Combobox(self.frame_cond, width=18, textvariable=self.sv_to_cond_F, state="readonly")
+        self.cb_to_cond_F.pack(side=LEFT)
+
+        # self.sv_cond = StringVar()
+        # self.sv_cond.trace_add('write', self.check_can_add)  # self.sv_cond.trace('w', self.check_can_add)
+        # self.inp_cond = Entry(self.frame_add_connection, textvariable=self.sv_cond, width=10)
+
+        #  END FRAME COND
 
         self.sv_to = StringVar()
         self.sv_to.trace_add('write', self.check_can_add)
@@ -75,9 +97,13 @@ class FrameFlowchart(LabelFrame):
         self.sv_from.set("from activity")
         self.sv_conn.set("connection type")
         self.sv_to.set("to activity")
-        self.sv_cond.set("condition")
-        if self.inp_cond.winfo_ismapped():
-            self.inp_cond.pack_forget()
+        self.sv_to_cond_T.set("to activity on True")
+        self.sv_to_cond_F.set("to activity on False")
+        if self.frame_cond.winfo_ismapped():
+            self.frame_cond.pack_forget()
+        # self.sv_cond.set("condition")
+        # if self.inp_cond.winfo_ismapped():
+        #     self.inp_cond.pack_forget()
         self.btn_add_conn.config(state=DISABLED)
 
     #def check_can_add(self, event): self.cb_conn_type.bind('<<ComboboxSelected>>', self.check_can_add)
@@ -87,10 +113,13 @@ class FrameFlowchart(LabelFrame):
         sv_from = self.sv_from.get()
         sv_conn = self.sv_conn.get()
         sv_to = self.sv_to.get()
-        sv_cond = self.inp_cond.get().strip()
+        sv_to_cond_T = self.sv_to_cond_T.get()
+        sv_to_cond_F = self.sv_to_cond_F.get()
+        # sv_cond = self.inp_cond.get().strip()
 
-        if sv_from != "from activity" and sv_to != "to activity" and sv_conn != "connection type":
-            if not self.inp_cond.winfo_ismapped() or (self.inp_cond.winfo_ismapped() and sv_cond != "condition" and sv_cond != ""):
+        if sv_from != "from activity" and sv_conn != "connection type":
+            if (self.frame_cond.winfo_ismapped() and sv_to_cond_T != "to activity on True" and sv_to_cond_F != "to activity on False") or (not self.frame_cond.winfo_ismapped() and sv_to != "to activity"):
+            # if not self.inp_cond.winfo_ismapped() or (self.inp_cond.winfo_ismapped() and sv_cond != "condition" and sv_cond != ""):
                 self.btn_add_conn.config(state=NORMAL)
             else:
                 self.btn_add_conn.config(state=DISABLED)
@@ -105,16 +134,29 @@ class FrameFlowchart(LabelFrame):
 
     def set_cond_widgets(self, var, indx, mode):
         if self.sv_conn.get() == COND:
-            if not self.inp_cond.winfo_ismapped():
+            if not self.frame_cond.winfo_ismapped():
                 self.btn_add_conn.pack_forget()  # forget()
                 self.cb_to.pack_forget()
-                self.inp_cond.pack(side=LEFT)
-                self.inp_cond.wait_visibility()  # żeby winfo_ismapped()self załapało
-                self.cb_to.pack(side=LEFT)
+                self.frame_cond.pack(side=LEFT)
+                self.frame_cond.wait_visibility()  # żeby winfo_ismapped()self załapało
+                # self.cb_to.pack(side=LEFT)
                 self.btn_add_conn.pack(side=LEFT)
         else:
-            if self.inp_cond.winfo_ismapped():
-                self.inp_cond.pack_forget()
+            if self.frame_cond.winfo_ismapped():
+                self.frame_cond.pack_forget()
+                self.btn_add_conn.pack_forget()
+                self.cb_to.pack(side=LEFT)
+                self.btn_add_conn.pack(side=LEFT)
+        # if not self.inp_cond.winfo_ismapped():
+        #         self.btn_add_conn.pack_forget()  # forget()
+        #         self.cb_to.pack_forget()
+        #         self.inp_cond.pack(side=LEFT)
+        #         self.inp_cond.wait_visibility()  # żeby winfo_ismapped()self załapało
+        #         self.cb_to.pack(side=LEFT)
+        #         self.btn_add_conn.pack(side=LEFT)
+        # else:
+        #     if self.inp_cond.winfo_ismapped():
+        #         self.inp_cond.pack_forget()
 
     def add_conn_clicked(self):
         self.update_state()
@@ -126,11 +168,14 @@ class FrameFlowchart(LabelFrame):
         sv_from = self.sv_from.get()
         sv_conn = self.sv_conn.get()
         sv_to = self.sv_to.get()
-        sv_cond = self.inp_cond.get().strip()
+        # sv_cond = self.inp_cond.get().strip()
+        sv_to_cond_T = self.sv_to_cond_T.get()
+        sv_to_cond_F = self.sv_to_cond_F.get()
 
         if sv_conn in [COND]:
             to_list = self.state.curr_uc[CONNECTIONS][sv_conn][sv_from]
-            to_list.append({WORD: sv_to, COND_TEXT: sv_cond})
+            to_list.append({WORD: sv_to_cond_T, COND_TEXT: "True"})
+            to_list.append({WORD: sv_to_cond_F, COND_TEXT: "False"})
             unique_to_list = list({v[WORD]: v for v in to_list}.values())   # https://stackoverflow.com/questions/11092511/python-list-of-unique-dictionaries
             self.state.curr_uc[CONNECTIONS][sv_conn][sv_from] = unique_to_list
         elif sv_conn in [SEQUENCE, PARA, ALT, LOOP]:
@@ -225,6 +270,8 @@ class FrameFlowchart(LabelFrame):
         selected_words = [step[SELECTED_WORDS][0] for step in self.state.curr_uc[STEPS] if step[SELECTED_WORDS]]  #if step[SELECTED_WORDS] != []
         self.cb_from.config(values=selected_words)
         self.cb_to.config(values=selected_words)
+        self.cb_to_cond_T.config(values=selected_words)
+        self.cb_to_cond_F.config(values=selected_words)
 
     def show_btn_save(self):
         if not self.btn_save.winfo_ismapped():
@@ -239,6 +286,10 @@ class FrameFlowchart(LabelFrame):
         json_object = json.dumps(self.state.curr_uc, cls=SetEncoder, indent=4)
         print(json_object)
         pass
+from Flowchart import Flowchart
+
+
+from State import STEPS, SELECTED_WORDS, CONNECTIONS, WORD, COND_TEXT, SEQUENCE, COND, BRANCHRE, PARA, CONCURRE, ALT, LOOP
 
 
 class SetEncoder(json.JSONEncoder):
