@@ -101,7 +101,7 @@ class FrameFlowchart(LabelFrame):
             self.cb_to.config(values=selected_words)
             self.sv_to.set(self.sv_from.get())
         else:
-            self.reload_cb()
+            self.reset_cb()
 
     def set_cond_widgets(self, var, indx, mode):
         if self.sv_conn.get() == COND:
@@ -210,7 +210,7 @@ class FrameFlowchart(LabelFrame):
                 #             g.add_edge(from_, to)
 
     def refresh(self):
-        self.reload_cb()
+        self.reset_cb()
         self.reset_conn_widgets()
         if self.state.curr_uc_connections_exist():
             self.redraw_flowchart()
@@ -219,10 +219,10 @@ class FrameFlowchart(LabelFrame):
             self.panel.configure(image="")
             self.hide_btn_save()
 
-    def reload_cb(self):
+    def reset_cb(self):
         if STEPS not in self.state.curr_uc:
             return
-        selected_words = [step[SELECTED_WORDS][0] for step in self.state.curr_uc[STEPS]]  #if step[SELECTED_WORDS] != []
+        selected_words = [step[SELECTED_WORDS][0] for step in self.state.curr_uc[STEPS] if step[SELECTED_WORDS]]  #if step[SELECTED_WORDS] != []
         self.cb_from.config(values=selected_words)
         self.cb_to.config(values=selected_words)
 

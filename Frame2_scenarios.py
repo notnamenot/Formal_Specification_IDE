@@ -40,24 +40,24 @@ class FrameScenarios(LabelFrame):
         for uc in self.state.curr_uc_diagram["use_cases"]:
             if not uc["steps"]:
                 return "Fill in all scenarios!"
-            for step in uc["steps"]:
-                if not step["selected_words"]:
-                    return "Choose activity in each step!"
+            # for step in uc["steps"]:
+            #     if not step["selected_words"]:
+            #         return "Choose activity in each step!"
         return ""
 
-    def add_scenario_clicked(self):
-        scenario = self.input_scenario_name.get().strip()
-        # id = input_scenario_id.get().strip()
-
-        if not scenario or not self.state.curr_uc_diagram:  # if empty input or diagram not chosen TODO pokazać kolumne scenarios dopiero po imporcie plików
-            return
-
-        self.input_scenario_name.delete(0, END)
-        self.input_scenario_name.insert(0, "Enter scenario...")
-        # input_scenario_id.delete(0, END)
-
-        self.add_scenario_frame(scenario)
-        self.state.add_use_cases([scenario])
+    # def add_scenario_clicked(self):
+    #     scenario = self.input_scenario_name.get().strip()
+    #     # id = input_scenario_id.get().strip()
+    #
+    #     if not scenario or not self.state.curr_uc_diagram:  # if empty input or diagram not chosen TODO pokazać frame scenarios dopiero po imporcie plików
+    #         return
+    #
+    #     self.input_scenario_name.delete(0, END)
+    #     self.input_scenario_name.insert(0, "Enter scenario...")
+    #     # input_scenario_id.delete(0, END)
+    #
+    #     self.add_scenario_frame(scenario)
+    #     self.state.add_use_cases([scenario])
 
     # TODO możliwość zmiany kolejnoości - ruszanie framem stepa - przyciski w górę i w dół
 
