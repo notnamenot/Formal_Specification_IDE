@@ -265,9 +265,13 @@ class FrameFlowchart(LabelFrame):
             self.hide_btn_save()
 
     def reset_cb(self):
-        if STEPS not in self.state.curr_uc:
-            return
-        selected_words = [step[SELECTED_WORDS][0] for step in self.state.curr_uc[STEPS] if step[SELECTED_WORDS]]  #if step[SELECTED_WORDS] != []
+        # if STEPS not in self.state.curr_uc:
+        #     return
+        # selected_words = [step[SELECTED_WORDS][0] for step in self.state.curr_uc[STEPS] if step[SELECTED_WORDS]]  #if step[SELECTED_WORDS] != []
+        selected_words = []
+        if STEPS in self.state.curr_uc:
+            for step in self.state.curr_uc[STEPS]:
+                selected_words.extend(step[SELECTED_WORDS])
         self.cb_from.config(values=selected_words)
         self.cb_to.config(values=selected_words)
         self.cb_to_cond_T.config(values=selected_words)
