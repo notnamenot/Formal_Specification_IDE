@@ -123,7 +123,7 @@ class FrameUC(LabelFrame):
         matches.append(".//Behavioral_Elements.Use_Cases.UseCase/Foundation.Core.ModelElement.name")     # EnterpriseArchitect XMI 1.0 UML 1.3
         if "xmi" in namespaces:
             matches.append(".//packagedElement[@xmi:type='uml:UseCase']")   # Papyrus {'xmi': 'http://www.omg.org/spec/XMI/20131001'}
-                                                                            # EnterpriseArchitect xmi 2.1 <= 2.5.1, uml 2.1 <= 2.5.1 {'xmi': 'http://schema.omg.org/spec/XMI/2.1'}
+                                                                            # EnterpriseArchitect xmi 2.1 >= 2.5.1, uml 2.1 >= 2.5.1 {'xmi': 'http://schema.omg.org/spec/XMI/2.1'}
         if "xsi" in namespaces:
             matches.append(".//packagedElement[@xsi:type='uml:UseCase']")   # GenMyModel {'xsi': 'http://www.w3.org/2001/XMLSchema-instance'}
         if "UML" in namespaces:

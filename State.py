@@ -19,6 +19,7 @@ BRANCHRE = "BranchRe"
 PARA = "Para"   # old Concur
 CONCURRE = "ConcurRe"
 ALT = "Alt"
+LOOP = "Loop"
 
 
 class State:
@@ -85,7 +86,8 @@ class State:
                                                                   # BRANCHRE: defaultdict(set),
                                                                   PARA: defaultdict(set),
                                                                   #CONCURRE: defaultdict(set)
-                                                                  ALT: defaultdict(set)
+                                                                  ALT: defaultdict(set),
+                                                                  LOOP: defaultdict(set)
                                                                   }})
 
     def curr_uc_connections_exist(self):

@@ -1,6 +1,6 @@
 import pygraphviz as pgv
 
-from State import SEQUENCE, COND, BRANCHRE, PARA, CONCURRE, ALT
+from State import SEQUENCE, COND, BRANCHRE, PARA, CONCURRE, ALT, LOOP
 
 COLOR_SEQUENCE_BORDER = "#245c8a"
 COLOR_SEQUENCE_FILL = "#3485c7"
@@ -14,6 +14,8 @@ COLOR_CONCUR_FILL = "#ff8045"
 # COLOR_CONCURRE_FILL = "#9e4419"
 COLOR_ALT_BORDER = "#441b66"
 COLOR_ALT_FILL = "#9438e0"
+COLOR_LOOP_BORDER = "#a19600"
+COLOR_LOOP_FILL = "#ffed00"
 COLOR_START_STOP_BORDER = "#747575"
 COLOR_START_STOP_FILL = "#989a9c"
 COLOR_PLAIN_NODE_BORDER = "#3d6fa1"
@@ -47,6 +49,8 @@ class Flowchart(pgv.AGraph):
         #     self.add_concurre_node(label)
         elif type == ALT:
             self.add_alt_node(label)
+        elif type == LOOP:
+            self.add_loop_node(label)
 
     def add_sequence_node(self, label):
         super().add_node(label, shape='box', label=label, color=COLOR_SEQUENCE_BORDER, fillcolor=COLOR_SEQUENCE_FILL)
@@ -65,6 +69,9 @@ class Flowchart(pgv.AGraph):
 
     def add_alt_node(self, label):
         super().add_node(label, shape='box', label=label, color=COLOR_ALT_BORDER, fillcolor=COLOR_ALT_FILL)
+
+    def add_loop_node(self, label):
+        super().add_node(label, shape='box', label=label, color=COLOR_LOOP_BORDER, fillcolor=COLOR_LOOP_FILL)
 
     def add_end_nodes(self):
         end_nodes = [node for node, out_degree in self.out_degree(self.nodes(), with_labels=True).items() if out_degree == 0]

@@ -1,3 +1,4 @@
+import json
 from tkinter import *
 from tkinter.ttk import *
 
@@ -5,7 +6,7 @@ from PIL import ImageTk, Image
 import io
 
 from Flowchart import Flowchart
-from State import STEPS, SELECTED_WORDS, CONNECTIONS, WORD, COND_TEXT, SEQUENCE, COND, BRANCHRE, PARA, CONCURRE, ALT
+from State import STEPS, SELECTED_WORDS, CONNECTIONS, WORD, COND_TEXT, SEQUENCE, COND, BRANCHRE, PARA, CONCURRE, ALT, LOOP
 
 
 class FrameFlowchart(LabelFrame):
@@ -20,6 +21,7 @@ class FrameFlowchart(LabelFrame):
         self.sv_from = StringVar()
         # registering the observer
         self.sv_from.trace_add('write', self.check_can_add)
+        self.sv_from.trace_add('write', self.set_loop_to)   # wykona się przed check_can_add
         self.cb_from = Combobox(self.frame_add_connection, width=15,
                                 textvariable=self.sv_from, state="readonly")
         self.cb_from.pack(side=LEFT)
@@ -27,13 +29,15 @@ class FrameFlowchart(LabelFrame):
 
         self.sv_conn = StringVar()
         self.sv_conn.trace_add('write', self.check_can_add)
-        self.sv_conn.trace_add('write', self.check_branch_cond)  # wykona się przed check_can_add
+        self.sv_conn.trace_add('write', self.set_cond_widgets)  # wykona się przed check_can_add
+        self.sv_conn.trace_add('write', self.set_loop_to)  # wykona się przed check_can_add
         self.conn_types = [SEQUENCE,
                            COND,
                            # BRANCHRE,
                            PARA,
                            # CONCURRE,
-                           ALT
+                           ALT,
+                           LOOP
                            ]
         self.cb_conn_type = Combobox(self.frame_add_connection, width=15,
                                      textvariable=self.sv_conn, state="readonly",
@@ -91,7 +95,15 @@ class FrameFlowchart(LabelFrame):
             else:
                 self.btn_add_conn.config(state=DISABLED)
 
-    def check_branch_cond(self, var, indx, mode):
+    def set_loop_to(self, var, indx, mode):
+        if self.sv_conn.get() == LOOP:
+            selected_words = [self.sv_from.get()]
+            self.cb_to.config(values=selected_words)
+            self.sv_to.set(self.sv_from.get())
+        else:
+            self.reload_cb()
+
+    def set_cond_widgets(self, var, indx, mode):
         if self.sv_conn.get() == COND:
             if not self.inp_cond.winfo_ismapped():
                 self.btn_add_conn.pack_forget()  # forget()
@@ -121,10 +133,10 @@ class FrameFlowchart(LabelFrame):
             to_list.append({WORD: sv_to, COND_TEXT: sv_cond})
             unique_to_list = list({v[WORD]: v for v in to_list}.values())   # https://stackoverflow.com/questions/11092511/python-list-of-unique-dictionaries
             self.state.curr_uc[CONNECTIONS][sv_conn][sv_from] = unique_to_list
-        elif sv_conn in [SEQUENCE, PARA, ALT]:
+        elif sv_conn in [SEQUENCE, PARA, ALT, LOOP]:
             self.state.curr_uc[CONNECTIONS][sv_conn][sv_from].add(sv_to)  # append jest do listy a mamy set
-        elif sv_conn in [BRANCHRE, CONCURRE]:
-            self.state.curr_uc[CONNECTIONS][sv_conn][sv_to].add(sv_from)
+        # elif sv_conn in [BRANCHRE, CONCURRE]:
+        #     self.state.curr_uc[CONNECTIONS][sv_conn][sv_to].add(sv_from)
 
         print("after add connections", self.state.curr_uc)
 
@@ -141,12 +153,14 @@ class FrameFlowchart(LabelFrame):
         g.add_conn_first_node(PARA, PARA)
         # g.add_conn_first_node(CONCURRE, CONCURRE)
         g.add_conn_first_node(ALT, ALT)
+        g.add_conn_first_node(LOOP, LOOP)
         g.add_edge(SEQUENCE, COND)
         # g.add_edge(COND, BRANCHRE)
         g.add_edge(COND, PARA)
         # g.add_edge(BRANCHRE, PARA)
         # g.add_edge(PARA, CONCURRE)
         g.add_edge(PARA, ALT)
+        g.add_edge(ALT, LOOP)
         g.layout(prog='dot')
         byte_arr = g.draw(path=None, format='png')
         image = ImageTk.PhotoImage(image=Image.open(io.BytesIO(byte_arr)))
@@ -174,7 +188,7 @@ class FrameFlowchart(LabelFrame):
     def add_nodes(self, g):  # TODO co jeśli jeden node jest np. zarówno rebranch i concur??
         for conn_type, value_dict in self.state.curr_uc[CONNECTIONS].items():  #key, value
             if self.state.curr_uc[CONNECTIONS][conn_type]:  # if not empty
-                if conn_type in [SEQUENCE, COND, BRANCHRE, PARA, CONCURRE, ALT]:
+                if conn_type in [SEQUENCE, COND, PARA, ALT, LOOP]:  # BRANCHRE, CONCURRE,
                     for from_ in self.state.curr_uc[CONNECTIONS][conn_type]:
                         g.add_conn_first_node(conn_type, from_)
 
@@ -185,19 +199,18 @@ class FrameFlowchart(LabelFrame):
                     for from_, to_list in self.state.curr_uc[CONNECTIONS][conn_type].items():
                         for to in to_list:
                             g.add_edge(from_, to[WORD], label=to[COND_TEXT])
-                if conn_type in [SEQUENCE, PARA, ALT]:
+                elif conn_type in [SEQUENCE, PARA, ALT, LOOP]:
                     for from_, to_list in self.state.curr_uc[CONNECTIONS][conn_type].items():
                         for to in to_list:
                             g.add_edge(from_, to)
+
                 # elif conn_type in [BRANCHRE, CONCURRE]:
                 #     for to, from_list in self.state.curr_uc[CONNECTIONS][conn_type].items():
                 #         for from_ in from_list:
                 #             g.add_edge(from_, to)
 
     def refresh(self):
-        selected_words = [step[SELECTED_WORDS][0] for step in self.state.curr_uc[STEPS]]  #if step[SELECTED_WORDS] != []
-        self.cb_from.config(values=selected_words)
-        self.cb_to.config(values=selected_words)
+        self.reload_cb()
         self.reset_conn_widgets()
         if self.state.curr_uc_connections_exist():
             self.redraw_flowchart()
@@ -205,6 +218,13 @@ class FrameFlowchart(LabelFrame):
         else:
             self.panel.configure(image="")
             self.hide_btn_save()
+
+    def reload_cb(self):
+        if STEPS not in self.state.curr_uc:
+            return
+        selected_words = [step[SELECTED_WORDS][0] for step in self.state.curr_uc[STEPS]]  #if step[SELECTED_WORDS] != []
+        self.cb_from.config(values=selected_words)
+        self.cb_to.config(values=selected_words)
 
     def show_btn_save(self):
         if not self.btn_save.winfo_ismapped():
@@ -216,4 +236,13 @@ class FrameFlowchart(LabelFrame):
 
     def save_clicked(self):
         #TODO create logic specification
+        json_object = json.dumps(self.state.curr_uc, cls=SetEncoder, indent=4)
+        print(json_object)
         pass
+
+
+class SetEncoder(json.JSONEncoder):
+    def default(self, obj):
+        if isinstance(obj, set):
+            return list(obj)
+        return json.JSONEncoder.default(self, obj)
