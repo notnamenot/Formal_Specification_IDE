@@ -14,7 +14,7 @@ SPECIFICATION_STRING = "specification_string"
 WORD = "word"
 COND_TEXT = "cond"
 
-SEQUENCE = "Sequence"
+SEQUENCE = "Seq"
 COND = "Cond"   # old COND
 BRANCHRE = "BranchRe"
 PARA = "Para"   # old Concur

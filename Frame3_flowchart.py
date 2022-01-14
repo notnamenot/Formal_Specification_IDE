@@ -6,6 +6,7 @@ from PIL import ImageTk, Image
 import io
 
 from Flowchart import Flowchart
+from GeneratorFormulLogicznych.GeneratorFormulLogicznychMain import GenerateLogicalSpecification
 from SpecificationStringGenerator import SpecificationStringGenerator
 from State import STEPS, SELECTED_WORDS, CONNECTIONS, WORD, COND_TEXT, SEQUENCE, COND, BRANCHRE, PARA, CONCURRE, ALT, \
     LOOP, SPECIFICATION_STRING
@@ -95,17 +96,17 @@ class FrameFlowchart(LabelFrame):
 
         self.btn_save = Button(self, text="Save", command=self.save_clicked)
 
-        self.sv_logic_specification = StringVar()
-        self.lbl_logic_specification = Label(self, textvariable=self.sv_logic_specification)
-        self.lbl_logic_specification.pack(side=TOP)
+        self.sv_specification_string = StringVar()
+        self.lbl_specification_string = Label(self, textvariable=self.sv_specification_string)
+        self.lbl_specification_string.pack(side=TOP)
+        
+        self.sv_logical_formulas = StringVar()
+        self.lbl_logical_formulas = Label(self, textvariable=self.sv_logical_formulas)
+        self.lbl_logical_formulas.pack(side=TOP)
 
         self.blocks = Label(self)
         self.blocks.pack(side=BOTTOM)
         self.draw_blocks()
-        # #flag to expression
-        # self.last_printed = ''
-        # self.left_par = 0
-        # self.right_par = 0
 
     def reset_conn_widgets(self):
         self.sv_from.set("from activity")
@@ -177,7 +178,7 @@ class FrameFlowchart(LabelFrame):
         self.reset_conn_widgets()
         self.redraw_flowchart()
         # self.show_btn_save()
-        self.refresh_specification_string()
+        self.refresh_generated_specification()
 
 
     def update_state(self):
@@ -295,7 +296,7 @@ class FrameFlowchart(LabelFrame):
     def refresh(self):
         self.reset_cb()
         self.reset_conn_widgets()
-        self.refresh_specification_string()
+        self.refresh_generated_specification()
         if self.state.curr_uc_connections_exist():
             self.redraw_flowchart()
             # self.show_btn_save()
@@ -303,8 +304,16 @@ class FrameFlowchart(LabelFrame):
             self.panel.configure(image="")
             self.hide_btn_save()
 
-    def refresh_specification_string(self):
-        self.sv_logic_specification.set(self.state.curr_uc[SPECIFICATION_STRING])
+    def refresh_generated_specification(self):
+        cur_specification_string = self.state.curr_uc[SPECIFICATION_STRING]
+        self.sv_specification_string.set(cur_specification_string)
+        self.sv_logical_formulas.set('')
+        if cur_specification_string != '':
+            try:
+                formulas = GenerateLogicalSpecification(cur_specification_string)
+                self.sv_logical_formulas.set(formulas)
+            except:
+                self.sv_logical_formulas.set("Logical formulas generation error!")
 
     def reset_cb(self):
         # if STEPS not in self.state.curr_uc:

@@ -1,6 +1,8 @@
 import json
 from io import StringIO
 from treelib import Node, Tree
+from State import STEPS, SELECTED_WORDS, CONNECTIONS, WORD, COND_TEXT, SEQUENCE, COND, BRANCHRE, PARA, CONCURRE, ALT, \
+    LOOP, SPECIFICATION_STRING
 
 class SpecificationStringGenerator:
     def __init__(self, connections):
@@ -21,12 +23,12 @@ class SpecificationStringGenerator:
 
         # simplify Cond
         new_conds = {}
-        for cond in self.connections['Cond']:
+        for cond in self.connections[COND]:
             list = []
-            for e in self.connections['Cond'][cond]:
-                list.append(e['word'])
+            for e in self.connections[COND][cond]:
+                list.append(e[WORD])
             new_conds[cond] = list
-        self.connections['Cond'] = new_conds
+        self.connections[COND] = new_conds
 
         # finding all nodes and self.connections
         nodes = {}
@@ -72,7 +74,7 @@ class SpecificationStringGenerator:
         if node not in visited:
             for connection in self.connections:
                 if node in self.connections[connection]:
-                    if connection != 'Loop':
+                    if connection != LOOP:
                         print(connection + "(", end='', file=f)
                         self.last_printed = '('
                         self.left_par += 1
@@ -80,7 +82,7 @@ class SpecificationStringGenerator:
                     print('', end='', file=f)
                     self.last_printed = ' '
             if node in graph[node]:
-                print('Loop(' + node + ')', end='', file=f)
+                print(LOOP+'(' + node + ')', end='', file=f)
                 self.last_printed = ')'
             else:
                 print(node, end='', file=f)
