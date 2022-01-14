@@ -9,6 +9,7 @@ SEQ = "seq"
 SELECTED_WORDS = "selected_words"
 TEXT = "text"
 CONNECTIONS = "connections"
+SPECIFICATION_STRING = "specification_string"
 
 WORD = "word"
 COND_TEXT = "cond"
@@ -88,7 +89,8 @@ class State:
                                                                   #CONCURRE: defaultdict(set)
                                                                   ALT: defaultdict(set),
                                                                   LOOP: defaultdict(set)
-                                                                  }})
+                                                                  },
+                                                    SPECIFICATION_STRING: ''})
 
     def curr_uc_connections_exist(self):
         if not self.curr_uc:
@@ -147,9 +149,11 @@ class State:
             if step[SEQ] == step_id:
                 step[SELECTED_WORDS].remove(word)
 
-    def remove_connections(self):
+    def remove_connections(self):   # TODO rename?
         for conn_type, values_list in self.curr_uc[CONNECTIONS].items():
             self.curr_uc[CONNECTIONS][conn_type].clear()
+
+        self.curr_uc[SPECIFICATION_STRING] = ''
 
 """
 [
@@ -209,7 +213,8 @@ class State:
 															"selected_word7": ["selected_word7"],
 															"selected_word8": ["selected_word8"]
 														}								
-										}
+										},
+                            "specification_string":	"Cond(a,b,d)"
 						},
 						...
 					]		

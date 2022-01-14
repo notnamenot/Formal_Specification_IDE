@@ -5,6 +5,12 @@ from tkinter.ttk import *
 from PIL import ImageTk, Image
 import io
 
+from Flowchart import Flowchart
+from SpecificationStringGenerator import SpecificationStringGenerator
+from State import STEPS, SELECTED_WORDS, CONNECTIONS, WORD, COND_TEXT, SEQUENCE, COND, BRANCHRE, PARA, CONCURRE, ALT, \
+    LOOP, SPECIFICATION_STRING
+
+
 class FrameFlowchart(LabelFrame):
     def __init__(self, master, state, *args, **kwargs):
         super().__init__(master=master, text="Workflow Diagram", *args, **kwargs)
@@ -89,13 +95,17 @@ class FrameFlowchart(LabelFrame):
 
         self.btn_save = Button(self, text="Save", command=self.save_clicked)
 
+        self.sv_logic_specification = StringVar()
+        self.lbl_logic_specification = Label(self, textvariable=self.sv_logic_specification)
+        self.lbl_logic_specification.pack(side=TOP)
+
         self.blocks = Label(self)
         self.blocks.pack(side=BOTTOM)
         self.draw_blocks()
-        #flag to expression
-        self.last_printed = ''
-        self.left_par = 0
-        self.right_par = 0
+        # #flag to expression
+        # self.last_printed = ''
+        # self.left_par = 0
+        # self.right_par = 0
 
     def reset_conn_widgets(self):
         self.sv_from.set("from activity")
@@ -166,7 +176,9 @@ class FrameFlowchart(LabelFrame):
         self.update_state()
         self.reset_conn_widgets()
         self.redraw_flowchart()
-        self.show_btn_save()
+        # self.show_btn_save()
+        self.refresh_specification_string()
+
 
     def update_state(self):
         sv_from = self.sv_from.get()
@@ -187,7 +199,29 @@ class FrameFlowchart(LabelFrame):
         # elif sv_conn in [BRANCHRE, CONCURRE]:
         #     self.state.curr_uc[CONNECTIONS][sv_conn][sv_to].add(sv_from)
 
+        generated_string = self.generate_specification_string()
+        self.state.curr_uc[SPECIFICATION_STRING] = generated_string
+
         print("after add connections", self.state.curr_uc)
+
+
+    def generate_specification_string(self):
+        # json_object = json.dumps(self.state.curr_uc, cls=SetEncoder, indent=4)
+        # jsonFile = open("data.json", "w")
+        # jsonFile.write(json_object)
+        # jsonFile.close()
+        #
+        # self.create_specification_string()
+        #
+        # specification_string = ''
+        # with open('output.txt', 'r') as f:
+        #     specification_string = f.read()
+        #
+        #
+        # return specification_string.strip()
+        specificationStringGenerator = SpecificationStringGenerator(self.state.curr_uc[CONNECTIONS])
+        return specificationStringGenerator.create_specification_string2()
+
 
     def draw_blocks(self):
         g = Flowchart()
@@ -261,12 +295,16 @@ class FrameFlowchart(LabelFrame):
     def refresh(self):
         self.reset_cb()
         self.reset_conn_widgets()
+        self.refresh_specification_string()
         if self.state.curr_uc_connections_exist():
             self.redraw_flowchart()
-            self.show_btn_save()
+            # self.show_btn_save()
         else:
             self.panel.configure(image="")
             self.hide_btn_save()
+
+    def refresh_specification_string(self):
+        self.sv_logic_specification.set(self.state.curr_uc[SPECIFICATION_STRING])
 
     def reset_cb(self):
         # if STEPS not in self.state.curr_uc:
@@ -290,113 +328,5 @@ class FrameFlowchart(LabelFrame):
             self.btn_save.pack_forget()
 
     def save_clicked(self):
-        #TODO create logic specification
-        json_object = json.dumps(self.state.curr_uc, cls=SetEncoder, indent=4)
-
-        jsonFile = open("data.json", "w")
-        jsonFile.write(json_object)
-        jsonFile.close()
-
-        data = json.load(open("data.json", "r"))
-        connections = data['connections']
-
-        # simplify Cond
-        new_conds = {}
-        for cond in connections['Cond']:
-            list = []
-            for e in connections['Cond'][cond]:
-                list.append(e['word'])
-            new_conds[cond] = list
-        connections['Cond'] = new_conds
-
-        # finding all nodes and connections
-        nodes = {}
-        for key in connections:
-            print(connections[key])
-            for key_key in connections[key]:
-                if key_key in nodes:
-                    nodes[key_key] = nodes[key_key] + connections[key][key_key]
-                else:
-                    nodes[key_key] = connections[key][key_key]
-            #nodes = nodes | connections[key]
-        print(nodes)
-
-        # finding root
-        root = set(nodes).difference(*nodes.values()).pop()
-        #print(root)
-
-        # finding leafs and adding empty targets
-        leafs = []
-        for node in nodes:
-            for sub_node in nodes[node]:
-                if sub_node not in nodes:
-                    leafs.append(sub_node)
-        for leaf in leafs:
-            nodes[leaf] = []
-        #print(nodes)
-
-        def dfs(visited, graph, node, f):
-            if node not in visited:
-                for connection in connections:
-                    if node in connections[connection]:
-                        if connection != 'Loop':
-                            print(connection + "(", end='', file=f)
-                            self.last_printed = '('
-                            self.left_par += 1
-                    else:
-                        print('', end='', file=f)
-                        self.last_printed = ' '
-                if node in graph[node]:
-                    print('Loop(' + node + ')', end='', file=f)
-                    self.last_printed = ')'
-                else:
-                    print(node, end='', file=f)
-                    self.last_printed = node
-                visited.add(node)
-                for neighbour in graph[node]:
-                    if neighbour != node:
-                        print(',', end='', file=f)
-                        self.last_printed = ','
-                        dfs(visited, graph, neighbour, f)
-                        if neighbour not in visited:
-                            print(')', end='', file=f)
-                            self.last_printed = ')'
-                            self.right_par += 1
-                    else:
-                        print(')', end='', file=f)
-                        self.last_printed = ')'
-                        self.right_par += 1
-                #if node in visited and self.last_printed != ')':
-                #    print(')', end='', file=f)
-                 #   self.last_printed = ')'
-                #    self.right_par += 1
-            else:
-                if node in leafs:
-                    print(node, end='', file=f)
-                    self.last_printed = node
-                print(')', end='', file=f)
-                self.last_printed = ')'
-                self.right_par += 1
-
-        with open('output.txt', 'a') as f:
-            visited = set()  # Set to keep track of visited nodes.
-            dfs(visited, nodes, root, f)
-            if self.left_par != self.right_par:
-                print(')', end='', file=f)
-                self.right_par += 1
-            print("\n", file=f)
-
         pass
 
-
-from Flowchart import Flowchart
-
-
-from State import STEPS, SELECTED_WORDS, CONNECTIONS, WORD, COND_TEXT, SEQUENCE, COND, BRANCHRE, PARA, CONCURRE, ALT, LOOP
-
-
-class SetEncoder(json.JSONEncoder):
-    def default(self, obj):
-        if isinstance(obj, set):
-            return list(obj)
-        return json.JSONEncoder.default(self, obj)

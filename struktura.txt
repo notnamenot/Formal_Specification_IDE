@@ -60,7 +60,8 @@
 															"selected_word7": ["selected_word7"],
 															"selected_word8": ["selected_word8"]
 														}								
-										}
+										},
+							"specification_string":	"Cond(a,b,d)"	
 						},
 						...
 					]		
