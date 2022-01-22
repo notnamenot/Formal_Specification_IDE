@@ -83,7 +83,9 @@ class FrameUC(LabelFrame):
 
         self.state.set_xml_path(xml_path)
 
-        use_cases = self.find_use_cases(xml_path)
+        use_cases, extend, include = self.find_use_cases(xml_path)
+        print(extend)
+        print(include)
 
         self.state.add_use_cases(use_cases)
 
@@ -93,43 +95,114 @@ class FrameUC(LabelFrame):
         # print(root.tag, root.attrib, root.nsmap)
         namespaces = root.nsmap
 
-        matches = self.gather_rules(namespaces)
+        uc_matches, ext_matches, inc_matches = self.gather_rules(namespaces)
 
+
+        ####### USE CASES ########
         uc_xml_elems = []
-        for match in matches:
+        for match in uc_matches:
             uc_xml_elems.extend(root.findall(match, namespaces=namespaces))
 
         # for elem in root:
         #     print(elem.tag, elem.attrib)
 
-        use_cases = []
+        use_cases = {}
         for elem in uc_xml_elems:
             # print(elem.tag, elem.attrib, elem.text)
-            if 'Name' in elem.attrib:
-                use_cases.append(elem.attrib['Name'])
-            elif 'name' in elem.attrib:
-                use_cases.append(elem.attrib['name'])
-            elif elem.tag == 'Foundation.Core.ModelElement.name':
-                use_cases.append(elem.text)
+            if '{http://schema.omg.org/spec/XMI/2.1}id' in elem.attrib:
+                id = elem.attrib['{http://schema.omg.org/spec/XMI/2.1}id']
+            elif 'Id' in elem.attrib:
+                id = elem.attrib['Id']
+            elif '{http://www.omg.org/spec/XMI/20131001}id' in elem.attrib:
+                id = elem.attrib['{http://www.omg.org/spec/XMI/20131001}id']
 
-        use_cases = list(set(use_cases))  # remove duplicates
-        return use_cases
+            if 'Name' in elem.attrib:
+                use_cases[id] = elem.attrib['Name']
+            elif 'name' in elem.attrib:
+                use_cases[id] = elem.attrib['name']
+            elif elem.tag == 'Foundation.Core.ModelElement.name':
+                use_cases[id] = elem.text
+
+        use_cases_list = list(set(use_cases.values()))  # remove duplicates
+
+
+        ####### EXTEND ########
+        ext_xml_elems = []
+        for match in ext_matches:
+            ext_xml_elems.extend(root.findall(match, namespaces=namespaces))
+
+        print("EXT", ext_xml_elems)
+        extend = {}
+        cnt = 1
+        for elem in ext_xml_elems:
+            # print(elem.tag, elem.attrib, elem.text)
+            extend["Ext" + str(cnt)] = {}
+            if 'extension' in elem.attrib:
+                extend["Ext" + str(cnt)]["From"] = use_cases[elem.attrib['extension']]
+                extend["Ext" + str(cnt)]["To"] = use_cases[elem.attrib['extendedCase']]
+            elif 'extendedCase' in elem.attrib:
+                parent = use_cases[elem.find('...').attrib['{http://www.omg.org/spec/XMI/20131001}id']]
+                extend["Ext" + str(cnt)]["From"] = parent
+                extend["Ext" + str(cnt)]["To"] = use_cases[elem.attrib['extendedCase']]
+            elif 'From' in elem.attrib:
+                extend["Ext" + str(cnt)]["From"] = use_cases[elem.attrib['To']]
+                extend["Ext" + str(cnt)]["To"] = use_cases[elem.attrib['From']]
+
+            cnt += 1
+
+
+        ####### INCLUDE ########
+        inc_xml_elems = []
+        for match in inc_matches:
+            inc_xml_elems.extend(root.findall(match, namespaces=namespaces))
+
+        include = {}
+        cnt = 1
+        for elem in inc_xml_elems:
+            # print(elem.tag, elem.attrib, elem.text)
+            include["Inc" + str(cnt)] = {}
+            if 'includingCase' in elem.attrib:
+                include["Inc" + str(cnt)]["From"] = use_cases[elem.attrib['includingCase']]
+                include["Inc" + str(cnt)]["To"] = use_cases[elem.attrib['addition']]
+            elif 'addition' in elem.attrib:
+                parent = use_cases[elem.find('...').attrib['{http://www.omg.org/spec/XMI/20131001}id']]
+                include["Inc" + str(cnt)]["From"] = parent
+                include["Inc" + str(cnt)]["To"] = use_cases[elem.attrib['addition']]
+            elif 'From' in elem.attrib:
+                include["Inc" + str(cnt)]["From"] = use_cases[elem.attrib['From']]
+                include["Inc" + str(cnt)]["To"] = use_cases[elem.attrib['To']]
+
+            cnt += 1
+
+        return use_cases_list, extend, include
 
     def gather_rules(self, namespaces):
-        matches = []
-        matches.append(".//UseCase")                        # visual paradigm 'Xml_structure': 'simple'
-        matches.append(".//Model[@modelType='UseCase']")    # visual paradigm 'Xml_structure': 'traditional'
-        matches.append(".//UMLUseCase")                     # Sinvas
-        matches.append(".//Behavioral_Elements.Use_Cases.UseCase/Foundation.Core.ModelElement.name")     # EnterpriseArchitect XMI 1.0 UML 1.3
+        uc_matches = []
+        ext_matches = []
+        inc_matches = []
+        uc_matches.append(".//UseCase[@Abstract='false']")     # visual paradigm 'Xml_structure': 'simple'
+        uc_matches.append(".//Model[@modelType='UseCase']")    # visual paradigm 'Xml_structure': 'traditional'
+        uc_matches.append(".//UMLUseCase")                     # Sinvas
+        uc_matches.append(".//Behavioral_Elements.Use_Cases.UseCase/Foundation.Core.ModelElement.name")     # EnterpriseArchitect XMI 1.0 UML 1.3
+
+        ext_matches.append(".//Extend[@BacklogActivityId='0']")
+        inc_matches.append(".//Include[@BacklogActivityId='0']")
+
         if "xmi" in namespaces:
-            matches.append(".//packagedElement[@xmi:type='uml:UseCase']")   # Papyrus {'xmi': 'http://www.omg.org/spec/XMI/20131001'}
+            uc_matches.append(".//packagedElement[@xmi:type='uml:UseCase']")   # Papyrus {'xmi': 'http://www.omg.org/spec/XMI/20131001'}
                                                                             # EnterpriseArchitect xmi 2.1 >= 2.5.1, uml 2.1 >= 2.5.1 {'xmi': 'http://schema.omg.org/spec/XMI/2.1'}
+            ext_matches.append(".//extend[@xmi:type='uml:Extend']")
+            inc_matches.append(".//include[@xmi:type='uml:Include']")
+
         if "xsi" in namespaces:
-            matches.append(".//packagedElement[@xsi:type='uml:UseCase']")   # GenMyModel {'xsi': 'http://www.w3.org/2001/XMLSchema-instance'}
+            uc_matches.append(".//packagedElement[@xsi:type='uml:UseCase']")   # GenMyModel {'xsi': 'http://www.w3.org/2001/XMLSchema-instance'}
+            ext_matches.append(".//extend")
+            inc_matches.append(".//include")
+
         if "UML" in namespaces:
-            matches.append(".//UML:UseCase")                # EnterpriseArchitect XMI 1.1 UML 1.3 {'UML': 'omg.org/UML1.3'},
+            uc_matches.append(".//UML:UseCase")                # EnterpriseArchitect XMI 1.1 UML 1.3 {'UML': 'omg.org/UML1.3'},
                                                             # EnterpriseArchitect XMI 1.2 UML 1.4 {'UML': 'org.omg.xmi.namespace.UML'}
-        return matches
+        return uc_matches, ext_matches, inc_matches
 
     def prev_uc_diagram_clicked(self):
         self.state.set_curr_uc_diagram(self.state.get_curr_uc_diagram_seq() - 1)

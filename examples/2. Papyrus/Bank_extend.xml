@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Model xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_jTuwUFtgEeyjiOkDPlFjHA" name="Bank_extend">
+  <packageImport xmi:type="uml:PackageImport" xmi:id="_jYmpQFtgEeyjiOkDPlFjHA">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_t01-oFtgEeyjiOkDPlFjHA" name="Actor1"/>
+  <packagedElement xmi:type="uml:Actor" xmi:id="_u-3hwFtgEeyjiOkDPlFjHA" name="Actor2"/>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_xFsrYFtgEeyjiOkDPlFjHA" name="UseCase1">
+    <include xmi:type="uml:Include" xmi:id="_9tD0gFtgEeyjiOkDPlFjHA" addition="_yRuZoFtgEeyjiOkDPlFjHA"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_yRuZoFtgEeyjiOkDPlFjHA" name="UseCase2">
+    <extend xmi:type="uml:Extend" xmi:id="_-e0BkFtgEeyjiOkDPlFjHA" extendedCase="_zJzRIFtgEeyjiOkDPlFjHA" extensionLocation="_-e9ykFtgEeyjiOkDPlFjHA"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:UseCase" xmi:id="_zJzRIFtgEeyjiOkDPlFjHA" name="UseCase3">
+    <extensionPoint xmi:type="uml:ExtensionPoint" xmi:id="_-e9ykFtgEeyjiOkDPlFjHA" name="ExtensionPoint1"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_4hP28FtgEeyjiOkDPlFjHA" memberEnd="_4hSTMltgEeyjiOkDPlFjHA _4hSTM1tgEeyjiOkDPlFjHA">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_4hSTMFtgEeyjiOkDPlFjHA" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_4hSTMVtgEeyjiOkDPlFjHA" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_4hSTMltgEeyjiOkDPlFjHA" name="usecase1" type="_xFsrYFtgEeyjiOkDPlFjHA" association="_4hP28FtgEeyjiOkDPlFjHA"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_4hSTM1tgEeyjiOkDPlFjHA" name="actor1" type="_t01-oFtgEeyjiOkDPlFjHA" association="_4hP28FtgEeyjiOkDPlFjHA"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_5go3YFtgEeyjiOkDPlFjHA" memberEnd="_5grToVtgEeyjiOkDPlFjHA _5grToltgEeyjiOkDPlFjHA">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_5go3YVtgEeyjiOkDPlFjHA" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_5grToFtgEeyjiOkDPlFjHA" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_5grToVtgEeyjiOkDPlFjHA" name="usecase2" type="_yRuZoFtgEeyjiOkDPlFjHA" association="_5go3YFtgEeyjiOkDPlFjHA"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_5grToltgEeyjiOkDPlFjHA" name="actor1" type="_t01-oFtgEeyjiOkDPlFjHA" association="_5go3YFtgEeyjiOkDPlFjHA"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_6dycIFtgEeyjiOkDPlFjHA" memberEnd="_6dycI1tgEeyjiOkDPlFjHA _6dycJFtgEeyjiOkDPlFjHA">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_6dycIVtgEeyjiOkDPlFjHA" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_6dycIltgEeyjiOkDPlFjHA" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_6dycI1tgEeyjiOkDPlFjHA" name="usecase3" type="_zJzRIFtgEeyjiOkDPlFjHA" association="_6dycIFtgEeyjiOkDPlFjHA"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_6dycJFtgEeyjiOkDPlFjHA" type="_5go3YFtgEeyjiOkDPlFjHA" association="_6dycIFtgEeyjiOkDPlFjHA"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_8BGpAFtgEeyjiOkDPlFjHA" memberEnd="_8BGpA1tgEeyjiOkDPlFjHA _8BGpBFtgEeyjiOkDPlFjHA">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_8BGpAVtgEeyjiOkDPlFjHA" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_8BGpAltgEeyjiOkDPlFjHA" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_8BGpA1tgEeyjiOkDPlFjHA" name="usecase2" type="_yRuZoFtgEeyjiOkDPlFjHA" association="_8BGpAFtgEeyjiOkDPlFjHA"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_8BGpBFtgEeyjiOkDPlFjHA" name="actor2" type="_u-3hwFtgEeyjiOkDPlFjHA" association="_8BGpAFtgEeyjiOkDPlFjHA"/>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Association" xmi:id="_8n3uEFtgEeyjiOkDPlFjHA" memberEnd="_8n3uE1tgEeyjiOkDPlFjHA _8n3uFFtgEeyjiOkDPlFjHA">
+    <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_8n3uEVtgEeyjiOkDPlFjHA" source="org.eclipse.papyrus">
+      <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_8n3uEltgEeyjiOkDPlFjHA" key="nature" value="UML_Nature"/>
+    </eAnnotations>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_8n3uE1tgEeyjiOkDPlFjHA" name="usecase1" type="_xFsrYFtgEeyjiOkDPlFjHA" association="_8n3uEFtgEeyjiOkDPlFjHA"/>
+    <ownedEnd xmi:type="uml:Property" xmi:id="_8n3uFFtgEeyjiOkDPlFjHA" name="actor2" type="_u-3hwFtgEeyjiOkDPlFjHA" association="_8n3uEFtgEeyjiOkDPlFjHA"/>
+  </packagedElement>
+</uml:Model>
