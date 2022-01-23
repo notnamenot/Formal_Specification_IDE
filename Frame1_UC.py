@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import filedialog
 from PIL import ImageTk, Image
 import os
+import string
 # import xml.etree.ElementTree as ET
 from lxml import etree as ET
 
@@ -83,9 +84,7 @@ class FrameUC(LabelFrame):
 
         self.state.set_xml_path(xml_path)
 
-        use_cases, extend, include = self.find_use_cases(xml_path)
-        print(extend)
-        print(include)
+        use_cases = self.find_use_cases(xml_path)
 
         self.state.add_use_cases(use_cases)
 
@@ -190,7 +189,12 @@ class FrameUC(LabelFrame):
 
             cnt += 1
 
-        return use_cases_list, extend, include
+        print(extend)
+        print(include)
+
+        use_cases = self.match_include_extend(use_cases_list, include, extend)
+
+        return use_cases
 
     def gather_rules(self, namespaces):
         uc_matches = []
@@ -219,6 +223,25 @@ class FrameUC(LabelFrame):
             uc_matches.append(".//UML:UseCase")                # EnterpriseArchitect XMI 1.1 UML 1.3 {'UML': 'omg.org/UML1.3'},
                                                             # EnterpriseArchitect XMI 1.2 UML 1.4 {'UML': 'org.omg.xmi.namespace.UML'}
         return uc_matches, ext_matches, inc_matches
+
+    def match_include_extend(self, use_cases_list, include, extend):
+        alphabet_list = list(string.ascii_lowercase)
+        use_cases = {}
+        i = 0
+        for uc in use_cases_list:
+            id = alphabet_list[i]
+            use_cases[id] = {'name': uc, 'include': [], 'extend': []}
+            for _, from_to_dict in include.items():
+                if from_to_dict['From'] == uc:
+                    use_cases[id]['include'].append(from_to_dict['To'])
+            for _, from_to_dict in extend.items():
+                if from_to_dict['From'] == uc:
+                    use_cases[id]['extend'].append(from_to_dict['To'])
+            i += 1
+        return use_cases
+
+
+
 
     def prev_uc_diagram_clicked(self):
         self.state.set_curr_uc_diagram(self.state.get_curr_uc_diagram_seq() - 1)

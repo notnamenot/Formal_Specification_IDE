@@ -3,7 +3,10 @@ from collections import defaultdict
 IMG_PATH = "img_path"
 XML_PATH = "xml_path"
 USE_CASES = "use_cases"
+ID = "id"
 NAME = "name"
+INCLUDE = "include"
+EXTEND = "extend"
 STEPS = "steps"
 SEQ = "seq"
 SELECTED_WORDS = "selected_words"
@@ -79,8 +82,11 @@ class State:
                 break
 
     def add_use_cases(self, use_cases):
-        for use_case_name in use_cases:
-            self.curr_uc_diagram[USE_CASES].append({NAME: use_case_name,
+        for use_case_id, name_extend_include_dict in use_cases.items():
+            self.curr_uc_diagram[USE_CASES].append({ID: use_case_id,
+                                                    NAME: name_extend_include_dict[NAME],
+                                                    INCLUDE: name_extend_include_dict[INCLUDE],
+                                                    EXTEND: name_extend_include_dict[EXTEND],
                                                     STEPS: [],
                                                     CONNECTIONS: {SEQUENCE: defaultdict(set),  # set a nie list żeby były unikalne wartości
                                                                   COND: defaultdict(list),  # w wartościach są słowniki, a słownik nie jest hashowalny więc unikalność sprawdzmy przy dodawaniu
