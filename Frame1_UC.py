@@ -109,12 +109,28 @@ class FrameUC(LabelFrame):
         use_cases = {}
         for elem in uc_xml_elems:
             # print(elem.tag, elem.attrib, elem.text)
-            if '{http://schema.omg.org/spec/XMI/2.1}id' in elem.attrib:
-                id = elem.attrib['{http://schema.omg.org/spec/XMI/2.1}id']
-            elif 'Id' in elem.attrib:
-                id = elem.attrib['Id']
-            elif '{http://www.omg.org/spec/XMI/20131001}id' in elem.attrib:
-                id = elem.attrib['{http://www.omg.org/spec/XMI/20131001}id']
+            id = ''
+            for ns_abbr, ns_url in namespaces.items():
+                attr_id = f'{{{ns_url}}}id'
+                if attr_id in elem.attrib:
+                    id = elem.attrib[attr_id]
+                    break
+            if not id:
+                if 'Id' in elem.attrib:
+                    id = elem.attrib['Id']
+                else:
+                    parent = elem.getparent()
+                    if 'xmi.id' in parent.attrib:       # EnterpriseArchitect XMI 1.0 UML 1.3
+                        id = parent.attrib['xmi.id']
+
+            # if '{http://schema.omg.org/spec/XMI/2.1}id' in elem.attrib:
+            #     id = elem.attrib['{http://schema.omg.org/spec/XMI/2.1}id']
+            # elif 'Id' in elem.attrib:
+            #     id = elem.attrib['Id']
+            # elif '{http://www.omg.org/spec/XMI/20131001}id' in elem.attrib:
+            #     id = elem.attrib['{http://www.omg.org/spec/XMI/20131001}id']
+            # elif '{http://www.omg.org/spec/XMI/20110701}id' in elem.attrib:
+            #     id = elem.attrib['{http://www.omg.org/spec/XMI/20110701}id']
 
             if 'Name' in elem.attrib:
                 use_cases[id] = elem.attrib['Name']
