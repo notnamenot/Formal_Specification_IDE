@@ -3,6 +3,7 @@ from tkinter import *
 from Frame1_UC import FrameUC
 from Frame2_scenarios import FrameScenarios
 from Frame3_flowchart import FrameFlowchart
+from Frame4_LogicalSpecification import FrameLogicalSpecification
 
 from State import State
 
@@ -32,6 +33,9 @@ class Application(Tk):
         self.frame3_flowchart = FrameFlowchart(self, self.state)
         # self.frame3_flowchart.grid(row=0, column=2, sticky=N+S)
 
+        self.frame4_logical_specification = FrameLogicalSpecification(self, self.state)
+        # self.frame4_logical_specification.grid(row=0, column=3, sticky=N+S)
+
     def add_frame3_flowchart(self):
         if self.is_frame3_flowchart_visible():
             # print("frame3 existed")
@@ -44,6 +48,17 @@ class Application(Tk):
     def remove_frame3_flowchart(self):
         if self.is_frame3_flowchart_visible():
             self.frame3_flowchart.grid_forget()
+        self.remove_frame4_logical_specification()
+
+    def add_frame4_logical_specification(self):
+        if self.frame4_logical_specification.winfo_ismapped():
+            return
+        self.frame4_logical_specification.grid(row=0, column=3, sticky=N+S)
+        self.frame4_logical_specification.refresh()
+
+    def remove_frame4_logical_specification(self):
+        if self.frame4_logical_specification.winfo_ismapped():
+            self.frame4_logical_specification.grid_forget()
 
     def on_uc_diagram_changed(self):
         # print("from refresh_frames\nall\n", self.state.all_uc_diagrams, "\ncurr\n", self.state.curr_uc_diagram)
@@ -60,6 +75,11 @@ class Application(Tk):
     def on_refresh_frame3_flowchart(self):
         if self.is_frame3_flowchart_visible():
             self.frame3_flowchart_refresh()
+        self.on_refresh_frame4_logical_specification()
+        self.remove_frame4_logical_specification()
+
+    def on_refresh_frame4_logical_specification(self):
+        self.frame4_logical_specification.refresh()
 
     def is_frame3_flowchart_visible(self):
         if self.frame3_flowchart.winfo_ismapped():  # winfo_exists()

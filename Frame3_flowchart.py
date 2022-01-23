@@ -111,15 +111,15 @@ class FrameFlowchart(LabelFrame):
         self.panel = Label(self)
         self.panel.pack(side=TOP)
 
-        self.btn_save = Button(self, text="Save", command=self.save_clicked)
+        self.btn_save = Button(self, text="Generate Formal Specification", command=self.save_clicked)
 
-        self.sv_specification_string = StringVar()
-        self.lbl_specification_string = Label(self, textvariable=self.sv_specification_string)
-        self.lbl_specification_string.pack(side=TOP)
-        
-        self.sv_logical_formulas = StringVar()
-        self.lbl_logical_formulas = Label(self, textvariable=self.sv_logical_formulas)
-        self.lbl_logical_formulas.pack(side=TOP)
+        # self.sv_specification_string = StringVar()
+        # self.lbl_specification_string = Label(self, textvariable=self.sv_specification_string)
+        # self.lbl_specification_string.pack(side=TOP)
+        #
+        # self.sv_logical_formulas = StringVar()
+        # self.lbl_logical_formulas = Label(self, textvariable=self.sv_logical_formulas)
+        # self.lbl_logical_formulas.pack(side=TOP)
 
         self.blocks = Label(self)
         self.blocks.pack(side=BOTTOM)
@@ -173,6 +173,8 @@ class FrameFlowchart(LabelFrame):
     def set_cond_widgets(self, var, indx, mode):
         if self.sv_conn.get() == COND:
             if not self.frame_cond.winfo_ismapped():
+                if self.frame_alt.winfo_ismapped():
+                    self.frame_alt.pack_forget()
                 self.btn_add_conn.pack_forget()  # forget()
                 self.cb_to.pack_forget()
                 self.frame_cond.pack(side=LEFT)
@@ -181,7 +183,9 @@ class FrameFlowchart(LabelFrame):
                 self.btn_add_conn.pack(side=LEFT)
         elif self.sv_conn.get() == ALT:
             if not self.frame_alt.winfo_ismapped():
-                self.btn_add_conn.pack_forget()  # forget()
+                if self.frame_cond.winfo_ismapped():
+                    self.frame_cond.pack_forget()
+                self.btn_add_conn.pack_forget()
                 self.cb_to.pack_forget()
                 self.frame_alt.pack(side=LEFT)
                 self.frame_alt.wait_visibility()  # żeby winfo_ismapped()self załapało
@@ -210,8 +214,8 @@ class FrameFlowchart(LabelFrame):
         self.update_state()
         self.reset_conn_widgets()
         self.redraw_flowchart()
-        # self.show_btn_save()
-        self.refresh_generated_specification()
+        self.show_btn_save()
+        # self.refresh_generated_specification()
 
     def update_state(self):
         sv_from = self.sv_from.get()
@@ -332,24 +336,24 @@ class FrameFlowchart(LabelFrame):
     def refresh(self):
         self.reset_cb()
         self.reset_conn_widgets()
-        self.refresh_generated_specification()
+        # self.refresh_generated_specification()
         if self.state.curr_uc_connections_exist():
             self.redraw_flowchart()
-            # self.show_btn_save()
+            self.show_btn_save()
         else:
             self.panel.configure(image="")
             self.hide_btn_save()
 
-    def refresh_generated_specification(self):
-        cur_specification_string = self.state.curr_uc[SPECIFICATION_STRING]
-        self.sv_specification_string.set(cur_specification_string)
-        self.sv_logical_formulas.set('')
-        if cur_specification_string != '':
-            try:
-                formulas = GenerateLogicalSpecification(cur_specification_string)
-                self.sv_logical_formulas.set(formulas)
-            except:
-                self.sv_logical_formulas.set("Logical formulas generation error!")
+    # def refresh_generated_specification(self):
+    #     cur_specification_string = self.state.curr_uc[SPECIFICATION_STRING]
+    #     self.sv_specification_string.set(cur_specification_string)
+    #     self.sv_logical_formulas.set('')
+    #     if cur_specification_string != '':
+    #         try:
+    #             formulas = GenerateLogicalSpecification(cur_specification_string)
+    #             self.sv_logical_formulas.set(formulas)
+    #         except:
+    #             self.sv_logical_formulas.set("Logical formulas generation error!")
 
     def reset_cb(self):
         # if STEPS not in self.state.curr_uc:
@@ -376,5 +380,5 @@ class FrameFlowchart(LabelFrame):
             self.btn_save.pack_forget()
 
     def save_clicked(self):
-        pass
-
+        self.master.add_frame4_logical_specification()
+        self.master.on_refresh_frame4_logical_specification()

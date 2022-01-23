@@ -13,6 +13,7 @@ SELECTED_WORDS = "selected_words"
 TEXT = "text"
 CONNECTIONS = "connections"
 SPECIFICATION_STRING = "specification_string"
+LOGICAL_SPECIFICATION = "logical_specification"
 
 WORD = "word"
 COND_TEXT = "cond"
