@@ -9,7 +9,7 @@ from Flowchart import Flowchart
 from GeneratorFormulLogicznych.GeneratorFormulLogicznychMain import GenerateLogicalSpecification
 from SpecificationStringGenerator import SpecificationStringGenerator
 from State import STEPS, SELECTED_WORDS, CONNECTIONS, WORD, COND_TEXT, SEQUENCE, COND, BRANCHRE, PARA, CONCURRE, ALT, \
-    LOOP, SPECIFICATION_STRING
+    LOOP, SPECIFICATION_STRING, INCLUDE, EXTEND
 
 
 class FrameFlowchart(LabelFrame):
@@ -323,6 +323,8 @@ class FrameFlowchart(LabelFrame):
         if STEPS in self.state.curr_uc:
             for step in self.state.curr_uc[STEPS]:
                 selected_words.extend(step[SELECTED_WORDS])
+            selected_words.extend(self.state.curr_uc[INCLUDE])
+            selected_words.extend(self.state.curr_uc[EXTEND])
         self.cb_from.config(values=selected_words)
         self.cb_to.config(values=selected_words)
         self.cb_to_cond_T.config(values=selected_words)

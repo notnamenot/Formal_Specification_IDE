@@ -5,6 +5,7 @@ import os
 import string
 # import xml.etree.ElementTree as ET
 from lxml import etree as ET
+from State import NAME, ID, INCLUDE, EXTEND
 
 MAX_WIDTH = 600
 MAX_HEIGHT = 800
@@ -225,19 +226,29 @@ class FrameUC(LabelFrame):
         return uc_matches, ext_matches, inc_matches
 
     def match_include_extend(self, use_cases_list, include, extend):
+
+        def get_uc_id_by_name(name):
+            for id, uc_dict in use_cases.items():
+                if uc_dict[NAME] == name:
+                    return id
+
         alphabet_list = list(string.ascii_lowercase)
         use_cases = {}
         i = 0
+
         for uc in use_cases_list:
             id = alphabet_list[i]
-            use_cases[id] = {'name': uc, 'include': [], 'extend': []}
-            for _, from_to_dict in include.items():
-                if from_to_dict['From'] == uc:
-                    use_cases[id]['include'].append(from_to_dict['To'])
-            for _, from_to_dict in extend.items():
-                if from_to_dict['From'] == uc:
-                    use_cases[id]['extend'].append(from_to_dict['To'])
+            use_cases[id] = {NAME: uc, INCLUDE: [], EXTEND: []}
             i += 1
+
+        for id, uc_dict in use_cases.items():
+            for _, from_to_dict in include.items():
+                if from_to_dict['From'] == uc_dict[NAME]:
+                    uc_dict[INCLUDE].append(get_uc_id_by_name(from_to_dict['To']))
+            for _, from_to_dict in extend.items():
+                if from_to_dict['From'] == uc_dict[NAME]:
+                    uc_dict[EXTEND].append(get_uc_id_by_name(from_to_dict['To']))
+
         return use_cases
 
 
@@ -274,6 +285,7 @@ class FrameUC(LabelFrame):
             self.set_uc_diagram_img(img_path)
 
         self.master.on_uc_diagram_changed()
+        print("uc added:\n", self.state.all_uc_diagrams)
 
     def set_buttons_state(self):
         curr_uc_diagram_seq = self.state.get_curr_uc_diagram_seq()
