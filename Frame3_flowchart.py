@@ -48,7 +48,7 @@ class FrameFlowchart(LabelFrame):
         self.cb_conn_type.pack(side=LEFT)
         #self.cb_conn_type.bind('<<ComboboxSelected>>', self.check_can_add)  # check_can_add(self, event):
 
-        #  FRAME COND
+        #  FRAME COND START
 
         self.frame_cond = Frame(self.frame_add_connection)
 
@@ -76,7 +76,24 @@ class FrameFlowchart(LabelFrame):
         # self.sv_cond.trace_add('write', self.check_can_add)  # self.sv_cond.trace('w', self.check_can_add)
         # self.inp_cond = Entry(self.frame_add_connection, textvariable=self.sv_cond, width=10)
 
-        #  END FRAME COND
+        #  FRAME COND END
+
+        #  FRAME ALT START
+
+        self.frame_alt = Frame(self.frame_add_connection)
+
+        self.sv_alt_cond = StringVar()
+        self.sv_alt_cond.set("True")
+        self.sv_alt_cond.trace_add('write', self.check_can_add)
+        self.inp_alt_cond = Entry(self.frame_alt, textvariable=self.sv_alt_cond, width=6)
+        self.inp_alt_cond.pack(side=LEFT)
+
+        # self.sv_to_alt = StringVar()
+        # self.sv_to_alt.trace_add('write', self.check_can_add)
+        # self.cb_to_alt = Combobox(self.frame_alt, width=18, textvariable=self.sv_to_alt, state="readonly")
+        # self.cb_to_alt.pack(side=LEFT)
+
+        #  FRAME ALT END
 
         self.sv_to = StringVar()
         self.sv_to.trace_add('write', self.check_can_add)
@@ -114,8 +131,11 @@ class FrameFlowchart(LabelFrame):
         self.sv_to.set("to activity")
         self.sv_to_cond_T.set("to activity on True")
         self.sv_to_cond_F.set("to activity on False")
+        self.sv_alt_cond.set("True")
         if self.frame_cond.winfo_ismapped():
             self.frame_cond.pack_forget()
+        if self.frame_alt.winfo_ismapped():
+            self.frame_alt.pack_forget()
         # self.sv_cond.set("condition")
         # if self.inp_cond.winfo_ismapped():
         #     self.inp_cond.pack_forget()
@@ -131,9 +151,12 @@ class FrameFlowchart(LabelFrame):
         sv_to_cond_T = self.sv_to_cond_T.get()
         sv_to_cond_F = self.sv_to_cond_F.get()
         # sv_cond = self.inp_cond.get().strip()
+        sv_alt_cond = self.sv_alt_cond.get()
 
         if sv_from != "from activity" and sv_conn != "connection type":
-            if (self.frame_cond.winfo_ismapped() and sv_to_cond_T != "to activity on True" and sv_to_cond_F != "to activity on False") or (not self.frame_cond.winfo_ismapped() and sv_to != "to activity"):
+            if (self.frame_cond.winfo_ismapped() and sv_to_cond_T != "to activity on True" and sv_to_cond_F != "to activity on False") or \
+               (self.frame_alt.winfo_ismapped() and sv_alt_cond.strip() != "" and sv_to != "to activity") or \
+               (not self.frame_cond.winfo_ismapped() and not self.frame_alt.winfo_ismapped() and sv_to != "to activity"):
             # if not self.inp_cond.winfo_ismapped() or (self.inp_cond.winfo_ismapped() and sv_cond != "condition" and sv_cond != ""):
                 self.btn_add_conn.config(state=NORMAL)
             else:
@@ -156,12 +179,22 @@ class FrameFlowchart(LabelFrame):
                 self.frame_cond.wait_visibility()  # żeby winfo_ismapped()self załapało
                 # self.cb_to.pack(side=LEFT)
                 self.btn_add_conn.pack(side=LEFT)
+        elif self.sv_conn.get() == ALT:
+            if not self.frame_alt.winfo_ismapped():
+                self.btn_add_conn.pack_forget()  # forget()
+                self.cb_to.pack_forget()
+                self.frame_alt.pack(side=LEFT)
+                self.frame_alt.wait_visibility()  # żeby winfo_ismapped()self załapało
+                self.cb_to.pack(side=LEFT)
+                self.btn_add_conn.pack(side=LEFT)
         else:
             if self.frame_cond.winfo_ismapped():
                 self.frame_cond.pack_forget()
                 self.btn_add_conn.pack_forget()
                 self.cb_to.pack(side=LEFT)
                 self.btn_add_conn.pack(side=LEFT)
+            if self.frame_alt.winfo_ismapped():
+                self.frame_alt.pack_forget()
         # if not self.inp_cond.winfo_ismapped():
         #         self.btn_add_conn.pack_forget()  # forget()
         #         self.cb_to.pack_forget()
@@ -180,7 +213,6 @@ class FrameFlowchart(LabelFrame):
         # self.show_btn_save()
         self.refresh_generated_specification()
 
-
     def update_state(self):
         sv_from = self.sv_from.get()
         sv_conn = self.sv_conn.get()
@@ -188,14 +220,18 @@ class FrameFlowchart(LabelFrame):
         # sv_cond = self.inp_cond.get().strip()
         sv_to_cond_T = self.sv_to_cond_T.get()
         sv_to_cond_F = self.sv_to_cond_F.get()
+        sv_alt_cond = self.sv_alt_cond.get()
 
-        if sv_conn in [COND]:
+        if sv_conn in [COND, ALT]:
             to_list = self.state.curr_uc[CONNECTIONS][sv_conn][sv_from]
-            to_list.append({WORD: sv_to_cond_T, COND_TEXT: "True"})
-            to_list.append({WORD: sv_to_cond_F, COND_TEXT: "False"})
+            if sv_conn == COND:
+                to_list.append({WORD: sv_to_cond_T, COND_TEXT: "True"})
+                to_list.append({WORD: sv_to_cond_F, COND_TEXT: "False"})
+            elif sv_conn == ALT:
+                to_list.append({WORD: sv_to, COND_TEXT: sv_alt_cond})
             unique_to_list = list({v[WORD]: v for v in to_list}.values())   # https://stackoverflow.com/questions/11092511/python-list-of-unique-dictionaries
             self.state.curr_uc[CONNECTIONS][sv_conn][sv_from] = unique_to_list
-        elif sv_conn in [SEQUENCE, PARA, ALT, LOOP]:
+        elif sv_conn in [SEQUENCE, PARA, LOOP]:
             self.state.curr_uc[CONNECTIONS][sv_conn][sv_from].add(sv_to)  # append jest do listy a mamy set
         # elif sv_conn in [BRANCHRE, CONCURRE]:
         #     self.state.curr_uc[CONNECTIONS][sv_conn][sv_to].add(sv_from)
@@ -220,8 +256,8 @@ class FrameFlowchart(LabelFrame):
         #
         #
         # return specification_string.strip()
-        specificationStringGenerator = SpecificationStringGenerator(self.state.curr_uc[CONNECTIONS])
-        return specificationStringGenerator.create_specification_string2()
+        specification_string_generator = SpecificationStringGenerator(self.state.curr_uc[CONNECTIONS])
+        return specification_string_generator.create_specification_string2()
 
 
     def draw_blocks(self):
@@ -279,11 +315,11 @@ class FrameFlowchart(LabelFrame):
     def add_edges(self, g):
         for conn_type, value_dict in self.state.curr_uc[CONNECTIONS].items():  #key, value
             if self.state.curr_uc[CONNECTIONS][conn_type]:  # if not empty
-                if conn_type in [COND]:
+                if conn_type in [COND, ALT]:
                     for from_, to_list in self.state.curr_uc[CONNECTIONS][conn_type].items():
                         for to in to_list:
                             g.add_edge(from_, to[WORD], label=to[COND_TEXT])
-                elif conn_type in [SEQUENCE, PARA, ALT, LOOP]:
+                elif conn_type in [SEQUENCE, PARA, LOOP]:
                     for from_, to_list in self.state.curr_uc[CONNECTIONS][conn_type].items():
                         for to in to_list:
                             g.add_edge(from_, to)
@@ -325,6 +361,7 @@ class FrameFlowchart(LabelFrame):
                 selected_words.extend(step[SELECTED_WORDS])
             selected_words.extend(self.state.curr_uc[INCLUDE])
             selected_words.extend(self.state.curr_uc[EXTEND])
+        selected_words = list(set(selected_words))  # leave unique
         self.cb_from.config(values=selected_words)
         self.cb_to.config(values=selected_words)
         self.cb_to_cond_T.config(values=selected_words)

@@ -5,21 +5,24 @@
 		"use_cases": 
 					[
 						{
-							"name":  "Display account balance",
+							"id":		"a",
+							"name":  	"Display account balance",
+							"include":	["UC2_name", "UC3_name", ...],		# from "Display account balance" to "UC2_name" ...
+							"extend":	["UC3_name", "UC4_name", ...],		# from "Display account balance" to "UC3_name" ...
 							"steps": 
-									[ 
-										{
-											"seq": 1,
-											"text": "System displays welcome screen",
-											"selected_words": ["displays"]											
-										},
-										{
-											"seq": 2,
-											"text": "User inserts Card",
-											"selected_words": ["inserts"]											
-										},
-										...
-									],
+										[ 
+											{
+												"seq": 1,
+												"text": "System displays welcome screen",
+												"selected_words": ["displays"]											
+											},
+											{
+												"seq": 2,
+												"text": "User inserts Card",
+												"selected_words": ["inserts"]											
+											},
+											...
+										],
 							"connections": 
 										{	
 											"Sequence":																	# from: [to1, to2]
@@ -33,11 +36,11 @@
 															"selected_word1": 	[										# from: [{to1}, {to2}]
 																					{
 																						"word": "selected_word2",
-																						"cond": "T"
+																						"cond": "True"
 																					},
 																					{
 																						"word": "selcted_word5",
-																						"cond": "F"
+																						"cond": "False"
 																					}
 																				],
 															...																				
@@ -52,16 +55,26 @@
 															...															
 														},															
 											// "ConcurRe": {...}														# to:	[from1, from2]		// REMOVED
-											"Alt": 		{ 																# from: [to1, to2]			// NEW
-															"selected_word2": 	["selected_word3", "selected_word4"],
-															...															
-														},																
+											//"Alt": 		{ 																# from: [to1, to2]		// ALT ma mieć warunek i jedno to (które jest use casem)	
+											//				"selected_word2": 	["selected_word3", "selected_word4"],
+											//				...															
+											//			},			
+											"Alt":			// <<extend>> if cond then UC_id(word)
+														{
+															"selcted_word8":	[				// tylko jeden element w liście, dla zgodności z COND	 
+																					{
+																						"word": "selected_word9",			# UC id
+																						"cond": "True"
+																					}
+																				],
+															...
+														},
 											"Loop":		{																# self loops, również słownik dla spójnego formatu 
 															"selected_word7": ["selected_word7"],
 															"selected_word8": ["selected_word8"]
 														}								
 										},
-							"specification_string":	"Cond(a,b,d)"	
+							"specification_string":	"Cond(a,b,d)"							
 						},
 						...
 					]		

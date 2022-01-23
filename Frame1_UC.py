@@ -228,20 +228,20 @@ class FrameUC(LabelFrame):
     def match_include_extend(self, use_cases_list, include, extend):
 
         def get_uc_id_by_name(name):
-            for id, uc_dict in use_cases.items():
+            for id_, uc_dict in use_cases.items():
                 if uc_dict[NAME] == name:
-                    return id
+                    return id_
 
         alphabet_list = list(string.ascii_lowercase)
         use_cases = {}
         i = 0
 
         for uc in use_cases_list:
-            id = alphabet_list[i]
-            use_cases[id] = {NAME: uc, INCLUDE: [], EXTEND: []}
+            id_ = alphabet_list[i]
+            use_cases[id_] = {NAME: uc, INCLUDE: [], EXTEND: []}
             i += 1
 
-        for id, uc_dict in use_cases.items():
+        for id_, uc_dict in use_cases.items():
             for _, from_to_dict in include.items():
                 if from_to_dict['From'] == uc_dict[NAME]:
                     uc_dict[INCLUDE].append(get_uc_id_by_name(from_to_dict['To']))

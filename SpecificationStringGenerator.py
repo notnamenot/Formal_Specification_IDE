@@ -24,11 +24,20 @@ class SpecificationStringGenerator:
         # simplify Cond
         new_conds = {}
         for cond in self.connections[COND]:
-            list = []
+            words = []
             for e in self.connections[COND][cond]:
-                list.append(e[WORD])
-            new_conds[cond] = list
+                words.append(e[WORD])
+            new_conds[cond] = words
         self.connections[COND] = new_conds
+
+        # simplify Alt
+        new_alts = {}
+        for alt in self.connections[ALT]:
+            words = []
+            for e in self.connections[ALT][alt]:
+                words.append(e[WORD])
+            new_alts[alt] = words
+        self.connections[ALT] = new_alts
 
         # finding all nodes and self.connections
         nodes = {}

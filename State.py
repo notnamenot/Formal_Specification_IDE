@@ -93,7 +93,7 @@ class State:
                                                                   # BRANCHRE: defaultdict(set),
                                                                   PARA: defaultdict(set),
                                                                   #CONCURRE: defaultdict(set)
-                                                                  ALT: defaultdict(set),
+                                                                  ALT: defaultdict(list),
                                                                   LOOP: defaultdict(set)
                                                                   },
                                                     SPECIFICATION_STRING: ''})
