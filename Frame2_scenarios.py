@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter.messagebox import showinfo
 
-from State import USE_CASES, NAME, STEPS, TEXT, SELECTED_WORDS
+from State import USE_CASES, NAME, ID, STEPS, TEXT, SELECTED_WORDS
 
 class FrameScenarios(LabelFrame):
     def __init__(self, master, state, *args, **kwargs):
@@ -56,13 +56,12 @@ class FrameScenarios(LabelFrame):
     #     self.input_scenario_name.insert(0, "Enter scenario...")
     #     # input_scenario_id.delete(0, END)
     #
-    #     self.add_scenario_frame(scenario)
+    #     self.add_scenario_frame(scenario, <powinno być kolejne id>)
     #     self.state.add_use_cases([scenario])
 
-    # TODO możliwość zmiany kolejnoości - ruszanie framem stepa - przyciski w górę i w dół
 
-    def add_scenario_frame(self, name):
-        frame_scenario = Scenario(self, name)
+    def add_scenario_frame(self, name, id):
+        frame_scenario = Scenario(self, name, id)
         frame_scenario.pack(fill=X, pady=(0, 10), padx=5)
         self.scenarios_frames.append(frame_scenario)
         return frame_scenario
@@ -77,7 +76,7 @@ class FrameScenarios(LabelFrame):
         # 2. add new scenarios
         if self.state.curr_uc_diagram:
             for use_case in self.state.curr_uc_diagram[USE_CASES]:
-                frame_scenario = self.add_scenario_frame(use_case[NAME])
+                frame_scenario = self.add_scenario_frame(use_case[NAME], use_case[ID])
                 for step in use_case[STEPS]:
                     frame_scenario.add_step_frame(step[TEXT], step[SELECTED_WORDS])
 
@@ -90,9 +89,9 @@ class FrameScenarios(LabelFrame):
 
 
 class Scenario(LabelFrame):
-    def __init__(self, master, name, *args, **kwargs):
+    def __init__(self, master, name, id,  *args, **kwargs):
         super().__init__(master=master, relief="flat", highlightthickness=1, *args, **kwargs)
-        # self.id = ""  # TODO uzupełniać albo wywalić
+        self.id = id
         self.name = name
 
         self.step_frames = []  # pamiętać przy usuwaniu stepa żeby stąd też czyścić
@@ -102,9 +101,9 @@ class Scenario(LabelFrame):
         self.frame_id_name.rowconfigure(1, weight=1)
         self.frame_id_name.columnconfigure(1, weight=1)
 
-        # self.lbl_scenario_id = Label(self.frame_id_name, text=self.id + "    ")
-        # self.lbl_scenario_id.grid(row=0, column=0, sticky=N + S)
-        self.lbl_scenario_name = Label(self.frame_id_name, text=name, font=("Arial", 12))
+        self.lbl_scenario_id = Label(self.frame_id_name, text=self.id + "  ", font=("Arial", 12))
+        self.lbl_scenario_id.grid(row=0, column=0, sticky=N + S)
+        self.lbl_scenario_name = Label(self.frame_id_name, text=self.name, font=("Arial", 12))
         self.lbl_scenario_name.grid(row=0, column=1, sticky=N+S)
 
         self.btn_add_step = Button(self, text="Add", command=self.add_step_clicked)
