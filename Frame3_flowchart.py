@@ -1,4 +1,6 @@
 import json
+import os
+from pathlib import Path
 from tkinter import *
 from tkinter.ttk import *
 
@@ -9,7 +11,7 @@ from Flowchart import Flowchart
 from GeneratorFormulLogicznych.GeneratorFormulLogicznychMain import GenerateLogicalSpecification
 from SpecificationStringGenerator import SpecificationStringGenerator
 from State import STEPS, SELECTED_WORDS, CONNECTIONS, WORD, COND_TEXT, SEQUENCE, COND, BRANCHRE, PARA, CONCURRE, ALT, \
-    LOOP, SPECIFICATION_STRING, INCLUDE, EXTEND
+    LOOP, SPECIFICATION_STRING, INCLUDE, EXTEND, NAME
 
 
 class FrameFlowchart(LabelFrame):
@@ -302,12 +304,22 @@ class FrameFlowchart(LabelFrame):
         # g.layout()  # engine='dot'
         g.layout(prog='dot')  # ładnie z góry na dół
         # https://stackoverflow.com/a/18610140/12615981 draw without saving
-        g.draw("file2.png")
 
-        img = ImageTk.PhotoImage(image=Image.open("file2.png"))
+        flowchart_file_path = self.make_flowchart_file_path()
+        g.draw(flowchart_file_path)
+
+        img = ImageTk.PhotoImage(image=Image.open(flowchart_file_path))
 
         self.panel.configure(image=img)
         self.panel.image = img
+
+    def make_flowchart_file_path(self):
+        img_path = self.state.get_curr_img_path()
+        _, img_name = os.path.split(img_path)
+        dir_name = os.path.splitext(img_name)[0]
+        Path(dir_name).mkdir(parents=True, exist_ok=True)
+        flowchart_file_path = f'{dir_name}{os.sep}{self.state.curr_uc[NAME]}_flowchart.png'
+        return flowchart_file_path
 
     def add_nodes(self, g):  # TODO co jeśli jeden node jest np. zarówno rebranch i concur??
         for conn_type, value_dict in self.state.curr_uc[CONNECTIONS].items():  #key, value

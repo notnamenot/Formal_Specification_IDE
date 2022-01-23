@@ -40,9 +40,9 @@ class FrameScenarios(LabelFrame):
         for uc in self.state.curr_uc_diagram["use_cases"]:
             if not uc["steps"]:
                 return "Fill in all scenarios!"
-            # for step in uc["steps"]:
-            #     if not step["selected_words"]:
-            #         return "Choose activity in each step!"
+            for step in uc["steps"]:
+                if not step["selected_words"]:
+                    return "Choose activity in each step!"
         return ""
 
     # def add_scenario_clicked(self):

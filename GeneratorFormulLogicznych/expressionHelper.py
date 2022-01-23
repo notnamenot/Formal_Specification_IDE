@@ -40,7 +40,7 @@ def GetMaxedLabelPattern(labeledExpression):
     return maxLabel
 
 
-def GetPat(labeledExpression, l, c):
+def GetPat(labeledExpression, l, c, logic_type):
     occurenceIndex = 0
     while True:
         if (occurenceIndex == 0):
@@ -69,7 +69,7 @@ def GetPat(labeledExpression, l, c):
     else:
         expressionName = labeledExpression[0: occurenceIndex - 1]
 
-    result = patternPropertySet.FindByIdentifier(expressionName.strip())
+    result = patternPropertySet.FindByIdentifier(expressionName.strip(), logic_type)
     if (result != None):
         arguments = ExtractArgumentsFromFunction(args)
         result.PassArguments(arguments)
@@ -120,9 +120,9 @@ def ExtractFromLabeled(labeled):
     return argsLabeled
 
 
-def GetPredefinedSetEntryByExpression(expression):
+def GetPredefinedSetEntryByExpression(expression, logic_type):
     identifier = expression[:expression.find("(")]
-    result = patternPropertySet.FindByIdentifier(identifier)
+    result = patternPropertySet.FindByIdentifier(identifier, logic_type)
     if (result != None):
         args = ExtractFromLabeled(expression)
         result.PassArguments(args)

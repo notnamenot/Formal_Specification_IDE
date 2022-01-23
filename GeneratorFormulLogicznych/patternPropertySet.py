@@ -3,16 +3,26 @@ import GeneratorFormulLogicznych.predefinedSetEntry as setEntry
 import json
 import os
 
+from GeneratorFormulLogicznych.LogicType import LogicType
+
+
 class PatternPropertySet:
     def __init__(self):
-        self.patterns = json.load(open(os.path.dirname(os.path.realpath(__file__))+'\pattern_rules.json'))
-        #print(self.patterns)
-        #print(self.patterns['Seq']['number of args'])
-        #print(self.patterns['Seq']['rules'])
-        self.setEntries = [setEntry.PredefinedSetEntry(pattern,
-                                                        self.patterns[pattern]['number of args'],
-                                                        self.patterns[pattern]['rules'])
-                           for pattern in self.patterns]
+        self.patterns_FOL = json.load(open(os.path.dirname(os.path.realpath(__file__)) + '\pattern_rules_FOL.json'))    # First Order Logic
+        #print(self.patterns_FOL)
+        #print(self.patterns_FOL['Seq']['number of args'])
+        #print(self.patterns_FOL['Seq']['rules'])
+        self.setEntries_FOL = [setEntry.PredefinedSetEntry(pattern,
+                                                           self.patterns_FOL[pattern]['number of args'],
+                                                           self.patterns_FOL[pattern]['rules'])
+                               for pattern in self.patterns_FOL]
+
+        self.patterns_LTL = json.load(open(os.path.dirname(os.path.realpath(__file__)) + '\pattern_rules_LTL.json'))    # First Order Logic
+        self.setEntries_LTL = [setEntry.PredefinedSetEntry(pattern,
+                                                           self.patterns_FOL[pattern]['number of args'],
+                                                           self.patterns_FOL[pattern]['rules'])
+                               for pattern in self.patterns_LTL]
+
     """                
             setEntry.PredefinedSetEntry("Seq", 2, ["arg0", "arg1", "Exist(arg0)", "ForAll(arg0 => Exist(arg1))",
                                                    "ForAll(~(arg0 ^ arg1))"]),
@@ -35,11 +45,17 @@ class PatternPropertySet:
         ]
     """
 
-    def FindByIdentifier(self, identifier):
+    def FindByIdentifier(self, identifier, logic_type):
         identifier = identifier.strip()
         searchedEntry = None
-        for entry in self.setEntries:
-            if entry.identifier.lower() == identifier.lower():
-                searchedEntry = entry
-                break
+        if logic_type == LogicType.FOL:
+            for entry in self.setEntries_FOL:
+                if entry.identifier.lower() == identifier.lower():
+                    searchedEntry = entry
+                    break
+        elif logic_type == LogicType.LTL:
+            for entry in self.setEntries_LTL:
+                if entry.identifier.lower() == identifier.lower():
+                    searchedEntry = entry
+                    break
         return searchedEntry

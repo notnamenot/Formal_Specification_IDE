@@ -10,7 +10,7 @@ import GeneratorFormulLogicznych.patternPropertySet as patternPropertySet
 # from GeneratorFormulLogicznych.expressionHelper import patternPropertySet
 
 
-def GenerateLogicalSpecification(pattern):
+def GenerateLogicalSpecification(pattern, logic_type):
     pattern = pattern.strip()
     predefinedSet = patternPropertySet.PatternPropertySet()
     L = []
@@ -21,22 +21,22 @@ def GenerateLogicalSpecification(pattern):
     l = maxedLabelValue
     while (l >= 1):
         c = 1
-        pat = expressionHelper.GetPat(labeledExpresssion, l, c)
+        pat = expressionHelper.GetPat(labeledExpresssion, l, c, logic_type)
         while True:
             L2 = pat.GetPossibleOutcomes()
             L2 = L2[2:]
             for arg in pat.arguments:
                 if (not (expressionHelper.IsAtomic(arg))):
                     cons = GenerateConsolidatedExpression(arg, 0,
-                                                          predefinedSet) + " | " + GenerateConsolidatedExpression(
-                        arg, 1, predefinedSet)
+                                                          predefinedSet, logic_type) + " | " + GenerateConsolidatedExpression(
+                        arg, 1, predefinedSet, logic_type)
                     L2_cons = []
                     for outcome in L2:
                         L2_cons.append(outcome.replace(arg, cons))
                     L2 = L2_cons
             c += 1
             L.append(L2)
-            pat = expressionHelper.GetPat(labeledExpresssion, l, c)
+            pat = expressionHelper.GetPat(labeledExpresssion, l, c, logic_type)
             if (pat == None):
                 break
         l -= 1
@@ -50,9 +50,9 @@ def GenerateLogicalSpecification(pattern):
     return allExpAsString
 
 
-def GenerateConsolidatedExpression(pattern, type, propertySet):
+def GenerateConsolidatedExpression(pattern, type, propertySet, logic_type):
     ex = ""
-    pSet = expressionHelper.GetPredefinedSetEntryByExpression(pattern)
+    pSet = expressionHelper.GetPredefinedSetEntryByExpression(pattern, logic_type)
     possibleOutcomes = pSet.GetPossibleOutcomes()
     ini = possibleOutcomes[0]
     fin = possibleOutcomes[1]
@@ -69,7 +69,7 @@ def GenerateConsolidatedExpression(pattern, type, propertySet):
         if (not (a in argsToCheck)):
             continue
         if not (expressionHelper.IsAtomic(a)):
-            cons2 = GenerateConsolidatedExpression(a, type, propertySet)
+            cons2 = GenerateConsolidatedExpression(a, type, propertySet, logic_type)
             ex = ex.replace(a, cons2)
 
     return ex
