@@ -1,0 +1,5 @@
+{
+    "specification_string": "Seq(v,p)",
+    "FOL": "Exist(v)\nForAll(v => Exist(p))\nForAll(~(v ^ p))\n",
+    "LTL": "Exist(v)\nForAll(v => Exist(p))\nForAll(~(v ^ p))\n"
+}

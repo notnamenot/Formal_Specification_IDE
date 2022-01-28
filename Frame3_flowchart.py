@@ -3,15 +3,16 @@ import os
 from pathlib import Path
 from tkinter import *
 from tkinter.ttk import *
+from tkinter.messagebox import showinfo
 
 from PIL import ImageTk, Image
 import io
+import re
 
 from Flowchart import Flowchart
-from GeneratorFormulLogicznych.GeneratorFormulLogicznychMain import GenerateLogicalSpecification
 from SpecificationStringGenerator import SpecificationStringGenerator
 from State import STEPS, SELECTED_WORDS, CONNECTIONS, WORD, COND_TEXT, SEQUENCE, COND, BRANCHRE, PARA, CONCURRE, ALT, \
-    LOOP, SPECIFICATION_STRING, INCLUDE, EXTEND, NAME
+    LOOP, SPECIFICATION_STRING, INCLUDE, EXTEND, NAME, USE_CASES, ID
 
 
 class FrameFlowchart(LabelFrame):
@@ -253,18 +254,37 @@ class FrameFlowchart(LabelFrame):
         # jsonFile = open("data.json", "w")
         # jsonFile.write(json_object)
         # jsonFile.close()
-        #
-        # self.create_specification_string()
-        #
-        # specification_string = ''
-        # with open('output.txt', 'r') as f:
-        #     specification_string = f.read()
-        #
-        #
-        # return specification_string.strip()
-        specification_string_generator = SpecificationStringGenerator(self.state.curr_uc[CONNECTIONS])
-        return specification_string_generator.create_specification_string2()
 
+        specification_string_generator = SpecificationStringGenerator(self.state.curr_uc[CONNECTIONS])
+        specification_string = specification_string_generator.create_specification_string2()
+
+        if self.state.curr_uc[EXTEND] or self.state.curr_uc[INCLUDE]:  # if we have sth to inject
+            specification_string = self.inject_include_extend(specification_string)
+
+        return specification_string
+
+    def inject_include_extend(self, specification_string):
+
+        ucs_to_inject = []
+        ucs_to_inject.extend(self.state.curr_uc[EXTEND])
+        ucs_to_inject.extend(self.state.curr_uc[INCLUDE])
+        ucid_specificationstring_map = {}
+        for uc_to_inject in ucs_to_inject:
+            for uc in self.state.curr_uc_diagram[USE_CASES]:
+                if uc[ID] == uc_to_inject:
+                    if uc[SPECIFICATION_STRING] != '':
+                        ucid_specificationstring_map[uc[ID]] = uc[SPECIFICATION_STRING]
+                        break
+            else:
+                showinfo(title='Error', message="Make sure that flowcharts for Use Cases that are supposed to be included/extended are already prepared!")
+                return specification_string
+
+        for id_, spec_string_to_inject in ucid_specificationstring_map.items():
+                                 # re.sub(pattern, repl, string, count=0, flags=0)
+                                 # \b for whole words only
+            specification_string = re.sub(rf"\b{id_}\b", spec_string_to_inject, specification_string)
+
+        return specification_string
 
     def draw_blocks(self):
         g = Flowchart()
@@ -388,6 +408,7 @@ class FrameFlowchart(LabelFrame):
             self.btn_save.pack(side=BOTTOM, fill=X)
 
     def hide_btn_save(self):
+        # self.btn_save.wait_visibility()
         if self.btn_save.winfo_ismapped():
             self.btn_save.pack_forget()
 
