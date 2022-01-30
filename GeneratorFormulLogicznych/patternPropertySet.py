@@ -1,4 +1,3 @@
-# import predefinedSetEntry as setEntry
 import GeneratorFormulLogicznych.predefinedSetEntry as setEntry
 import json
 import os

@@ -1,13 +1,5 @@
-# import expressionHelper as expressionHelper
-# import patternPropertySet as patternPropertySet
-import time
-# from patternPropertySet import PatternPropertySet as patternPropertySet
-# from expressionHelper import *
 import GeneratorFormulLogicznych.expressionHelper as expressionHelper
 import GeneratorFormulLogicznych.patternPropertySet as patternPropertySet
-# from GeneratorFormulLogicznych import patternPropertySet, expressionHelper
-# from GeneratorFormulLogicznych import expressionHelper
-# from GeneratorFormulLogicznych.expressionHelper import patternPropertySet
 
 
 def GenerateLogicalSpecification(pattern, logic_type):
