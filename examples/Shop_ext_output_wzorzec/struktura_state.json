@@ -1,0 +1,162 @@
+[
+    {
+        "img_path": "D:/Studia/II/s2/SP2/GUI/examples/1. GenMyModel/Shop_ext.jpeg",
+        "xml_path": "D:/Studia/II/s2/SP2/GUI/examples/1. GenMyModel/shop_ext.xml",
+        "use_cases": [
+            {
+                "id": "a",
+                "name": "Create Order",
+                "include": [],
+                "extend": [],
+                "steps": [
+                    {
+                        "seq": 1,
+                        "text": "x",
+                        "selected_words": [
+                            "x"
+                        ]
+                    },
+                    {
+                        "seq": 2,
+                        "text": "y",
+                        "selected_words": [
+                            "y"
+                        ]
+                    },
+                    {
+                        "seq": 3,
+                        "text": "z v",
+                        "selected_words": [
+                            "v"
+                        ]
+                    }
+                ],
+                "connections": {
+                    "Seq": {},
+                    "Cond": {},
+                    "Para": {
+                        "x": [
+                            "v",
+                            "y"
+                        ]
+                    },
+                    "Alt": {},
+                    "Loop": {}
+                },
+                "specification_string": "Para(x,v,y)"
+            },
+            {
+                "id": "b",
+                "name": "Register Details",
+                "include": [
+                    "a"
+                ],
+                "extend": [],
+                "steps": [
+                    {
+                        "seq": 1,
+                        "text": "o p",
+                        "selected_words": [
+                            "o"
+                        ]
+                    },
+                    {
+                        "seq": 2,
+                        "text": "<<include>> a",
+                        "selected_words": [
+                            "a"
+                        ]
+                    }
+                ],
+                "connections": {
+                    "Seq": {
+                        "o": [
+                            "a"
+                        ]
+                    },
+                    "Cond": {},
+                    "Para": {},
+                    "Alt": {},
+                    "Loop": {}
+                },
+                "specification_string": "Seq(o,Para(x,v,y))"
+            },
+            {
+                "id": "c",
+                "name": "Ship Order",
+                "include": [],
+                "extend": [
+                    "b"
+                ],
+                "steps": [
+                    {
+                        "seq": 1,
+                        "text": "f h x",
+                        "selected_words": [
+                            "h"
+                        ]
+                    },
+                    {
+                        "seq": 2,
+                        "text": "<<Extend>> if True then b",
+                        "selected_words": [
+                            "b"
+                        ]
+                    }
+                ],
+                "connections": {
+                    "Seq": {},
+                    "Cond": {},
+                    "Para": {},
+                    "Alt": {
+                        "h": [
+                            {
+                                "word": "b",
+                                "cond": "True"
+                            }
+                        ]
+                    },
+                    "Loop": {}
+                },
+                "specification_string": "Alt(h,Seq(o,Para(x,v,y)))"
+            },
+            {
+                "id": "d",
+                "name": "Update Items",
+                "include": [],
+                "extend": [],
+                "steps": [
+                    {
+                        "seq": 1,
+                        "text": "w",
+                        "selected_words": [
+                            "w"
+                        ]
+                    },
+                    {
+                        "seq": 2,
+                        "text": "f",
+                        "selected_words": [
+                            "f"
+                        ]
+                    }
+                ],
+                "connections": {
+                    "Seq": {},
+                    "Cond": {
+                        "w": [
+                            {
+                                "word": "f",
+                                "cond": "False"
+                            }
+                        ]
+                    },
+                    "Para": {},
+                    "Alt": {},
+                    "Loop": {}
+                },
+                "specification_string": ""
+            }
+        ]
+    }
+]

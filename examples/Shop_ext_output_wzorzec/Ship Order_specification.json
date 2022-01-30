@@ -1,5 +1,5 @@
 {
-    "specification_string": "Seq(t,Seq(k,Seq(v,p)))",
-    "FOL": "Exist(v)\nForAll(v => Exist(p))\nForAll(~(v ^ p))\nExist(k)\nForAll(k => Exist(v | p))\nForAll(~(k ^ v | p))\nExist(t)\nForAll(t => Exist(k | p))\nForAll(~(t ^ k | p))\n",
-    "LTL": "Exist(v)\nForAll(v => Exist(p))\nForAll(~(v ^ p))\nExist(k)\nForAll(k => Exist(v | p))\nForAll(~(k ^ v | p))\nExist(t)\nForAll(t => Exist(k | p))\nForAll(~(t ^ k | p))\n"
+    "specification_string": "Alt(h,Seq(o,Para(x,v,y)))",
+    "FOL": "Exist(x)\nForAll(x => Exist(v) ^ Exist(y))\nForAll(~(x ^ v))\nForAll(~(x ^ y))\nExist(o)\nForAll(o => Exist(x | v | y))\nForAll(~(o ^ x | v | y))\nExist(h)\nForAll(h => Exist(o | v | y))\nForAll(~(h ^ o | v | y))\n",
+    "LTL": "Exist(x)\nForAll(x => Exist(v) ^ Exist(y))\nForAll(~(x ^ v))\nForAll(~(x ^ y))\nExist(o)\nForAll(o => Exist(x | v | y))\nForAll(~(o ^ x | v | y))\nExist(h)\nForAll(h => Exist(o | v | y))\nForAll(~(h ^ o | v | y))\n"
 }

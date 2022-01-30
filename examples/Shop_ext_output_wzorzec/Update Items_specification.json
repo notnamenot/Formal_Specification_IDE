@@ -1,5 +1,5 @@
 {
-    "specification_string": "",
-    "FOL": "",
-    "LTL": ""
+    "specification_string": "Cond(w,f)",
+    "FOL": "Logical formulas generation error!)",
+    "LTL": "Logical formulas generation error!)"
 }

@@ -250,10 +250,10 @@ class FrameFlowchart(LabelFrame):
 
 
     def generate_specification_string(self):
-        json_object = json.dumps(self.state.curr_uc, cls=SetEncoder, indent=4)
-        jsonFile = open("../data.json", "w")
-        jsonFile.write(json_object)
-        jsonFile.close()
+        # json_object = json.dumps(self.state.all_uc_diagrams, cls=SetEncoder, indent=4)
+        # jsonFile = open("../data.json", "w")
+        # jsonFile.write(json_object)
+        # jsonFile.close()
 
         specification_string_generator = SpecificationStringGenerator(self.state.curr_uc[CONNECTIONS])
         specification_string = specification_string_generator.create_specification_string2()

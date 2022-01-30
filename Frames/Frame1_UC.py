@@ -232,10 +232,12 @@ class FrameUC(LabelFrame):
                 if uc_dict[NAME] == name:
                     return id_
 
+        # for ids
         alphabet_list = list(string.ascii_lowercase)
         use_cases = {}
         i = 0
 
+        use_cases_list.sort()
         for uc in use_cases_list:
             id_ = alphabet_list[i]
             use_cases[id_] = {NAME: uc, INCLUDE: [], EXTEND: []}
