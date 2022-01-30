@@ -1,6 +1,6 @@
 import pygraphviz as pgv
 
-from State import SEQUENCE, COND, BRANCHRE, PARA, CONCURRE, ALT, LOOP
+from Helpers.State import SEQUENCE, COND, PARA, ALT, LOOP
 
 COLOR_SEQUENCE_BORDER = "#245c8a"
 COLOR_SEQUENCE_FILL = "#3485c7"

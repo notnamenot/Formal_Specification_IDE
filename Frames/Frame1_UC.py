@@ -5,7 +5,7 @@ import os
 import string
 # import xml.etree.ElementTree as ET
 from lxml import etree as ET
-from State import NAME, ID, INCLUDE, EXTEND
+from Helpers.State import NAME, INCLUDE, EXTEND
 
 MAX_WIDTH = 600
 MAX_HEIGHT = 800

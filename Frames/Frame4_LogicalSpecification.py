@@ -6,7 +6,7 @@ from pathlib import Path
 
 from GeneratorFormulLogicznych.GeneratorFormulLogicznychMain import GenerateLogicalSpecification
 from GeneratorFormulLogicznych.LogicType import LogicType
-from State import SPECIFICATION_STRING, LOGICAL_SPECIFICATION, NAME
+from Helpers.State import SPECIFICATION_STRING, NAME
 
 
 class FrameLogicalSpecification(LabelFrame):
@@ -78,6 +78,7 @@ class FrameLogicalSpecification(LabelFrame):
         img_path = self.state.get_curr_img_path()
         _, img_name = os.path.split(img_path)
         dir_name = os.path.splitext(img_name)[0]
+        dir_name = f"{dir_name}_output"
         Path(dir_name).mkdir(parents=True, exist_ok=True)
         specification_file_path = f'{dir_name}{os.sep}{self.state.curr_uc[NAME]}_specification.json'
         return specification_file_path

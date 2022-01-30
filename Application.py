@@ -1,11 +1,11 @@
 from tkinter import *
 
-from Frame1_UC import FrameUC
-from Frame2_scenarios import FrameScenarios
-from Frame3_flowchart import FrameFlowchart
-from Frame4_LogicalSpecification import FrameLogicalSpecification
+from Frames.Frame1_UC import FrameUC
+from Frames.Frame2_scenarios import FrameScenarios
+from Frames.Frame3_flowchart import FrameFlowchart
+from Frames.Frame4_LogicalSpecification import FrameLogicalSpecification
 
-from State import State
+from Helpers.State import State
 
 class Application(Tk):
     def __init__(self):

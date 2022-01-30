@@ -156,7 +156,7 @@ class State:
             if step[SEQ] == step_id:
                 step[SELECTED_WORDS].remove(word)
 
-    def remove_connections(self):   # TODO rename?
+    def remove_connections(self):
         for conn_type, values_list in self.curr_uc[CONNECTIONS].items():
             self.curr_uc[CONNECTIONS][conn_type].clear()
 

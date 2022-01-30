@@ -9,9 +9,9 @@ from PIL import ImageTk, Image
 import io
 import re
 
-from Flowchart import Flowchart
-from SpecificationStringGenerator import SpecificationStringGenerator
-from State import STEPS, SELECTED_WORDS, CONNECTIONS, WORD, COND_TEXT, SEQUENCE, COND, BRANCHRE, PARA, CONCURRE, ALT, \
+from Helpers.Flowchart import Flowchart
+from Helpers.SpecificationStringGenerator import SpecificationStringGenerator, SetEncoder
+from Helpers.State import STEPS, SELECTED_WORDS, CONNECTIONS, WORD, COND_TEXT, SEQUENCE, COND, PARA, ALT, \
     LOOP, SPECIFICATION_STRING, INCLUDE, EXTEND, NAME, USE_CASES, ID
 
 
@@ -250,10 +250,10 @@ class FrameFlowchart(LabelFrame):
 
 
     def generate_specification_string(self):
-        # json_object = json.dumps(self.state.curr_uc, cls=SetEncoder, indent=4)
-        # jsonFile = open("data.json", "w")
-        # jsonFile.write(json_object)
-        # jsonFile.close()
+        json_object = json.dumps(self.state.curr_uc, cls=SetEncoder, indent=4)
+        jsonFile = open("../data.json", "w")
+        jsonFile.write(json_object)
+        jsonFile.close()
 
         specification_string_generator = SpecificationStringGenerator(self.state.curr_uc[CONNECTIONS])
         specification_string = specification_string_generator.create_specification_string2()
@@ -337,11 +337,16 @@ class FrameFlowchart(LabelFrame):
         img_path = self.state.get_curr_img_path()
         _, img_name = os.path.split(img_path)
         dir_name = os.path.splitext(img_name)[0]
-        Path(dir_name).mkdir(parents=True, exist_ok=True)
+        dir_name = f"{dir_name}_output"
+        Path(dir_name).mkdir(parents=True, exist_ok=True)  # stworzy folder w folderze z którego był uruchomiony main
         flowchart_file_path = f'{dir_name}{os.sep}{self.state.curr_uc[NAME]}_flowchart.png'
+        # parent_dir = Path(os.path.dirname(os.path.realpath(__file__))).parent.absolute()
+        # output_dir = f"{parent_dir}{os.sep}{dir_name}_output"
+        # Path(output_dir).mkdir(parents=True, exist_ok=True)
+        # flowchart_file_path = f'{output_dir}{os.sep}{self.state.curr_uc[NAME]}_flowchart.png'
         return flowchart_file_path
 
-    def add_nodes(self, g):  # TODO co jeśli jeden node jest np. zarówno rebranch i concur??
+    def add_nodes(self, g):
         for conn_type, value_dict in self.state.curr_uc[CONNECTIONS].items():  #key, value
             if self.state.curr_uc[CONNECTIONS][conn_type]:  # if not empty
                 if conn_type in [SEQUENCE, COND, PARA, ALT, LOOP]:  # BRANCHRE, CONCURRE,
@@ -375,17 +380,6 @@ class FrameFlowchart(LabelFrame):
         else:
             self.panel.configure(image="")
             self.hide_btn_save()
-
-    # def refresh_generated_specification(self):
-    #     cur_specification_string = self.state.curr_uc[SPECIFICATION_STRING]
-    #     self.sv_specification_string.set(cur_specification_string)
-    #     self.sv_logical_formulas.set('')
-    #     if cur_specification_string != '':
-    #         try:
-    #             formulas = GenerateLogicalSpecification(cur_specification_string)
-    #             self.sv_logical_formulas.set(formulas)
-    #         except:
-    #             self.sv_logical_formulas.set("Logical formulas generation error!")
 
     def reset_cb(self):
         # if STEPS not in self.state.curr_uc:

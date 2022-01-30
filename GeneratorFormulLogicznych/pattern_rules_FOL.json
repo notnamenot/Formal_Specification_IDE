@@ -16,7 +16,7 @@
                     "ForAll(arg0 | arg1 => Exist(arg2))",
                     "ForAll(~(arg0 ^ arg2))",
                     "ForAll(~(arg1 ^ arg2))"]},
-"Concur": {"number of args": 3,
+"Para": {"number of args": 3,
           "rules":["arg0", "arg1 | arg2",
                   "Exist(arg0)",
                   "ForAll(arg0 => Exist(arg1) ^ Exist(arg2))",

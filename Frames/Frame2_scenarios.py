@@ -1,7 +1,7 @@
 from tkinter import *
 from tkinter.messagebox import showinfo
 
-from State import USE_CASES, NAME, ID, STEPS, TEXT, SELECTED_WORDS
+from Helpers.State import USE_CASES, NAME, ID, STEPS, TEXT, SELECTED_WORDS
 
 class FrameScenarios(LabelFrame):
     def __init__(self, master, state, *args, **kwargs):
@@ -149,7 +149,7 @@ class Scenario(LabelFrame):
 
         self.inp_step.delete(0, END)
         self.add_step_frame(step_text, [])
-        self.master.state.add_step(step_text)  # TODO albo najpierw self.master.state.add_step a potem refresh
+        self.master.state.add_step(step_text)
         # print(self.master.state.curr_uc,"\n",self.master.state.curr_uc_diagram,"\n",self.master.state.all_uc_diagrams)
         self.master.state.remove_connections()  # remove all connections from current UC
         self.master.master.remove_frame3_flowchart()
