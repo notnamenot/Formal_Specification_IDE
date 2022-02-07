@@ -20,5 +20,5 @@
                   "Exist(arg0)",
                   "ForAll(arg0 => Exist(arg1) ^ Exist(arg2))",
                   "ForAll(~(arg0 ^ arg1))",
-                  "ForAll(~(arg0 ^ arg2))"]},
+                  "ForAll(~(arg0 ^ arg2))"]}
 }
