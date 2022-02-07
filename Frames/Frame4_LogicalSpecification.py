@@ -15,6 +15,9 @@ class FrameLogicalSpecification(LabelFrame):
 
         self.state = state
 
+        self.lbl_specification_string_title = Label(self, text="Pattern Expression", font='Arial 11 bold')  # 'Arial 11 bold'
+        self.lbl_specification_string_title.pack(side=TOP)
+
         self.sv_specification_string = StringVar()
         self.lbl_specification_string = Label(self, textvariable=self.sv_specification_string)
         self.lbl_specification_string.pack(side=TOP)
@@ -22,7 +25,7 @@ class FrameLogicalSpecification(LabelFrame):
         separator = ttk.Separator(self, orient='horizontal')
         separator.pack(side=TOP, fill=X)
 
-        self.lbl_logical_formulas_FOL_title = Label(self, text="First Order Logic", font='Arial 11') # 'Arial 11 bold'
+        self.lbl_logical_formulas_FOL_title = Label(self, text="First Order Logic", font='Arial 11 bold')  # 'Arial 11 bold'
         self.lbl_logical_formulas_FOL_title.pack(side=TOP)
 
         self.sv_logical_formulas_FOL = StringVar()
@@ -32,7 +35,7 @@ class FrameLogicalSpecification(LabelFrame):
         separator2 = ttk.Separator(self, orient='horizontal')
         separator2.pack(side=TOP, fill=X)
 
-        self.lbl_logical_formulas_LTL_title = Label(self, text="Linear Temporal Logic", font='Arial 11')
+        self.lbl_logical_formulas_LTL_title = Label(self, text="Linear Temporal Logic", font='Arial 11 bold')
         self.lbl_logical_formulas_LTL_title.pack(side=TOP)
 
         self.sv_logical_formulas_LTL = StringVar()
