@@ -1,0 +1,162 @@
+[
+    {
+        "img_path": "D:/Studia/II/s2/SP2/GUI/examples/1. GenMyModel/Shop_ext.jpeg",
+        "xml_path": "D:/Studia/II/s2/SP2/GUI/examples/1. GenMyModel/shop_ext.xml",
+        "use_cases": [
+            {
+                "id": "create_order",
+                "name": "Create Order",
+                "include": [],
+                "extend": [],
+                "steps": [
+                    {
+                        "seq": 1,
+                        "text": "x",
+                        "selected_words": [
+                            "x"
+                        ]
+                    },
+                    {
+                        "seq": 2,
+                        "text": "y",
+                        "selected_words": [
+                            "y"
+                        ]
+                    },
+                    {
+                        "seq": 3,
+                        "text": "z v",
+                        "selected_words": [
+                            "v"
+                        ]
+                    }
+                ],
+                "connections": {
+                    "Seq": {},
+                    "Cond": {},
+                    "Para": {
+                        "x": [
+                            "y",
+                            "v"
+                        ]
+                    },
+                    "Alt": {},
+                    "Loop": {}
+                },
+                "specification_string": "Para(x,y,v)"
+            },
+            {
+                "id": "register_details",
+                "name": "Register Details",
+                "include": [
+                    "create_order"
+                ],
+                "extend": [],
+                "steps": [
+                    {
+                        "seq": 1,
+                        "text": "o p",
+                        "selected_words": [
+                            "o"
+                        ]
+                    },
+                    {
+                        "seq": 2,
+                        "text": "<<include>> create_order",
+                        "selected_words": [
+                            "create_order"
+                        ]
+                    }
+                ],
+                "connections": {
+                    "Seq": {
+                        "o": [
+                            "create_order"
+                        ]
+                    },
+                    "Cond": {},
+                    "Para": {},
+                    "Alt": {},
+                    "Loop": {}
+                },
+                "specification_string": "Seq(o,Para(x,y,v))"
+            },
+            {
+                "id": "ship_order",
+                "name": "Ship Order",
+                "include": [],
+                "extend": [
+                    "register_details"
+                ],
+                "steps": [
+                    {
+                        "seq": 1,
+                        "text": "f h x",
+                        "selected_words": [
+                            "h"
+                        ]
+                    },
+                    {
+                        "seq": 2,
+                        "text": "<<extend>> if true then register_details",
+                        "selected_words": [
+                            "register_details"
+                        ]
+                    }
+                ],
+                "connections": {
+                    "Seq": {},
+                    "Cond": {},
+                    "Para": {},
+                    "Alt": {
+                        "h": [
+                            {
+                                "word": "register_details",
+                                "cond": "True"
+                            }
+                        ]
+                    },
+                    "Loop": {}
+                },
+                "specification_string": "Alt(h,Seq(o,Para(x,y,v)))"
+            },
+            {
+                "id": "update_items",
+                "name": "Update Items",
+                "include": [],
+                "extend": [],
+                "steps": [
+                    {
+                        "seq": 1,
+                        "text": "b",
+                        "selected_words": [
+                            "b"
+                        ]
+                    },
+                    {
+                        "seq": 2,
+                        "text": "l",
+                        "selected_words": [
+                            "l"
+                        ]
+                    }
+                ],
+                "connections": {
+                    "Seq": {},
+                    "Cond": {
+                        "l": [
+                            {
+                                "word": "b",
+                                "cond": "False"
+                            }
+                        ]
+                    },
+                    "Para": {},
+                    "Alt": {},
+                    "Loop": {}
+                },
+                "specification_string": ""
+            }
+        ]
+    }
+]
