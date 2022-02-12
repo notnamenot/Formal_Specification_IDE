@@ -1,7 +1,9 @@
+import re
 from tkinter import *
 from tkinter.messagebox import showinfo
 
-from Helpers.State import USE_CASES, NAME, ID, STEPS, TEXT, SELECTED_WORDS
+from Helpers.State import USE_CASES, NAME, ID, STEPS, TEXT, SELECTED_WORDS, EXTEND, INCLUDE
+
 
 class FrameScenarios(LabelFrame):
     def __init__(self, master, state, *args, **kwargs):
@@ -37,12 +39,30 @@ class FrameScenarios(LabelFrame):
         self.master.add_frame3_flowchart()
 
     def validate_state(self):  # should be in State class??
-        for uc in self.state.curr_uc_diagram["use_cases"]:
+        for uc in self.state.curr_uc_diagram[USE_CASES]:
             if not uc["steps"]:
                 return "Fill in all scenarios!"
+
             for step in uc["steps"]:
                 if not step["selected_words"]:
                     return "Choose activity in each step!"
+
+            for uc_to_extend in uc[EXTEND]:
+                for step in uc[STEPS]:
+                    #  re.fullmatch(pattern, string, flags=0)¶
+                    if re.fullmatch(rf"<<extend>> if \w+ then {uc_to_extend}", step[TEXT]):
+                        break
+                else:
+                    return f"Extend {uc_to_extend} from {uc[NAME]} not provided!\nUse valid step pattern:\n<<extend>> if <cond> then {uc_to_extend}"
+
+            for uc_to_include in uc[INCLUDE]:
+                for step in uc[STEPS]:
+                    #  re.fullmatch(pattern, string, flags=0)¶
+                    if re.fullmatch(rf"<<include>> {uc_to_include}", step[TEXT]):
+                        break
+                else:
+                    return f"Include {uc_to_include} from {uc[NAME]} not provided!\nUse valid step pattern:\n<<include>> {uc_to_include}"
+
         return ""
 
     # def add_scenario_clicked(self):

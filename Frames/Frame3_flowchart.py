@@ -281,7 +281,7 @@ class FrameFlowchart(LabelFrame):
 
         for id_, spec_string_to_inject in ucid_specificationstring_map.items():
                                  # re.sub(pattern, repl, string, count=0, flags=0)
-                                 # \b for whole words only
+                                 # \b for whole words only - full word boundary
             specification_string = re.sub(rf"\b{id_}\b", spec_string_to_inject, specification_string)
 
         return specification_string
