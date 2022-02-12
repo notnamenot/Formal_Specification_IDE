@@ -102,7 +102,7 @@ class Scenario(LabelFrame):
         self.frame_id_name.columnconfigure(1, weight=1)
 
         self.lbl_scenario_id = Label(self.frame_id_name, text=self.id + "  ", font=("Arial", 12))
-        self.lbl_scenario_id.grid(row=0, column=0, sticky=N + S)
+        # self.lbl_scenario_id.grid(row=0, column=0, sticky=N + S)
         self.lbl_scenario_name = Label(self.frame_id_name, text=self.name, font=("Arial", 12))
         self.lbl_scenario_name.grid(row=0, column=1, sticky=N+S)
 

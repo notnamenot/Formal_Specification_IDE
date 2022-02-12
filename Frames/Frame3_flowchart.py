@@ -276,7 +276,7 @@ class FrameFlowchart(LabelFrame):
                         ucid_specificationstring_map[uc[ID]] = uc[SPECIFICATION_STRING]
                         break
             else:
-                showinfo(title='Error', message="Make sure that flowcharts for Use Cases that are supposed to be included/extended are already prepared!")
+                showinfo(title='Error', message="Make sure that flowcharts for use cases that are supposed to be included/extended are already prepared!")
                 return specification_string
 
         for id_, spec_string_to_inject in ucid_specificationstring_map.items():

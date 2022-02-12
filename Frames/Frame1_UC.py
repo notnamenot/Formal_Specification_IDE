@@ -232,29 +232,34 @@ class FrameUC(LabelFrame):
                 if uc_dict[NAME] == name:
                     return id_
 
+        def get_uc_name_snaka_case(name):
+            for _, uc_dict in use_cases.items():
+                if uc_dict[NAME] == name:
+                    return name.replace(" ", "_").lower()
+
         # for ids
-        alphabet_list = list(string.ascii_lowercase)
+        # alphabet_list = list(string.ascii_lowercase)
         use_cases = {}
-        i = 0
+        # i = 0
 
         use_cases_list.sort()
-        for uc in use_cases_list:
-            id_ = alphabet_list[i]
-            use_cases[id_] = {NAME: uc, INCLUDE: [], EXTEND: []}
-            i += 1
+        for uc_name in use_cases_list:
+            # id_ = alphabet_list[i]
+            id_ = uc_name.replace(" ", "_").lower()
+            use_cases[id_] = {NAME: uc_name, INCLUDE: [], EXTEND: []}
+            # i += 1
 
         for id_, uc_dict in use_cases.items():
             for _, from_to_dict in include.items():
                 if from_to_dict['From'] == uc_dict[NAME]:
                     uc_dict[INCLUDE].append(get_uc_id_by_name(from_to_dict['To']))
+                    # uc_dict[INCLUDE].append(get_uc_name_snaka_case(from_to_dict['To']))
             for _, from_to_dict in extend.items():
                 if from_to_dict['From'] == uc_dict[NAME]:
                     uc_dict[EXTEND].append(get_uc_id_by_name(from_to_dict['To']))
+                    # uc_dict[EXTEND].append(get_uc_name_snaka_case(from_to_dict['To']))
 
         return use_cases
-
-
-
 
     def prev_uc_diagram_clicked(self):
         self.state.set_curr_uc_diagram(self.state.get_curr_uc_diagram_seq() - 1)
